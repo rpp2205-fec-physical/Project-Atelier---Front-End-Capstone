@@ -23,15 +23,9 @@ class App extends React.Component {
   }
 
   render() {
-    <div>
-      <h1>Welcome To Project Atelier</h1>
-    </div>
-  }
-
-  render() {
     return (
       <div>
-        <h1>Project Atelier</h1>
+        <h1>Welcome To Project Atelier</h1>
         <ReviewContainer />
       </div>
     )
