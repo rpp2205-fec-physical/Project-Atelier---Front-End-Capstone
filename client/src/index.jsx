@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReviewContainer from './RatingsReviews/index.jsx'
+import ReviewContainer from './RatingsReviews/index.jsx';
+import Product from './ProductOverview/Product.jsx';
 import $ from 'jquery';
 
 class App extends React.Component {
@@ -18,7 +19,13 @@ class App extends React.Component {
     $.ajax({
       method: 'GET',
       url: '/api/products',
-      contentType: 'application/json'
+      contentType: 'application/json',
+      success: (data => {
+        console.log(data);
+      }),
+      error: (err => {
+        console.log(err);
+      })
     })
   }
 
@@ -26,6 +33,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Welcome To Project Atelier</h1>
+        <Product />
         <ReviewContainer />
       </div>
     )

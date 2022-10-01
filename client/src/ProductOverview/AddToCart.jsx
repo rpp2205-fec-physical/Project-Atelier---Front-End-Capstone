@@ -7,9 +7,11 @@ class AddToCart extends React.Component {
   }
 
   render() {
-    <div>
-      <h1>Insert Cart Here...</h1>
-    </div>
+    return (
+      <div>
+        <h3>Insert Cart Here...</h3>
+      </div>
+    )
   }
 }
 

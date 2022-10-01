@@ -7,9 +7,11 @@ class ImageGallery extends React.Component {
   }
 
   render() {
-    <div>
-      <h1>Insert Image Gallery Here...</h1>
-    </div>
+    return (
+      <div>
+        <h3>Insert Image Gallery Here...</h3>
+      </div>
+    )
   }
 }
 
