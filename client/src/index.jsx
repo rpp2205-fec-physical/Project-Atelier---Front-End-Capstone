@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReviewContainer from './RatingsReviews/index.jsx'
 import $ from 'jquery';
 
 class App extends React.Component {
@@ -26,6 +27,16 @@ class App extends React.Component {
       <h1>Welcome To Project Atelier</h1>
     </div>
   }
+
+  render() {
+    return (
+      <div>
+        <h1>Project Atelier</h1>
+        <ReviewContainer />
+      </div>
+    )
+  }
+
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
