@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInfo from './ProductInfo.jsx';
-import AddToCart from '.AddToCart.jsx';
+import AddToCart from './AddToCart.jsx';
 
 class Product extends React.Component {
   constructor(props) {
@@ -10,12 +10,14 @@ class Product extends React.Component {
   }
 
   render() {
-    <div>
-      <h1>Product Name</h1>
-      <ImageGallery />
-      <ProductInfo />
-      <AddToCart />
-    </div>
+    return (
+      <div>
+        <h2>Product Name</h2>
+        <ImageGallery />
+        <ProductInfo />
+        <AddToCart />
+      </div>
+    )
   }
 }
 
