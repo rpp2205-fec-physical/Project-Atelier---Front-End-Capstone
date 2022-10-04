@@ -1,6 +1,5 @@
 import './Stars.css';
 import React from 'react';
-import Rating from '@mui/material/Rating';
 
 /**
  ****** STARS COMPONENT ******
