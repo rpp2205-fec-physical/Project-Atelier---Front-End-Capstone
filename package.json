@@ -13,13 +13,16 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@mui/material": "^5.10.7",
+    "@mui/icons-material": "^5.10.6",
+    "@mui/material": "^5.10.8",
+    "@mui/styles": "^5.10.8",
     "axios": "^0.27.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "jquery": "^3.6.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-material-ui-carousel": "^3.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

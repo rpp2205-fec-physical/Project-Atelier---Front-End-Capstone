@@ -3,3 +3,4 @@ client/dist/*
 !client/dist
 .env
 .DS_Store
+package-lock.json

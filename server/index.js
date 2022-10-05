@@ -6,7 +6,8 @@ let axios = require('axios')
 
 const port = process.env.PORT;
 const auth = process.env.AUTHORIZATION;
-app.use(express.json())
+app.use(express.json());
+app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/api/products', (req, res) => {
@@ -29,7 +30,3 @@ app.get('/api/products', (req, res) => {
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
 });
-
-
-
-
