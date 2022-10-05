@@ -21,7 +21,7 @@ class App extends React.Component {
       url: '/api/products',
       contentType: 'application/json',
       success: (data => {
-        console.log(data);
+        console.log('app data: ', data);
       }),
       error: (err => {
         console.log(err);

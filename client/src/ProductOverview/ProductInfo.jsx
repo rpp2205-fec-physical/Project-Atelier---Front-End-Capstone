@@ -9,7 +9,7 @@ class ProductInfo extends React.Component {
   render() {
     return (
       <div>
-        <h3>Insert Product Info Here...</h3>
+        <h3>{this.props.Product.name}</h3>
       </div>
     )
   }
