@@ -16,17 +16,17 @@ class App extends React.Component {
   }
 
   initialize() {
-    $.ajax({
-      method: 'GET',
-      url: '/api/products',
-      contentType: 'application/json',
-      success: (data => {
-        console.log(data);
-      }),
-      error: (err => {
-        console.log(err);
-      })
-    })
+    // $.ajax({
+    //   method: 'GET',
+    //   url: '/api/products',
+    //   contentType: 'application/json',
+    //   success: (data => {
+    //     // console.log('app data: ', data);
+    //   }),
+    //   error: (err => {
+    //     console.log(err);
+    //   })
+    // })
   }
 
   render() {
@@ -34,7 +34,7 @@ class App extends React.Component {
       <div>
         <h1>Welcome To Project Atelier</h1>
         <Product />
-        <ReviewContainer />
+        {/* <ReviewContainer /> */}
       </div>
     )
   }
