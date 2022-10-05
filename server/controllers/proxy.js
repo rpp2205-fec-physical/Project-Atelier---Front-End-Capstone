@@ -20,12 +20,12 @@ module.exports = (req, res) => {
     res.send(cached);
   } else {
     axios.get(url, options)
-      .then(data => {
-        cache.store(endpoint, data.data);
-        res.send(data.data);
+      .then(response => {
+        cache.store(endpoint, response.data);
+        res.send(response.data);
       })
       .catch(err => {
-        console.log('CACHE ERROR: ', err);
+        console.log('PROXY ERROR: ', err);
         res.status(500).end();
       });
   }
