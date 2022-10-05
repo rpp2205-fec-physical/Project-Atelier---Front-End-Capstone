@@ -2,7 +2,7 @@ require("dotenv").config();
 const axios = require('axios');
 const upstreamApi = process.env.APIURL;
 
-const Cache = require('../util/cache');
+const Cache = require('../../util/cache');
 const cache = new Cache(process.env.CACHE_DURATION);
 
 const options = {
