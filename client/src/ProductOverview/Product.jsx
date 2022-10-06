@@ -9,7 +9,7 @@ class Product extends React.Component {
     super(props);
     this.state = {
       products: [],
-      styles: []
+      styles: {}
     };
     this.initialize = this.initialize.bind(this);
   }
@@ -17,6 +17,7 @@ class Product extends React.Component {
   componentDidMount() {
     this.initialize();
   }
+
 
   initialize() {
     $.ajax({
@@ -42,7 +43,7 @@ class Product extends React.Component {
         url: url,
         contentType: 'application/json',
         success: (styles => {
-          console.log('styles data: ', styles);
+          // console.log('styles data: ', styles);
           this.setState({
             styles: styles
           });
@@ -53,14 +54,13 @@ class Product extends React.Component {
         })
       })
     })
-
   }
 
   render() {
     return (
       <div>
-        <ImageGallery />
-        <ProductInfo Product={this.state.products[0]}/>
+        <ImageGallery Style={this.state.styles}/>
+        <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
         <AddToCart />
       </div>
     )

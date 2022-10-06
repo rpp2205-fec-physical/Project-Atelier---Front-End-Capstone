@@ -6,7 +6,6 @@ class ProductInfo extends React.Component {
     this.state = {};
   }
 
-
   render() {
     if (this.props.Product) {
       return (
