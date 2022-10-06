@@ -14,6 +14,8 @@ class App extends React.Component {
 
     this.initialize = this.initialize.bind(this);
     this.get = this.get.bind(this);
+    this.post = this.post.bind(this);
+    this.put = this.put.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +38,14 @@ class App extends React.Component {
           return null;
         });
     }
+  }
+
+  post(endpoint, data) {
+    return axios.post('/api' + endpoint, data);
+  }
+
+  put(endpoint, data) {
+    return axios.put('/api' + endpoint, data);
   }
 
   initialize() {
@@ -62,7 +72,7 @@ class App extends React.Component {
       <div>
         <h1>Welcome To Project Atelier</h1>
         <Product />
-        {/* <ReviewContainer /> */}
+        <ReviewContainer />
       </div>
     )
   }

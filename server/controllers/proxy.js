@@ -14,19 +14,30 @@ const options = {
 module.exports = (req, res) => {
   const endpoint = req.url.slice(4);
   const url = upstreamApi + endpoint;
-  const cached = cache.get(endpoint);
 
-  if (cached) {
-    res.send(cached);
-  } else {
-    axios.get(url, options)
-      .then(response => {
-        cache.store(endpoint, response.data);
-        res.send(response.data);
-      })
-      .catch(err => {
-        console.log('PROXY ERROR: ', err);
-        res.status(500).end();
-      });
+  switch (req.method) {
+    case 'GET':
+      const cached = cache.get(endpoint);
+
+      if (cached) {
+        res.send(cached);
+      } else {
+        axios.get(url, options)
+          .then(response => {
+            cache.store(endpoint, response.data);
+            res.send(response.data);
+          })
+          .catch(err => {
+            console.log('PROXY ERROR: ', err);
+            res.status(500).end();
+          });
+      }
+      break;
+
+    case 'POST':
+    case 'PUT':
+      const data = req.body;
+      console.log('POST: ', data);
   }
+
 };
