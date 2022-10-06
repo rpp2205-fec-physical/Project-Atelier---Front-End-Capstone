@@ -1,6 +1,6 @@
 import React from 'react';
 import ReviewsList from './ReviewsList.jsx'
-// import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid';
 
 class ReviewContainer extends React.Component {
   constructor(props) {
