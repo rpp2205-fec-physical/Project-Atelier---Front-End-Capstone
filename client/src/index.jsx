@@ -49,22 +49,7 @@ class App extends React.Component {
   }
 
   initialize() {
-    this.get('/products')
-      .then(data => {
-        console.log('GOT SOME DATA: ', data);
-      });
-
-    // $.ajax({
-    //   method: 'GET',
-    //   url: '/api/products',
-    //   contentType: 'application/json',
-    //   success: (data => {
-    //     // console.log('app data: ', data);
-    //   }),
-    //   error: (err => {
-    //     console.log(err);
-    //   })
-    // })
+    // initialize
   }
 
   render() {

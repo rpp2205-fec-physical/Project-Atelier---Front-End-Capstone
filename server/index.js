@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/api/*', proxy);
 app.post('/api/*', proxy);
-
+app.put('/api/*', proxy);
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
