@@ -49,7 +49,22 @@ class App extends React.Component {
   }
 
   initialize() {
-    // initialize
+    this.get('/products')
+      .then(products => {
+        const url = '/products/' + products[0].id;
+        return this.get(url);
+      })
+      .then(info => {
+        this.setState(prevState => {
+          return {
+            ...prevState,
+            product: {
+              ...prevState.product,
+              info: info
+            }
+          };
+        })
+      });
   }
 
   render() {
