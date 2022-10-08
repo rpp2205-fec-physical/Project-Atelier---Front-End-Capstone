@@ -9,7 +9,11 @@ const Cache = require('../../util/cache.js');
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      product: {
+        info: {}
+      }
+    };
     this.cache = new Cache(600000);
 
     this.initialize = this.initialize.bind(this);
