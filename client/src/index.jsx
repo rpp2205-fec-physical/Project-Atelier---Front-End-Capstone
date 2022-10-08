@@ -10,9 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {
-        info: {}
-      }
+      product: {}
     };
     this.cache = new Cache(600000);
 
@@ -59,24 +57,17 @@ class App extends React.Component {
         return this.get(url);
       })
       .then(info => {
-        this.setState(prevState => {
-          return {
-            ...prevState,
-            product: {
-              ...prevState.product,
-              info: info
-            }
-          };
-        })
+        this.setState({ product: info });
       });
-  }
+  };
+
 
   render() {
     return (
       <div>
         <h1>Welcome To Project Atelier</h1>
         <Product />
-        <ReviewContainer product={this.state.product}/>
+        <ReviewContainer product={this.state.product} />
       </div>
     )
   }
