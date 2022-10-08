@@ -12,7 +12,8 @@ class App extends React.Component {
     this.state = {
       product: {
         info: {}
-      }
+      },
+      outfits: []
     };
     this.cache = new Cache(600000);
 
@@ -60,7 +61,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Welcome To Project Atelier</h1>
-        <Product />
+        <Product get={this.get} post = {this.post} outfits={this.state.outfits}/>
         <ReviewContainer />
       </div>
     )
