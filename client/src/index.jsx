@@ -10,10 +10,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       product: {
         info: {}
       },
       outfits: []
+=======
+      product: {}
+>>>>>>> master
     };
     this.cache = new Cache(600000);
 
@@ -54,15 +58,23 @@ class App extends React.Component {
   }
 
   initialize() {
-    // initialize
-  }
+    this.get('/products')
+      .then(products => {
+        const url = '/products/' + products[0].id;
+        return this.get(url);
+      })
+      .then(info => {
+        this.setState({ product: info });
+      });
+  };
+
 
   render() {
     return (
       <div>
         <h1>Welcome To Project Atelier</h1>
         <Product get={this.get} post = {this.post} outfits={this.state.outfits}/>
-        <ReviewContainer />
+        <ReviewContainer get={this.get} product={this.state.product}/>
       </div>
     )
   }
