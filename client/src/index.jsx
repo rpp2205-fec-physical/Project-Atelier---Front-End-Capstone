@@ -10,14 +10,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-      product: {
-        info: {}
-      },
+      product: {},
       outfits: []
-=======
-      product: {}
->>>>>>> master
     };
     this.cache = new Cache(600000);
 

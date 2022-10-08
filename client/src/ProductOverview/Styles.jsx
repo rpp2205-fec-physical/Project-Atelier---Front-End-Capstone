@@ -12,6 +12,7 @@ class Styles extends React.Component {
 
         return (
           <div>
+            <h4>Styles</h4>
             {this.props.Style.results.map(style => {
             return <img src={style.photos[0].thumbnail_url} height="70" width="70" key={style.style_id}></img>;
           })}
