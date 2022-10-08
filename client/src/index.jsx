@@ -61,7 +61,7 @@ class App extends React.Component {
       <div>
         <h1>Welcome To Project Atelier</h1>
         <Product />
-        <ReviewContainer />
+        <ReviewContainer product={this.state.product}/>
       </div>
     )
   }

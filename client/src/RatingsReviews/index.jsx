@@ -6,7 +6,7 @@ class ReviewContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {},
+
       reviews: [
   {
     "review_id": 5,
@@ -77,11 +77,11 @@ class ReviewContainer extends React.Component {
   }
 
   componentDidMount() {
-    if(!this.props.product_id) {
+    if(!this.props.product.product_id) {
       console.log(`Reviews mounted. No product_id received for reviews. Will default to id 71697`)
       this.setState({product: {product_id: 71697}})
     } else {
-      console.log(`Reviews mounted. TODO: get reviews for product ${this.props.product_id}`)
+      console.log(`Reviews mounted. TODO: get reviews for product ${this.props.product.product_id}`)
     }
 
 
