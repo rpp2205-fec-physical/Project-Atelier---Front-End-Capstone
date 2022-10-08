@@ -10,9 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {
-        info: {}
-      }
+      product: {}
     };
     this.cache = new Cache(600000);
 
@@ -53,15 +51,23 @@ class App extends React.Component {
   }
 
   initialize() {
-    // initialize
-  }
+    this.get('/products')
+      .then(products => {
+        const url = '/products/' + products[0].id;
+        return this.get(url);
+      })
+      .then(info => {
+        this.setState({ product: info });
+      });
+  };
+
 
   render() {
     return (
       <div>
         <h1>Welcome To Project Atelier</h1>
         <Product />
-        <ReviewContainer product={this.state.product}/>
+        <ReviewContainer product={this.state.product} />
       </div>
     )
   }
