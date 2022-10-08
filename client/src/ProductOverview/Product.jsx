@@ -2,6 +2,8 @@ import React from 'react';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInfo from './ProductInfo.jsx';
 import AddToCart from './AddToCart.jsx';
+import Styles from './Styles.jsx';
+import Stars from '../components/Stars.jsx';
 import $ from 'jquery';
 
 class Product extends React.Component {
@@ -60,6 +62,8 @@ class Product extends React.Component {
     return (
       <div>
         <ImageGallery Style={this.state.styles}/>
+        <Stars />
+        <Styles Style={this.state.styles}/>
         <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
         <AddToCart />
       </div>
