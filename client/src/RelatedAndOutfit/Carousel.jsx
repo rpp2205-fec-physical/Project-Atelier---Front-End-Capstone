@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './ProductCard.jsx';
 
-function Card(props) {
+export default function Carousel(props) {
 
   return <div className='carousel-container'>
 
