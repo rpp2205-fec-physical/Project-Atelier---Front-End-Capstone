@@ -7,15 +7,20 @@ class ImageGallery extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   render() {
     if (this.props.Style.results) {
       console.log('img url: ', this.props.Style.results[0].photos[0].url);
+
       return (
         <div>
-          <img src={this.props.Style.results[0].photos[0].url} width="250" height="400"></img>
+          <img src={this.props.Style.results[0].photos[0].url} width="300" height="450" key="main-image"></img>
+          {this.props.Style.results[0].photos.map(photo => {
+            return <img src={photo.url} width="100" height="150" key={photo.url}></img>;
+          })}
+          {/* <img src={this.props.Style.results[0].photos[0].url} width="250" height="400"></img> */}
         </div>
       )
     } else {

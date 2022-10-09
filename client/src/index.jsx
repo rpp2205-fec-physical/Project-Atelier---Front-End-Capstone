@@ -11,7 +11,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {}
+      product: {},
+      outfits: []
     };
     this.cache = new Cache(600000);
 
@@ -67,8 +68,8 @@ class App extends React.Component {
     return (
       <div>
         <h1>Welcome To Project Atelier</h1>
-        <Product />
-        <ReviewContainer product={this.state.product} />
+        <Product get={this.get} post = {this.post} outfits={this.state.outfits}/>
+        <ReviewContainer get={this.get} product={this.state.product}/>
         <RelatedItems outfit={this.props.outfit} get={this.get} />
       </div>
     )
