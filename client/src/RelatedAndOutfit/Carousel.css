@@ -18,11 +18,14 @@
 
 .card {
   width: 12rem;
+  border-radius: ;
   align-items: center;
   justify-content: center;
   vertical-align: top;
 }
 
 .card-img {
+  display: block;
+  min-width: 100%;
   width: 100%;
 }

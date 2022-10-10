@@ -27,10 +27,9 @@ export default class RelatedAndOutfit extends React.Component {
 
   componentDidUpdate() {
     if (!this.state.loaded && this.state.productId) {
-      console.log('RelatedAndOutfit: UPDATED 1');
       this.loadAllProductData();
     } else if (this.props.product.id && this.props.product.id !== this.state.productId) {
-      console.log('RelatedAndOutfit: UPDATED 2');
+      console.log('RelatedAndOutfit: UPDATED RELATED');
       this.setState({
         productId: this.props.product.id,
         loaded: false
@@ -39,14 +38,12 @@ export default class RelatedAndOutfit extends React.Component {
       //   console.log('SETSTATE ERROR: ', err);
       // });
     } else if (this.props.outfit.length !== this.state.outfitIDs.length) {
-      console.log('RelatedAndOutfit: UPDATED 3');
+      console.log('RelatedAndOutfit: UPDATED OUTFIT');
       this.setState({
         outfitIDs: this.props.outfit,
         loaded: false
       });
     }
-
-    console.log('RelatedAndOutfit: DONE UPDATING');
   }
 
   loadAllProductData() {
@@ -69,29 +66,24 @@ export default class RelatedAndOutfit extends React.Component {
         return Promise.all(newState.relatedIDs.map(id => get('/reviews/meta?product_id=' + id)));
       })
       .then(relatedReviewsMeta => {
-        console.log('META: ', relatedReviewsMeta);
         newState.relatedReviewsMeta = relatedReviewsMeta;
         return Promise.all(this.state.outfitIDs.map(id => get('/products/' + id)));
       })
       .then(outfitInfo => {
-        console.log('OUTFIT INFO: ', outfitInfo);
         newState.outfitInfo = outfitInfo;
         return Promise.all(this.state.outfitIDs.map(id => get('/products/' + id + '/styles')));
       })
       .then(outfitStyles => {
-        console.log('OUTFIT STYLES: ', outfitStyles);
         newState.outfitStyles = outfitStyles;
         return Promise.all(this.state.outfitIDs.map(id => get('/reviews/meta?product_id=' + id)));
       })
       .then(outfitReviewsMeta => {
-        console.log('OUTFIT META: ', outfitReviewsMeta);
         newState.outfitReviewsMeta = outfitReviewsMeta;
         newState.loaded = true;
-        console.log('NEW STATE: ', newState);
         return new Promise(resolve => this.setState(newState, resolve).bind(this));
       })
       .then(() => {
-        console.log('RelatedAndOutfit: DONE LOADING.', this.state);
+        console.log('RelatedAndOutfit: DONE LOADING.');
         //this.render();
       })
       .catch(err => {
