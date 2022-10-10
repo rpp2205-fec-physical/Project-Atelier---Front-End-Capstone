@@ -68,9 +68,9 @@ class App extends React.Component {
     return (
       <div>
         <h1>Welcome To Project Atelier</h1>
-        {/* <Product get={this.get} post = {this.post} outfits={this.state.outfits}/>
-        <ReviewContainer get={this.get} product={this.state.product}/> */}
+        <Product get={this.get} post = {this.post} outfits={this.state.outfits}/>
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} />
+        <ReviewContainer get={this.get} product={this.state.product}/>
       </div>
     )
   }
