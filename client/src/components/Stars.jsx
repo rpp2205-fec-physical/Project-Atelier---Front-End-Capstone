@@ -7,8 +7,10 @@ import React from 'react';
  *    example: <Stars stars="3.45" />
  *
  *    PROPS:
- *      'stars'   : a number : a readOnly Stars component will be returned showing that many stars
- *      'ratings' : an object : the average rating will be computed and a readOnly component will be returned
+ *      'stars'       : number  : a readOnly Stars component will be returned showing that many stars
+ *      'ratings'     : object  : the average rating will be computed and a readOnly component will be returned
+ *      'height'      : string  : css height value (defaults to '15em')
+ *      'showNumeric' : bool    : show a numeric rating rounded to 1 decimal place
  *
  * - TODO: If a handler function is passed as a prop, returns a user-selectable Stars component
  *
@@ -20,8 +22,10 @@ const getAverageRating = (ratings) => {
   let sum = 0;
 
   while (stars <= 5) {
-    sum += stars * ratings[stars];
-    totalRatings += ratings[stars];
+    if (ratings[stars]) {
+      sum += stars * parseInt(ratings[stars]);
+      totalRatings += parseInt(ratings[stars]);
+    }
 
     stars++;
   }
@@ -30,25 +34,25 @@ const getAverageRating = (ratings) => {
 };
 
 const renderStars = (numStars) => {
-  const element = [];
+  const srcList = [];
   for (let i = 1; i <= 5; i++) {
     if (numStars >= 1) {
-      element.push('/assets/star-solid.svg');
+      srcList.push('/assets/star-solid.svg');
       numStars--;
     } else if (numStars > 0) {
       switch (numStars) {
         case 0.25:
-          element.push('/assets/star-1quarter.svg');
+          srcList.push('/assets/star-1quarter.svg');
           numStars -= 0.25;
           break;
 
         case 0.5:
-          element.push('/assets/star-half.svg');
+          srcList.push('/assets/star-half.svg');
           numStars -= 0.5;
           break;
 
         case 0.75:
-          element.push('/assets/star-3quarter.svg');
+          srcList.push('/assets/star-3quarter.svg');
           numStars -= 0.75;
           break;
 
@@ -56,10 +60,10 @@ const renderStars = (numStars) => {
           console.log("something went wrong with the Stars");
       }
     } else {
-      element.push('/assets/star-regular.svg');
+      srcList.push('/assets/star-regular.svg');
     }
   }
-  return element;
+  return srcList;
 };
 
 const Stars = (props) => {
@@ -74,7 +78,8 @@ const Stars = (props) => {
 
   return (
     <span className="rating">
-      {renderStars(numStars).map((path, i) => <img key={i} className="star" src={path} height={height} />)}
+      {props.showNumeric ? <div>{rating.toFixed(1)}</div> : null}
+      {renderStars(numStars).map((src, i) => <img key={i} className="star" src={src} height={height} />)}
     </span>
   );
 };
