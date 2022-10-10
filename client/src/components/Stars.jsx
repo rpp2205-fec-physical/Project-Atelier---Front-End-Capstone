@@ -7,9 +7,10 @@ import React from 'react';
  *    example: <Stars stars="3.45" />
  *
  *    PROPS:
- *      'stars'   : a number : a readOnly Stars component will be returned showing that many stars
- *      'ratings' : an object : the average rating will be computed and a readOnly component will be returned
- *      'height'  : a string : css height value (defaults to '15em')
+ *      'stars'       : number  : a readOnly Stars component will be returned showing that many stars
+ *      'ratings'     : object  : the average rating will be computed and a readOnly component will be returned
+ *      'height'      : string  : css height value (defaults to '15em')
+ *      'showNumeric' : bool    : show a numeric rating rounded to 1 decimal place
  *
  * - TODO: If a handler function is passed as a prop, returns a user-selectable Stars component
  *
@@ -77,6 +78,7 @@ const Stars = (props) => {
 
   return (
     <span className="rating">
+      {props.showNumeric ? <div>{rating.toFixed(1)}</div> : null}
       {renderStars(numStars).map((src, i) => <img key={i} className="star" src={src} height={height} />)}
     </span>
   );
