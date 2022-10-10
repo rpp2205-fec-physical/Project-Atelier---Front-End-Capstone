@@ -35,9 +35,9 @@ export default class RelatedAndOutfit extends React.Component {
         productId: this.props.product.id,
         loaded: false
       })
-        // .catch(err => {
-        //   console.log('SETSTATE ERROR: ', err);
-        // });
+      // .catch(err => {
+      //   console.log('SETSTATE ERROR: ', err);
+      // });
     } else if (this.props.outfit.length !== this.state.outfitIDs.length) {
       console.log('RelatedAndOutfit: UPDATED 3');
       this.setState({
@@ -69,24 +69,30 @@ export default class RelatedAndOutfit extends React.Component {
         return Promise.all(newState.relatedIDs.map(id => get('/reviews/meta?product_id=' + id)));
       })
       .then(relatedReviewsMeta => {
+        console.log('META: ', relatedReviewsMeta);
         newState.relatedReviewsMeta = relatedReviewsMeta;
         return Promise.all(this.state.outfitIDs.map(id => get('/products/' + id)));
       })
       .then(outfitInfo => {
+        console.log('OUTFIT INFO: ', outfitInfo);
         newState.outfitInfo = outfitInfo;
         return Promise.all(this.state.outfitIDs.map(id => get('/products/' + id + '/styles')));
       })
       .then(outfitStyles => {
+        console.log('OUTFIT STYLES: ', outfitStyles);
         newState.outfitStyles = outfitStyles;
         return Promise.all(this.state.outfitIDs.map(id => get('/reviews/meta?product_id=' + id)));
       })
       .then(outfitReviewsMeta => {
+        console.log('OUTFIT META: ', outfitReviewsMeta);
         newState.outfitReviewsMeta = outfitReviewsMeta;
         newState.loaded = true;
-        return new Promise(resolve => this.setState(newState, resolve));
+        console.log('NEW STATE: ', newState);
+        return new Promise(resolve => this.setState(newState, resolve).bind(this));
       })
       .then(() => {
-        console.log('RelatedAndOutfit: DONE LOADING.');
+        console.log('RelatedAndOutfit: DONE LOADING.', this.state);
+        //this.render();
       })
       .catch(err => {
         console.log('RelatedAndOutfit: Error during loadAllProductData', err);
@@ -102,18 +108,19 @@ export default class RelatedAndOutfit extends React.Component {
   }
 
   render() {
-    if (!this.loaded) {
+    if (!this.state.loaded) {
       return <div>Loading...</div>
+    } else {
+      return <div>
+        <div>
+          <h4>Related Products</h4>
+          <Carousel items={this.state.relatedInfo} styles={this.state.relatedStyles} reviewsMeta={this.state.relatedReviewsMeta} />
+        </div>
+        <div>
+          <h4>Your Outfit</h4>
+          <Carousel items={this.state.outfitInfo} styles={this.state.outfitStyles} reviewsMeta={this.state.outfitReviewsMeta} />
+        </div>
+      </div>
     }
-    return <div>
-      <div>
-        <h4>Related Products</h4>
-        <Carousel items={this.state.relatedInfo} styles={this.state.relatedStyles} reviewsMeta={this.state.reviewsMeta} />
-      </div>
-      <div>
-        <h4>Your Outfit</h4>
-        <Carousel items={this.state.outfitInfo} styles={this.state.outfitStyles} reviewsMeta={this.state.outfitReviewsMeta} />
-      </div>
-    </div>;
   }
 }
