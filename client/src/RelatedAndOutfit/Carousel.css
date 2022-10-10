@@ -1,0 +1,43 @@
+.carousel-container {
+  background-color: #f1f1f1;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.carousel-item {
+  background-color: #f1f1f1a9;
+  height: 18rem;
+  min-height: 100%;
+  width: 12rem;
+  padding: 0.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+}
+
+.card {
+  width: 12rem;
+  border-radius: 1rem;
+  align-items: center;
+  max-height: 100%;
+  height: 100%;
+  justify-content: center;
+  vertical-align: top;
+}
+
+.card-img {
+  display: block;
+  max-height: 60%;
+  height: 60%;
+  border-radius: 1rem;
+  min-width: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+p, h4, h5, h6 {
+  padding: 0px;
+  margin: 0.5em;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReviewContainer from './RatingsReviews/index.jsx';
 import Product from './ProductOverview/Product.jsx';
+import RelatedAndOutfit from './RelatedAndOutfit/index.jsx';
 import $ from 'jquery';
 import axios from 'axios';
 const Cache = require('../../util/cache.js');
@@ -68,6 +69,7 @@ class App extends React.Component {
       <div>
         <h1>Welcome To Project Atelier</h1>
         <Product get={this.get} post = {this.post} outfits={this.state.outfits}/>
+        <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} />
         <ReviewContainer get={this.get} product={this.state.product}/>
       </div>
     )
