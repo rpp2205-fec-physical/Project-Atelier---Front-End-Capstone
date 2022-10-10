@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './ProductCard.jsx';
+import './Carousel.css';
 
 const getDefaultStyle = (styles) => {
   console.log('GETTING DEFAULT STYLE', styles);

@@ -1,0 +1,28 @@
+.carousel-container {
+  background-color: #f1f1f1;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.carousel-item {
+  background-color: #f1f1f1a9;
+  height: 18rem;
+
+  width: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+}
+
+.card {
+  width: 12rem;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+}
+
+.card-img {
+  width: 100%;
+}
