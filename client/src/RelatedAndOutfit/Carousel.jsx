@@ -19,7 +19,7 @@ export default function Carousel(props) {
     return <div className='carousel-container'>
       {items.map((item, i) => (
         <div key={i} className='carousel-item'>
-          <Card item={item} style={getDefaultStyle(styles[i])} reviewsMeta={reviewsMeta} />
+          <Card item={item} style={getDefaultStyle(styles[i])} reviewsMeta={reviewsMeta[i]} />
         </div>
       ))}
     </div>
