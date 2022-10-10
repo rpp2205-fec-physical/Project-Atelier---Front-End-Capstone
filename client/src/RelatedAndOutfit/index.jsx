@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import Carousel from './Carousel.jsx';
 
@@ -17,7 +17,8 @@ export default class RelatedAndOutfit extends React.Component {
       outfitInfo: [],
       outfitStyles: [],
       outfitReviewsMeta: [],
-      loaded: false
+      loaded: false,
+      outfitHidden: true
     };
     //this.oldSetState = this.setState;
     //this.setState = state => new Promise(resolve => this.oldSetState(state, resolve));
@@ -41,7 +42,8 @@ export default class RelatedAndOutfit extends React.Component {
       console.log('RelatedAndOutfit: UPDATED OUTFIT');
       this.setState({
         outfitIDs: this.props.outfit,
-        loaded: false
+        loaded: false,
+        outfitHidden: this.props.outfit.length ? false : true
       });
     }
   }
@@ -108,10 +110,12 @@ export default class RelatedAndOutfit extends React.Component {
           <h4>Related Products</h4>
           <Carousel items={this.state.relatedInfo} styles={this.state.relatedStyles} reviewsMeta={this.state.relatedReviewsMeta} />
         </div>
-        <div>
-          <h4>Your Outfit</h4>
-          <Carousel items={this.state.outfitInfo} styles={this.state.outfitStyles} reviewsMeta={this.state.outfitReviewsMeta} />
-        </div>
+        {this.state.outfitHidden ? null : (
+          <div>
+            <h4>Your Outfit</h4>
+            <Carousel items={this.state.outfitInfo} styles={this.state.outfitStyles} reviewsMeta={this.state.outfitReviewsMeta} />
+          </div>
+        )}
       </div>
     }
   }
