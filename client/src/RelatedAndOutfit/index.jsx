@@ -108,12 +108,12 @@ export default class RelatedAndOutfit extends React.Component {
       return <div>
         <div>
           <h4>Related Products</h4>
-          <Carousel items={this.state.relatedInfo} styles={this.state.relatedStyles} reviewsMeta={this.state.relatedReviewsMeta} />
+          <Carousel mainProduct={this.props.product} items={this.state.relatedInfo} styles={this.state.relatedStyles} reviewsMeta={this.state.relatedReviewsMeta} />
         </div>
         {this.state.outfitHidden ? null : (
           <div>
             <h4>Your Outfit</h4>
-            <Carousel items={this.state.outfitInfo} styles={this.state.outfitStyles} reviewsMeta={this.state.outfitReviewsMeta} />
+            <Carousel mainProduct={this.props.product} items={this.state.outfitInfo} styles={this.state.outfitStyles} reviewsMeta={this.state.outfitReviewsMeta} />
           </div>
         )}
       </div>

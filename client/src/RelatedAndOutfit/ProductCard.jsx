@@ -1,8 +1,7 @@
 import React from 'react';
 import Stars from '../components/Stars.jsx';
 
-export default function Card(props) {
-  const { item, style, reviewsMeta } = props;
+export default function Card({ mainProduct, item, style, reviewsMeta }) {
 
   function price() {
     const price = item.default_price || style.original_price;
