@@ -1,0 +1,27 @@
+.carousel {
+	height:500px;
+	margin: 0;
+	width: 450px;
+}
+
+.image-slide {
+	height: 100%;
+	width: 100%;
+	transition: background-image .3s ease-in-out;
+}
+
+.slide-arrow {
+	color: aqua;
+	cursor: pointer;
+	font-size: 2rem;
+	position: absolute;
+	top: 30%;
+}
+
+.slide-arrow.right {
+	left: 430px;
+}
+
+.slide-arrow.left {
+	left: auto;
+}
