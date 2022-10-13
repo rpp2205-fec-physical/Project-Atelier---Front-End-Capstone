@@ -11,15 +11,14 @@ const getDefaultStyle = (styles) => {
   return styles.results[0];
 };
 
-export default function Carousel(props) {
-  const { items, styles, reviewsMeta } = props;
-  if (!items || !styles || !reviewsMeta) {
+export default function Carousel({ mainProduct, items, styles, reviewsMeta, handleClickToCompare }) {
+  if ( !mainProduct || !items || !styles || !reviewsMeta) {
     return null;
   } else {
     return <div className='carousel-container'>
       {items.map((item, i) => (
         <div key={i} className='carousel-item'>
-          <Card item={item} style={getDefaultStyle(styles[i])} reviewsMeta={reviewsMeta[i]} />
+          <Card mainProduct={mainProduct} item={item} style={getDefaultStyle(styles[i])} reviewsMeta={reviewsMeta[i]} handleClickToCompare={handleClickToCompare} />
         </div>
       ))}
     </div>
