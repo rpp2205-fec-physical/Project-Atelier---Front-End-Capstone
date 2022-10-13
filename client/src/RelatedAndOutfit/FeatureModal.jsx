@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './FeatureModal.css';
 
 function parseFeatures(prod1, prod2) {
   // compare features of both products and return an object with combined features
@@ -42,7 +43,7 @@ export default function FeatureModal({handleClose, show, product1, product2}) {
   const features = Object.keys(featureData);
 
 
-  return <table className={showHideClassName}>
+  return <table className='modal'>
     <thead>
       <tr><td colSpan={2}>{product1.name}</td><td colSpan={2}>{product2.name}</td></tr>
     </thead>
