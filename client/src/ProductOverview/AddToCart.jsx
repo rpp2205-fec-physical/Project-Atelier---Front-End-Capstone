@@ -25,6 +25,10 @@ class AddToCart extends React.Component {
       })
   }
 
+  productData() {
+    this.props.get('/products')
+  }
+
   render() {
     return (
       <div>
