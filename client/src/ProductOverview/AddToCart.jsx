@@ -5,10 +5,12 @@ class AddToCart extends React.Component {
     super(props);
     this.state = {};
     this.initialize = this.initialize.bind(this);
+    this.productData = this.productData.bind(this);
   }
 
   componentDidMount() {
     this.initialize();
+    this.productData()
   }
 
   initialize() {
@@ -27,6 +29,9 @@ class AddToCart extends React.Component {
 
   productData() {
     this.props.get('/products')
+      .then(data => {
+        console.log('cart get product data: ', data);
+      })
   }
 
   render() {
