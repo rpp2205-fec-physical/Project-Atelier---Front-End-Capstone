@@ -65,7 +65,7 @@ class Product extends React.Component {
         <Stars />
         <Styles Style={this.state.styles}/>
         <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
-        <AddToCart />
+        <AddToCart get={this.props.get} post={this.props.post} put={this.props.put}/>
       </div>
     )
   }
