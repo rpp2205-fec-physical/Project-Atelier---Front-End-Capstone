@@ -1,4 +1,5 @@
 import React from 'react';
+import './product.css';
 
 // const Arrow = ({ direction, clickFunction, glyph }) => (
 //   <div
@@ -157,18 +158,29 @@ class ImageGallery extends React.Component {
 
 const Arrow = ({ direction, clickFunction, glyph }) => (
 	<div
-		className={ `slide-arrow.${direction}` }
+		className={ `slide-arrow ${direction}` }
 		onClick={ clickFunction }>
 		{ glyph }
 	</div>
 );
 
+// const ImageSlide = ({ url }) => {
+// 	return (
+// 		<div className="image-slide" >
+//       <img src={url} key={url} width="280" height="400"></img>
+//     </div>
+// 	);
+// }
 const ImageSlide = ({ url }) => {
-	return (
-		<div className="image-slide" >
-      <img src={url} key={url} width="280" height="400"></img>
-    </div>
-	);
+  const styles = {
+    backgroundImage: `url(${url})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center'
+  };
+
+  return (
+    <div className="image-slide" style={styles}></div>
+  );
 }
 
 
