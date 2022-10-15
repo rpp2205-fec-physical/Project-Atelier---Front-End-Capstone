@@ -14,7 +14,8 @@ class Product extends React.Component {
       products: [],
       styles: {},
       clickedStyle: {},
-      photos: []
+      photos: [],
+      skus: {}
     };
     this.initialize = this.initialize.bind(this);
     this.childToParent = this.childToParent.bind(this);
@@ -25,12 +26,12 @@ class Product extends React.Component {
   }
 
   childToParent(data) {
-    console.log(data)
+    // console.log(data)
     // this.setState({clickedStyle: data}, () => {
     //   // console.log(data);
     // })
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
-    asyncSetState({clickedStyle: data, photos: data.photos}).then(() => {console.log('child to parent success: ', this.state.clickedStyle)})
+    asyncSetState({clickedStyle: data, photos: data.photos, skus: data.skus}).then(() => {console.log('child to parent success: ', this.state.clickedStyle)})
     // console.log('child to parent success: ', this.state.clickedStyle);
   }
 
@@ -54,7 +55,7 @@ class Product extends React.Component {
     })
     .then(data => {
       let url = '/api/products/' + data[0].id + '/styles';
-      console.log(url);
+      // console.log(url);
       $.ajax({
         method: 'GET',
         url: url,
@@ -63,9 +64,10 @@ class Product extends React.Component {
           console.log('styles data: ', styles);
           this.setState({
             styles: styles,
-            photos: styles.results[0].photos
+            photos: styles.results[0].photos,
+            skus: styles.results[0].skus
           });
-          console.log('product styles: ', this.state.styles)
+          // console.log('product styles: ', this.state.styles)
         }),
         error: (err => {
           console.log(err);
@@ -84,7 +86,7 @@ class Product extends React.Component {
             <Stars />
             <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
             <Styles Style={this.state.styles} childToParent={this.childToParent}/>
-            <AddToCart get={this.props.get} post={this.props.post} put={this.props.put} Style={this.state.styles}/>
+            <AddToCart get={this.props.get} post={this.props.post} put={this.props.put} Style={this.state.styles} skus={this.state.skus}/>
           </div>
         </div>
       </div>
