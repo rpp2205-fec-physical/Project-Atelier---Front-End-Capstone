@@ -12,13 +12,27 @@ class Product extends React.Component {
     super(props);
     this.state = {
       products: [],
-      styles: {}
+      styles: {},
+      clickedStyle: {},
+      photos: [],
+      skus: {}
     };
     this.initialize = this.initialize.bind(this);
+    this.childToParent = this.childToParent.bind(this);
   }
 
   componentDidMount() {
     this.initialize();
+  }
+
+  childToParent(data) {
+    // console.log(data)
+    // this.setState({clickedStyle: data}, () => {
+    //   // console.log(data);
+    // })
+    const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
+    asyncSetState({clickedStyle: data, photos: data.photos, skus: data.skus}).then(() => {console.log('child to parent success: ', this.state.clickedStyle)})
+    // console.log('child to parent success: ', this.state.clickedStyle);
   }
 
 
@@ -31,6 +45,7 @@ class Product extends React.Component {
         // console.log('app data: ', data);
         this.setState({
           products: data
+          // photos: this.state.products[0].photos
         });
         // console.log('first product: ', this.state.products[0])
       }),
@@ -40,17 +55,19 @@ class Product extends React.Component {
     })
     .then(data => {
       let url = '/api/products/' + data[0].id + '/styles';
-      console.log(url);
+      // console.log(url);
       $.ajax({
         method: 'GET',
         url: url,
         contentType: 'application/json',
         success: (styles => {
-          // console.log('styles data: ', styles);
+          console.log('styles data: ', styles);
           this.setState({
-            styles: styles
+            styles: styles,
+            photos: styles.results[0].photos,
+            skus: styles.results[0].skus
           });
-          console.log('product styles: ', this.state.styles)
+          // console.log('product styles: ', this.state.styles)
         }),
         error: (err => {
           console.log(err);
@@ -64,12 +81,12 @@ class Product extends React.Component {
       <div>
         <h1 id="title">Welcome To Project Atelier</h1>
         <div id="container">
-          <ImageGallery Style={this.state.styles} class="image"/>
-          <div class="product">
+          <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image"/>
+          <div className="product">
             <Stars />
             <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
-            <Styles Style={this.state.styles}/>
-            <AddToCart get={this.props.get} post={this.props.post} put={this.props.put}/>
+            <Styles Style={this.state.styles} childToParent={this.childToParent}/>
+            <AddToCart get={this.props.get} post={this.props.post} put={this.props.put} Style={this.state.styles} skus={this.state.skus}/>
           </div>
         </div>
       </div>
