@@ -82,21 +82,21 @@ class ReviewContainer extends React.Component {
   componentDidMount() {
     let endpoint = "/reviews";
     if(!this.props.product.product_id) {
-      console.log(`Reviews mounted. No product_id received for reviews. Will default to id 71697`);
+      // console.log(`Reviews mounted. No product_id received for reviews. Will default to id 71697`);
       this.setState({
         product: { product_id: 71697 }}
         );
     } else {
-      console.log(`Reviews mounted. TODO: get reviews for product ${this.props.product.product_id}`)
+      // console.log(`Reviews mounted. TODO: get reviews for product ${this.props.product.product_id}`)
     }
     // get reviews and update state
     let id = 71697
     let url = endpoint + "?product_id=" + id
-    console.log(`Will attempt to get reviews for url ${url}`)
+    // console.log(`Will attempt to get reviews for url ${url}`)
     this.props.get(url)
       .then((response) => {
-        console.log(`reviews returned from api: ${response.results}`);
-        console.log(response.results);
+        // console.log(`reviews returned from api: ${response.results}`);
+        // console.log(response.results);
         this.setState({
           reviews: response.results
         })
