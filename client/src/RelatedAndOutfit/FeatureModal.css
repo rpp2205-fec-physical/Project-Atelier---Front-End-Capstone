@@ -8,6 +8,10 @@
   left: 200px;
 }
 
+.modal-table {
+  width: 100%;
+}
+
 .column-left {
   text-align: left;
 }
