@@ -62,7 +62,7 @@ class Product extends React.Component {
   render() {
     return (
       <div>
-        <h1>Welcome To Project Atelier</h1>
+        <h1 id="title">Welcome To Project Atelier</h1>
         <div id="container">
           <ImageGallery Style={this.state.styles} class="image"/>
           <div class="product">
