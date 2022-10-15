@@ -3,14 +3,16 @@ import React from 'react';
 class AddToCart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      sku: 0
+    };
     this.initialize = this.initialize.bind(this);
-    this.productData = this.productData.bind(this);
+    // this.productData = this.productData.bind(this);
   }
 
   componentDidMount() {
     this.initialize();
-    this.productData()
+    // this.productData();
   }
 
   initialize() {
@@ -20,32 +22,34 @@ class AddToCart extends React.Component {
       });
   }
 
-  addToCart(obj) {
+  addToCart(e) {
+    e.preventDefault();
     this.props.post('/cart', obj)
       .then(data => {
         console.log('cart post data: ', data);
       })
   }
 
-  productData() {
-    this.props.get('/products')
-      .then(data => {
-        console.log('cart get product data: ', data);
-      })
-  }
+  // productData() {
+  //   this.props.get('/products')
+  //     .then(data => {
+  //       console.log('cart get product data: ', data);
+  //     })
+  // }
 
   render() {
     return (
       <div>
-        <label for="sizes">Select Size</label>
-        <select name="sizes" class="sizes">
+        <label htmlFor="sizes">Select Size</label>
+        <select name="sizes" className="sizes">
+
           <option>S</option>
           <option>M</option>
           <option>L</option>
           <option>XL</option>
         </select>
-        <label for="quantity">Select Quantity</label>
-        <select name="quantity" class="quantity">
+        <label htmlFor="quantity">Select Quantity</label>
+        <select name="quantity" className="quantity">
           <option>1</option>
           <option>2</option>
           <option>3</option>

@@ -5,6 +5,24 @@ class Styles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    // console.log(e)
+    // console.log(this.props.Style.results);
+    // console.log(e.target.getAttribute('data'))
+    let id = e.target.getAttribute('data');
+    for (let i = 0; i < this.props.Style.results.length; i++) {
+      // console.log(id);
+      // console.log(this.props.Style.results[i].style_id)
+      if (this.props.Style.results[i].style_id.toString() === id.toString()) {
+        console.log('success');
+        this.props.childToParent(this.props.Style.results[i]);
+      }
+
+    }
   }
 
   render() {
@@ -15,7 +33,7 @@ class Styles extends React.Component {
           <div>
             <h4>Styles</h4>
             {this.props.Style.results.map(style => {
-            return <img src={style.photos[0].thumbnail_url} key={style.style_id} class="style"></img>;
+            return <img src={style.photos[0].thumbnail_url} key={style.style_id} data={style.style_id} className="style" onClick={this.handleClick}></img>;
           })}
           </div>
         )

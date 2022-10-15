@@ -12,13 +12,25 @@ class Product extends React.Component {
     super(props);
     this.state = {
       products: [],
-      styles: {}
+      styles: {},
+      clickedStyle: {}
     };
     this.initialize = this.initialize.bind(this);
+    this.childToParent = this.childToParent.bind(this);
   }
 
   componentDidMount() {
     this.initialize();
+  }
+
+  childToParent(data) {
+    console.log(data)
+    // this.setState({clickedStyle: data}, () => {
+    //   // console.log(data);
+    // })
+    const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
+    asyncSetState({clickedStyle: data}).then(() => {console.log('child to parent success: ', this.state.clickedStyle)})
+    // console.log('child to parent success: ', this.state.clickedStyle);
   }
 
 
@@ -64,12 +76,12 @@ class Product extends React.Component {
       <div>
         <h1 id="title">Welcome To Project Atelier</h1>
         <div id="container">
-          <ImageGallery Style={this.state.styles} class="image"/>
-          <div class="product">
+          <ImageGallery Style={this.state.styles} className="image"/>
+          <div className="product">
             <Stars />
             <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
-            <Styles Style={this.state.styles}/>
-            <AddToCart get={this.props.get} post={this.props.post} put={this.props.put}/>
+            <Styles Style={this.state.styles} childToParent={this.childToParent}/>
+            <AddToCart get={this.props.get} post={this.props.post} put={this.props.put} Style={this.state.styles}/>
           </div>
         </div>
       </div>
