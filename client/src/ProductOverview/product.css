@@ -1,8 +1,26 @@
-.carousel {
-	height:500px;
-	margin: 0;
-	width: 450px;
+#container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
+
+.image {
+	flex: 1;
+}
+
+.style {
+margin: 10px;
+height: 85px;
+width: 85px;
+border-radius: 40px;
+}
+
+.carousel {
+	height:550px;
+	margin: 30px;
+	width: 700px;
+}
+
 
 .image-slide {
 	height: 100%;
@@ -15,11 +33,11 @@
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
-	top: 30%;
+	top: 35%;
 }
 
 .slide-arrow.right {
-	left: 430px;
+	left: 43.5%;
 }
 
 .slide-arrow.left {

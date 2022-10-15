@@ -5,6 +5,7 @@ import AddToCart from './AddToCart.jsx';
 import Styles from './Styles.jsx';
 import Stars from '../components/Stars.jsx';
 import $ from 'jquery';
+import './product.css';
 
 class Product extends React.Component {
   constructor(props) {
@@ -61,11 +62,15 @@ class Product extends React.Component {
   render() {
     return (
       <div>
-        <ImageGallery Style={this.state.styles}/>
-        <Stars />
-        <Styles Style={this.state.styles}/>
-        <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
-        <AddToCart get={this.props.get} post={this.props.post} put={this.props.put}/>
+        <div id="container">
+          <ImageGallery Style={this.state.styles} class="image"/>
+          <div class="product">
+            <Stars />
+            <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
+            <Styles Style={this.state.styles}/>
+            <AddToCart get={this.props.get} post={this.props.post} put={this.props.put}/>
+          </div>
+        </div>
       </div>
     )
   }

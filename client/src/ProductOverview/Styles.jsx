@@ -1,4 +1,5 @@
 import React from 'react';
+import './product.css';
 
 class Styles extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class Styles extends React.Component {
           <div>
             <h4>Styles</h4>
             {this.props.Style.results.map(style => {
-            return <img src={style.photos[0].thumbnail_url} height="70" width="70" key={style.style_id}></img>;
+            return <img src={style.photos[0].thumbnail_url} key={style.style_id} class="style"></img>;
           })}
           </div>
         )
