@@ -33,7 +33,7 @@ export default function Card({ mainProduct, item, style, reviewsMeta, handleClic
     }
   }
 
-  return <><div className='card' onClick={handleProductClick}>
+  return <><div data-id={item.id} className='card'>
     <img className='card-img' src={style.photos[0].thumbnail_url} />
     <h5>{item.category}</h5>
     <h4>{item.name}</h4>

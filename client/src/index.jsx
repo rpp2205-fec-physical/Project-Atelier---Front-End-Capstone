@@ -15,8 +15,7 @@ class App extends React.Component {
     this.state = {
       product: {},
       outfits: [],
-      productToCompare: {},
-      showFeatureModal: false
+      productToCompare: {}
     };
     this.cache = new Cache(600000);
 
@@ -24,7 +23,6 @@ class App extends React.Component {
     this.get = this.get.bind(this);
     this.post = this.post.bind(this);
     this.put = this.put.bind(this);
-    this.handleClickToCompare = this.handleClickToCompare.bind(this);
   }
 
   componentDidMount() {
@@ -57,10 +55,6 @@ class App extends React.Component {
     return axios.put('/api' + endpoint, data);
   }
 
-  handleClickToCompare(product) {
-    this.setState({ productToCompare: product, showFeatureModal: !this.state.showFeatureModal });
-  }
-
   initialize() {
     this.get('/products')
       .then(products => {
@@ -79,7 +73,7 @@ class App extends React.Component {
         <Product get={this.get} post={this.post} outfits={this.state.outfits} />
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} handleClickToCompare={this.handleClickToCompare} />
         <ReviewContainer get={this.get} product={this.state.product} />
-        {this.state.showFeatureModal ? <FeatureModal handleClose={() => this.setState({ showFeatureModal: false })} show={true} product1={this.state.product} product2={this.state.productToCompare} /> : null}
+        <FeatureModal product1={this.state.product} get={this.get} />
       </div>
     )
   }
