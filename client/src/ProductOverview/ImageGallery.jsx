@@ -14,7 +14,7 @@ class ImageGallery extends React.Component {
 
 	previousSlide () {
     const imgUrls =
-    this.props.Style.results[0].photos.map(photo => {
+    this.props.Photos.map(photo => {
       return photo.url;
     })
 		const lastIndex = imgUrls.length - 1;
@@ -29,7 +29,7 @@ class ImageGallery extends React.Component {
 
 	nextSlide () {
     const imgUrls =
-    this.props.Style.results[0].photos.map(photo => {
+    this.props.Photos.map(photo => {
       return photo.url;
     })
 		const lastIndex = imgUrls.length - 1;
@@ -43,9 +43,9 @@ class ImageGallery extends React.Component {
 	}
 
 	render () {
-    if (this.props.Style.results) {
+    if (this.props.Photos.length) {
       const imgUrls =
-      this.props.Style.results[0].photos.map(photo => {
+      this.props.Photos.map(photo => {
         return photo.url;
       })
       return (

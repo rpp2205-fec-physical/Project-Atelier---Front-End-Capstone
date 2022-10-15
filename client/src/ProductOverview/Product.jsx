@@ -13,7 +13,8 @@ class Product extends React.Component {
     this.state = {
       products: [],
       styles: {},
-      clickedStyle: {}
+      clickedStyle: {},
+      photos: []
     };
     this.initialize = this.initialize.bind(this);
     this.childToParent = this.childToParent.bind(this);
@@ -29,7 +30,7 @@ class Product extends React.Component {
     //   // console.log(data);
     // })
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
-    asyncSetState({clickedStyle: data}).then(() => {console.log('child to parent success: ', this.state.clickedStyle)})
+    asyncSetState({clickedStyle: data, photos: data.photos}).then(() => {console.log('child to parent success: ', this.state.clickedStyle)})
     // console.log('child to parent success: ', this.state.clickedStyle);
   }
 
@@ -43,6 +44,7 @@ class Product extends React.Component {
         // console.log('app data: ', data);
         this.setState({
           products: data
+          // photos: this.state.products[0].photos
         });
         // console.log('first product: ', this.state.products[0])
       }),
@@ -58,9 +60,10 @@ class Product extends React.Component {
         url: url,
         contentType: 'application/json',
         success: (styles => {
-          // console.log('styles data: ', styles);
+          console.log('styles data: ', styles);
           this.setState({
-            styles: styles
+            styles: styles,
+            photos: styles.results[0].photos
           });
           console.log('product styles: ', this.state.styles)
         }),
@@ -76,7 +79,7 @@ class Product extends React.Component {
       <div>
         <h1 id="title">Welcome To Project Atelier</h1>
         <div id="container">
-          <ImageGallery Style={this.state.styles} className="image"/>
+          <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image"/>
           <div className="product">
             <Stars />
             <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
