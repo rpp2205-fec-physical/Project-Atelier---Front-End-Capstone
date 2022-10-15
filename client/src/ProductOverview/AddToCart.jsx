@@ -37,7 +37,22 @@ class AddToCart extends React.Component {
   render() {
     return (
       <div>
-        <h3>Insert Cart Here...</h3>
+        <label for="sizes">Select Size</label>
+        <select name="sizes" class="sizes">
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+        </select>
+        <label for="quantity">Select Quantity</label>
+        <select name="quantity" class="quantity">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+        <button onClick={this.addToCart}>Add To Cart</button>
       </div>
     )
   }

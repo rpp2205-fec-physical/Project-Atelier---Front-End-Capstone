@@ -76,7 +76,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Welcome To Project Atelier</h1>
         <Product get={this.get} post={this.post} outfits={this.state.outfits} />
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} handleClickToCompare={this.handleClickToCompare} />
         <ReviewContainer get={this.get} product={this.state.product} />
