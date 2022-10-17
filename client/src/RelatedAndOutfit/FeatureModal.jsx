@@ -12,7 +12,7 @@ function parseFeatures(prod1, prod2) {
       prod2: prod2.id
     }
   };
-
+  console.log('PARSING FEATURES: ', features1, features2);
   for (let feature of features1) {
     const parsedFeature = results[feature.feature] || {};
 
@@ -35,9 +35,10 @@ function productsChanged(featureData, prod1 = {}, prod2 = {}) {
 }
 
 function getProductCardElement(node) {
-  const targetName = 'div.'
+  const targetName = 'div';
+  console.log('ELEMENT', node);
   for (let element of node.path) {
-    if (element.localName === 'div') {
+    if (element.localName == targetName) {
       if (element.classList.contains('card')) {
         return element;
       }
@@ -59,11 +60,11 @@ export default function FeatureModal({ product1, get }) {
     }
   };
   const handleClick = (e) => {
-    //console.log('---> handleClick', getProductCardElement(e));
+    console.log('---> handleClick', getProductCardElement(e));
     const cardElement = getProductCardElement(e);
     if (isHidden && cardElement) {
       const productId = cardElement.getAttribute('data-id');
-      //console.log('PRODUCT ID: ', productId, typeof get);
+      console.log('PRODUCT ID: ', productId, typeof get);
       get('/products/'.concat(productId))
         .then((data) => {
           console.log('DATA', data);
@@ -85,12 +86,12 @@ export default function FeatureModal({ product1, get }) {
   if (productToCompare === null) { return null; }
   if (productsChanged(featureData, product1, productToCompare)) {
     setFeatureData(parseFeatures(product1, productToCompare));
-    //console.log('PARSED FEATURES: ', featureData);
+    console.log('PARSED FEATURES: ', featureData);
     return null;
   }
 
   const features = Object.keys(featureData);
-  //console.log('GOT FEATURES', features);
+  console.log('GOT FEATURES', features);
   const tableClass = 'modal-table ' + (isHidden ? 'display-none' : 'display-initial');
 
   return <div className="modal"><table className={tableClass} ref={modalRef}>
