@@ -12,7 +12,7 @@ function parseFeatures(prod1, prod2) {
       prod2: prod2.id
     }
   };
-  console.log('PARSING FEATURES: ', features1, features2);
+  //console.log('PARSING FEATURES: ', features1, features2);
   for (let feature of features1) {
     const parsedFeature = results[feature.feature] || {};
 
@@ -37,10 +37,13 @@ function productsChanged(featureData, prod1 = {}, prod2 = {}) {
 function isChild(node, targetTag, targetClass) {
   const parent = node.parentNode || node.srcElement || node.target;
   if (!parent) {
-    console.log('isChild: NO PARENT FOUND', node);
+    //console.log('isChild: NO PARENT FOUND', node);
     return false;
   }
-  if (parent.tagName == targetTag && parent.classList.contains(targetClass)) {
+  const parentTag = parent.tagName && parent.tagName.toUpperCase();
+  //console.log('isChild: SEARCHING PARENT', parentTag, parent.classList);
+  if (!parentTag || parentTag === 'HTML') { return false; }
+  if (parentTag === targetTag.toUpperCase() && parent.classList.contains(targetClass)) {
     return parent;
   } else {
     return isChild(parent, targetTag, targetClass);
@@ -50,7 +53,7 @@ function isChild(node, targetTag, targetClass) {
 function getProductCardElement(e) {
   const targetTag = 'div';
   const targetClass = 'card';
-  console.log('ELEMENT', e);
+  //console.log('ELEMENT', e);
   if (e.path) {
     for (let element of e.path) {
       if (element.localName == targetTag) {
@@ -79,7 +82,7 @@ export default function FeatureModal({ product1, get }) {
   };
   const handleClick = (e) => {
     const cardElement = getProductCardElement(e);
-    console.log('---> handleClick', cardElement);
+    //console.log('---> handleClick', cardElement);
     if (isHidden && cardElement) {
       const productId = cardElement.getAttribute('data-id');
 
@@ -104,12 +107,12 @@ export default function FeatureModal({ product1, get }) {
   if (productToCompare === null) { return null; }
   if (productsChanged(featureData, product1, productToCompare)) {
     setFeatureData(parseFeatures(product1, productToCompare));
-    console.log('PARSED FEATURES: ', featureData);
+    //console.log('PARSED FEATURES: ', featureData);
     return null;
   }
 
   const features = Object.keys(featureData);
-  console.log('GOT FEATURES', features);
+  //console.log('GOT FEATURES', features);
   const tableClass = 'modal-table ' + (isHidden ? 'display-none' : 'display-initial');
 
   return <div className="modal"><table className={tableClass} ref={modalRef}>
