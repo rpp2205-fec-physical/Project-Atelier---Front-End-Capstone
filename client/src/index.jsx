@@ -58,7 +58,8 @@ class App extends React.Component {
   initialize() {
     this.get('/products')
       .then(products => {
-        const url = '/products/' + products[0].id;
+        const i = Math.floor(Math.random() * products.length);
+        const url = '/products/' + products[i].id;
         return this.get(url);
       })
       .then(info => {
