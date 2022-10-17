@@ -68,10 +68,18 @@ function getProductCardElement(e) {
   }
 }
 
+function placeModal(cardNode, setPosition) {
+  const top = Math.floor(cardNode.offsetTop + (2 * (cardNode.offsetHeight / 3))) - 10;
+  const left = Math.floor(cardNode.offsetLeft);
+
+  setPosition({top, left});
+}
+
 export default function FeatureModal({ product1, get }) {
   const [productToCompare, setProductToCompare] = useState(null);
   const [featureData, setFeatureData] = useState({});
   const [isHidden, setIsHidden] = useState(true);
+  const [position, setPosition] = useState({top: '200px', left: '200px'});
   const modalRef = useRef();
   const clickedOutside = (e) => {
     //console.log('HANDLE CLICK', e);
@@ -83,12 +91,13 @@ export default function FeatureModal({ product1, get }) {
   const handleClick = (e) => {
     const cardElement = getProductCardElement(e);
     //console.log('---> handleClick', cardElement);
-    if (isHidden && cardElement) {
+    if (cardElement) {
+      //console.log('FOUND CARD ELEMENT', {cardElement})
       const productId = cardElement.getAttribute('data-id');
 
       get('/products/'.concat(productId))
         .then((data) => {
-          console.log('DATA', data);
+          placeModal(cardElement, setPosition);
           setProductToCompare(data);
           setIsHidden(false);
         });
@@ -104,7 +113,7 @@ export default function FeatureModal({ product1, get }) {
     };
   });
 
-  if (productToCompare === null) { return null; }
+  if (productToCompare === null || isHidden) { return null; }
   if (productsChanged(featureData, product1, productToCompare)) {
     setFeatureData(parseFeatures(product1, productToCompare));
     //console.log('PARSED FEATURES: ', featureData);
@@ -113,9 +122,18 @@ export default function FeatureModal({ product1, get }) {
 
   const features = Object.keys(featureData);
   //console.log('GOT FEATURES', features);
-  const tableClass = 'modal-table ' + (isHidden ? 'display-none' : 'display-initial');
+  const tableClass = 'modal-table ' + (isHidden ? 'display-none' : 'display-table');
+  const styles = {
+    position: 'fixed',
+    top: position.top.toString().concat('px'),
+    left: position.left.toString().concat('px'),
+    opacity: '85%',
+    backgroundColor: 'lightgrey',
+    width: 'auto',
+    minWidth: '320px'
+  }
 
-  return <div className="modal"><table className={tableClass} ref={modalRef}>
+  return <div className="modal" style={styles} ref={modalRef}><table className={tableClass}>
     <thead>
       <tr><th colSpan="2" className="table-head column-left">{product1.name}</th><th colSpan="2" className="table-head column-right">{productToCompare.name}</th></tr>
     </thead>
