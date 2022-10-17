@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Stars from '../components/Stars.jsx';
 import FeatureModal from './FeatureModal.jsx';
 
@@ -22,6 +22,7 @@ function stars(reviewsMeta) {
 
 export default function Card({ mainProduct, item, style, reviewsMeta, handleClickToCompare }) {
   const [showModal, setShowModal] = useState(false);
+  const cardRef = useRef();
 
   const handleProductClick = () => {
     console.log('HANDLE CLICK, ', typeof handleClickToCompare);
@@ -33,7 +34,7 @@ export default function Card({ mainProduct, item, style, reviewsMeta, handleClic
     }
   }
 
-  return <><div data-id={item.id} className='card'>
+  return <><div data-id={item.id} className='card' ref={cardRef}>
     <img className='card-img' src={style.photos[0].thumbnail_url} />
     <h5>{item.category}</h5>
     <h4>{item.name}</h4>
