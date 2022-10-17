@@ -34,17 +34,35 @@ function productsChanged(featureData, prod1 = {}, prod2 = {}) {
   return prod1.id !== featureData._id.prod1 || prod2.id !== featureData._id.prod2;
 }
 
-function getProductCardElement(node) {
-  const targetName = 'div';
-  console.log('ELEMENT', node);
-  for (let element of node.path) {
-    if (element.localName == targetName) {
-      if (element.classList.contains('card')) {
-        return element;
+function isChild(node, targetTag, targetClass) {
+  const parent = node.parentNode || node.srcElement || node.target;
+  if (!parent) {
+    console.log('isChild: NO PARENT FOUND', node);
+    return false;
+  }
+  if (parent.tagName == targetTag && parent.classList.contains(targetClass)) {
+    return parent;
+  } else {
+    return isChild(parent, targetTag, targetClass);
+  }
+}
+
+function getProductCardElement(e) {
+  const targetTag = 'div';
+  const targetClass = 'card';
+  console.log('ELEMENT', e);
+  if (e.path) {
+    for (let element of e.path) {
+      if (element.localName == targetTag) {
+        if (element.classList.contains(targetClass)) {
+          return element;
+        }
       }
     }
+    return false;
+  } else {
+    return isChild(e, targetTag, targetClass);
   }
-  return false;
 }
 
 export default function FeatureModal({ product1, get }) {
@@ -60,11 +78,11 @@ export default function FeatureModal({ product1, get }) {
     }
   };
   const handleClick = (e) => {
-    console.log('---> handleClick', getProductCardElement(e));
     const cardElement = getProductCardElement(e);
+    console.log('---> handleClick', cardElement);
     if (isHidden && cardElement) {
       const productId = cardElement.getAttribute('data-id');
-      console.log('PRODUCT ID: ', productId, typeof get);
+
       get('/products/'.concat(productId))
         .then((data) => {
           console.log('DATA', data);
