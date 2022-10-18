@@ -4,10 +4,13 @@ class AddToCart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sku: 0
+      sku: 0,
+      size: 'S',
+      quantity: 0
     };
     this.initialize = this.initialize.bind(this);
     this.handleSize = this.handleSize.bind(this);
+    this.handleQuantity = this.handleQuantity.bind(this);
   }
 
   componentDidMount() {
@@ -31,43 +34,45 @@ class AddToCart extends React.Component {
 
   handleSize(e) {
     e.preventDefault();
-    let size = e.target;
-    console.log(size);
-    console.log(e.target.getAttribute('data'));
+    let size = e.target.value;
+    const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+    });
+    asyncSetState({size: size});
+    Object.keys(this.props.skus).map(sku => {
+      if (this.props.skus[sku].size === this.state.size) {
+        asyncSetState({sku: sku, quantity: this.props.skus[sku].quantity})
+      }
+    })
+  }
+
+  handleQuantity() {
+    if (this.state.quantity > 0) {
+      let result = [];
+      for (let i = 2; i <= this.state.quantity; i++) {
+        result.push(i);
+      }
+      return result;
+    }
+    return <option>Quantity loading...</option>;
   }
 
 
   render() {
     if (this.props.skus) {
-      // console.log(Object.keys(this.props.skus))
       return (
         <div>
-          {/* {Object.keys(this.props.skus).map(sku => {
-            console.log(this.props.skus[sku]);
-            // return <option key={sku}>{this.props.skus[sku].size}</option>
-              <div>
-                <label htmlFor="sizes">Select Size</label>
-                <select name="sizes" className="sizes">
-                   <option key={sku}>{this.props.skus[sku].size}</option>
-                </select>
-                <label htmlFor="quantity">Select Quantity</label>
-                <select name="quantity" className="quantity">
-                   <option key={sku}>{this.props.skus[sku].quantity}</option>
-                </select>
-                <button onClick={this.addToCart}>Add To Cart</button>
-              </div>
-
-          })} */}
           <label htmlFor="sizes">Select Size</label>
-          <select onSelect={this.handleSize} name="sizes" className="sizes">
+          <select onChange={this.handleSize} name="sizes" className="sizes">
             {Object.keys(this.props.skus).map(sku => {
-              console.log(this.props.skus[sku]);
-              return <option key={sku} data={sku} >{this.props.skus[sku].size}</option>
+              return <option key={sku} data={this.props.skus[sku].quantity} id={sku} >{this.props.skus[sku].size}</option>
             })}
           </select>
           <label htmlFor="quantity">Select Quantity</label>
           <select name="quantity" className="quantity">
-            <option>1</option>
+            <option key="1">1</option>
+            {this.state.quantity > 0 && this.handleQuantity().map(val => {
+              return <option key={val}>{val}</option>
+            })}
           </select>
           <button onClick={this.addToCart}>Add To Cart</button>
         </div>

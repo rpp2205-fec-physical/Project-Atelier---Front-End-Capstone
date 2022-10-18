@@ -71,7 +71,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Product get={this.get} post={this.post} outfits={this.state.outfits} />
+        <Product get={this.get} post={this.post} outfits={this.state.outfits} product={this.state.product}/>
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} handleClickToCompare={this.handleClickToCompare} />
         <ReviewContainer get={this.get} product={this.state.product} />
         <FeatureModal product1={this.state.product} get={this.get} />

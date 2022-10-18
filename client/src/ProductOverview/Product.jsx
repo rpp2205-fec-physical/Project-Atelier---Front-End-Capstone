@@ -26,54 +26,68 @@ class Product extends React.Component {
   }
 
   childToParent(data) {
-    // console.log(data)
-    // this.setState({clickedStyle: data}, () => {
-    //   // console.log(data);
-    // })
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
     asyncSetState({clickedStyle: data, photos: data.photos, skus: data.skus}).then(() => {console.log('child to parent success: ', this.state.clickedStyle)})
-    // console.log('child to parent success: ', this.state.clickedStyle);
   }
 
 
   initialize() {
-    $.ajax({
-      method: 'GET',
-      url: '/api/products',
-      contentType: 'application/json',
-      success: (data => {
-        // console.log('app data: ', data);
-        this.setState({
-          products: data
-          // photos: this.state.products[0].photos
-        });
-        // console.log('first product: ', this.state.products[0])
-      }),
-      error: (err => {
-        console.log(err);
-      })
-    })
-    .then(data => {
-      let url = '/api/products/' + data[0].id + '/styles';
-      // console.log(url);
-      $.ajax({
-        method: 'GET',
-        url: url,
-        contentType: 'application/json',
-        success: (styles => {
-          console.log('styles data: ', styles);
+    if (Object.keys(this.props.product).length) {
+      return Promise.resolve(
+        this.props.get('/products')
+        .then(data => {
           this.setState({
-            styles: styles,
-            photos: styles.results[0].photos,
-            skus: styles.results[0].skus
+            products: this.props.product
           });
-          // console.log('product styles: ', this.state.styles)
-        }),
-        error: (err => {
-          console.log(err);
+          console.log('refactored get data', this.props.product);
+          this.props.get('/products/' + this.props.product.id + '/styles')
+            .then(styles => {
+              this.setState({
+                styles: styles,
+                photos: styles.results[0].photos,
+                skus: styles.results[0].skus
+              });
+            })
         })
-      })
-    })
+      )
+    } else {
+      this.props.get('/products')
+        .then(data => {
+          this.setState({
+            products: data
+          });
+          // console.log('refactored get data', this.props.product);
+          this.props.get('/products/' + data[0].id + '/styles')
+            .then(styles => {
+              this.setState({
+                styles: styles,
+                photos: styles.results[0].photos,
+                skus: styles.results[0].skus
+              });
+            })
+        })
+    }
+    // if (this.props.product.id === undefined) {
+    //   return null;
+    // } else {
+    //   return Promise.resolve(
+    //     this.props.get('/products')
+    //     .then(data => {
+    //       this.setState({
+    //         products: this.props.product
+    //       });
+    //       console.log('refactored get data', this.props.product);
+    //       this.props.get('/products/' + this.props.product.id + '/styles')
+    //         .then(styles => {
+    //           this.setState({
+    //             styles: styles,
+    //             photos: styles.results[0].photos,
+    //             skus: styles.results[0].skus
+    //           });
+    //         })
+    //     })
+    //   )
+    // }
   }
 
   render() {

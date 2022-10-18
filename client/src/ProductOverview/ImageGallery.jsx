@@ -73,13 +73,6 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
 	</div>
 );
 
-// const ImageSlide = ({ url }) => {
-// 	return (
-// 		<div className="image-slide" >
-//       <img src={url} key={url} width="280" height="400"></img>
-//     </div>
-// 	);
-// }
 const ImageSlide = ({ url }) => {
   const styles = {
     backgroundImage: `url(${url})`,
