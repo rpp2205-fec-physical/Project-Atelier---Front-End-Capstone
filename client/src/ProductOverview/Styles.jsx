@@ -13,7 +13,7 @@ class Styles extends React.Component {
     let id = e.target.getAttribute('data');
     for (let i = 0; i < this.props.Style.results.length; i++) {
       if (this.props.Style.results[i].style_id.toString() === id.toString()) {
-        console.log('success');
+        // console.log('success');
         this.props.childToParent(this.props.Style.results[i]);
       }
 

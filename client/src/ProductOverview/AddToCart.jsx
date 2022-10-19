@@ -6,11 +6,13 @@ class AddToCart extends React.Component {
     this.state = {
       sku: 0,
       size: 'S',
-      quantity: 0
+      quantity: 0,
+      cart: []
     };
     this.initialize = this.initialize.bind(this);
     this.handleSize = this.handleSize.bind(this);
     this.handleQuantity = this.handleQuantity.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
@@ -26,10 +28,17 @@ class AddToCart extends React.Component {
 
   addToCart(e) {
     e.preventDefault();
-    this.props.post('/cart', obj)
-      .then(data => {
-        console.log('cart post data: ', data);
-      })
+    console.log(e.target)
+    let cartObj = {sku_id: this.state.sku}
+    const asyncPost = (obj) => new Promise(resolve => {
+      this.props.post('/cart', obj)
+        .then(data => {
+          console.log('cart post data: ', data);
+          this.initialize();
+        })
+    });
+    asyncPost(cartObj);
+
   }
 
   handleSize(e) {
@@ -68,7 +77,7 @@ class AddToCart extends React.Component {
             })}
           </select>
           <label htmlFor="quantity">Select Quantity</label>
-          <select name="quantity" className="quantity">
+          <select onChange={this.handleQuantity} name="quantity" className="quantity">
             <option key="1">1</option>
             {this.state.quantity > 0 && this.handleQuantity().map(val => {
               return <option key={val}>{val}</option>

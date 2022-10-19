@@ -27,7 +27,7 @@ class Product extends React.Component {
 
   childToParent(data) {
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
-    asyncSetState({clickedStyle: data, photos: data.photos, skus: data.skus}).then(() => {console.log('child to parent success: ', this.state.clickedStyle)})
+    asyncSetState({clickedStyle: data, photos: data.photos, skus: data.skus})
   }
 
 
@@ -39,8 +39,8 @@ class Product extends React.Component {
           this.setState({
             products: this.props.product
           });
-          console.log('refactored get data', this.props.product);
-          this.props.get('/products/' + this.props.product.id + '/styles')
+          console.log('refactored get data', this.props.endpoint);
+          this.props.get('/' + this.props.endpoint + '/styles')
             .then(styles => {
               this.setState({
                 styles: styles,
@@ -56,7 +56,6 @@ class Product extends React.Component {
           this.setState({
             products: data
           });
-          // console.log('refactored get data', this.props.product);
           this.props.get('/products/' + data[0].id + '/styles')
             .then(styles => {
               this.setState({
@@ -67,27 +66,6 @@ class Product extends React.Component {
             })
         })
     }
-    // if (this.props.product.id === undefined) {
-    //   return null;
-    // } else {
-    //   return Promise.resolve(
-    //     this.props.get('/products')
-    //     .then(data => {
-    //       this.setState({
-    //         products: this.props.product
-    //       });
-    //       console.log('refactored get data', this.props.product);
-    //       this.props.get('/products/' + this.props.product.id + '/styles')
-    //         .then(styles => {
-    //           this.setState({
-    //             styles: styles,
-    //             photos: styles.results[0].photos,
-    //             skus: styles.results[0].skus
-    //           });
-    //         })
-    //     })
-    //   )
-    // }
   }
 
   render() {
