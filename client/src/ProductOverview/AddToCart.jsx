@@ -7,6 +7,7 @@ class AddToCart extends React.Component {
       sku: 0,
       size: 'S',
       quantity: 0,
+      count: 0,
       cart: []
     };
     this.initialize = this.initialize.bind(this);
@@ -28,8 +29,15 @@ class AddToCart extends React.Component {
 
   addToCart(e) {
     e.preventDefault();
-    console.log(e.target)
-    let cartObj = {sku_id: this.state.sku}
+    let cartObj = {sku_id: this.state.sku};
+    const i = this.state.cart.map(item => item.sku_id).indexOf(this.state.sku);
+    console.log(i);
+    if (i < 0) {
+      this.state.cart.push({sku_id: this.state.sku, count: this.state.count});
+    } else {
+      this.state.cart[i].count += this.state.count;
+    }
+    console.log(this.state.sku, this.state.quantity, this.state.size)
     const asyncPost = (obj) => new Promise(resolve => {
       this.props.post('/cart', obj)
         .then(data => {
@@ -38,7 +46,6 @@ class AddToCart extends React.Component {
         })
     });
     asyncPost(cartObj);
-
   }
 
   handleSize(e) {
@@ -80,7 +87,7 @@ class AddToCart extends React.Component {
           <select onChange={this.handleQuantity} name="quantity" className="quantity">
             <option key="1">1</option>
             {this.state.quantity > 0 && this.handleQuantity().map(val => {
-              return <option key={val}>{val}</option>
+              return <option key={val} count={val}>{val}</option>
             })}
           </select>
           <button onClick={this.addToCart}>Add To Cart</button>
