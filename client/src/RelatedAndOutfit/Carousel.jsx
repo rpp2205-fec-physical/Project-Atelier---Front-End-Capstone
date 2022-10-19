@@ -15,7 +15,7 @@ function handleResize(e) {
   console.log('HANDLE RESIZE');
 }
 
-export default function Carousel({ mainProduct, items, styles, reviewsMeta, handleClickToCompare }) {
+export default function Carousel({ mainProduct, items, styles, reviewsMeta }) {
   useEffect(() => {
     window.addEventListener('resize', handleResize);
 
@@ -30,7 +30,7 @@ export default function Carousel({ mainProduct, items, styles, reviewsMeta, hand
     return <div className='carousel-container'>
       {items.map((item, i) => (
         <div key={i} className='carousel-item'>
-          <Card mainProduct={mainProduct} item={item} style={getDefaultStyle(styles[i])} reviewsMeta={reviewsMeta[i]} handleClickToCompare={handleClickToCompare} />
+          <Card mainProduct={mainProduct} item={item} style={getDefaultStyle(styles[i])} reviewsMeta={reviewsMeta[i]} />
         </div>
       ))}
     </div>

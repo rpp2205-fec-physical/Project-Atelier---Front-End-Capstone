@@ -75,7 +75,7 @@ function placeModal(cardNode, setPosition) {
   setPosition({top, left});
 }
 
-export default function FeatureModal({ product1, get }) {
+export default function FeatureModal({ product1, setIsBlurred, get }) {
   const [productToCompare, setProductToCompare] = useState(null);
   const [featureData, setFeatureData] = useState({});
   const [isHidden, setIsHidden] = useState(true);
@@ -85,8 +85,9 @@ export default function FeatureModal({ product1, get }) {
     //console.log('HANDLE CLICK', e);
     //console.log('CHECK REF', modalRef);
     if (modalRef.current && !modalRef.current.contains(e.target)) {
-      setIsHidden(true);
+      return true;
     }
+    return false;
   };
   const handleClick = (e) => {
     const cardElement = getProductCardElement(e);
@@ -97,11 +98,13 @@ export default function FeatureModal({ product1, get }) {
 
       get('/products/'.concat(productId))
         .then((data) => {
+          setIsBlurred(true);
           placeModal(cardElement, setPosition);
           setProductToCompare(data);
           setIsHidden(false);
         });
     } else if (!isHidden && clickedOutside(e)) {
+      setIsBlurred(false);
       setIsHidden(true);
     }
   };
@@ -120,7 +123,6 @@ export default function FeatureModal({ product1, get }) {
     return null;
   }
 
-  const features = Object.keys(featureData);
   //console.log('GOT FEATURES', features);
   const tableClass = 'modal-table ' + (isHidden ? 'display-none' : 'display-table');
   const styles = {
@@ -138,7 +140,7 @@ export default function FeatureModal({ product1, get }) {
       <tr><th colSpan="2" className="table-head column-left">{product1.name}</th><th colSpan="2" className="table-head column-right">{productToCompare.name}</th></tr>
     </thead>
     <tbody>
-      {features.map((feature, i) => {
+      {Object.keys(featureData).map((feature, i) => {
         if (feature !== '_id') {
           return <tr key={i}><td className="column-left">{featureData[feature].product1 || '--'}</td><td colSpan="2" className="column-center">{feature}</td><td className="column-right">{featureData[feature].product2 || '--'}</td></tr>
         } else {
