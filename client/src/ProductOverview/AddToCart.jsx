@@ -24,6 +24,7 @@ class AddToCart extends React.Component {
     this.props.get('/cart')
       .then(data => {
         console.log('cart get data: ', data)
+        console.log('cart state: ', this.state.cart)
       });
   }
 
