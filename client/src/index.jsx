@@ -1,5 +1,5 @@
 import React from 'react';
-//import './index.css';
+import './index.css';
 import ReactDOM from 'react-dom';
 import ReviewContainer from './RatingsReviews/index.jsx';
 import Product from './ProductOverview/Product.jsx';
@@ -15,8 +15,9 @@ class App extends React.Component {
     this.state = {
       product: {},
       outfits: [],
+      isBlurred: false
       productToCompare: {},
-      endpoint: '71698'
+      endpoint: '71698
     };
     this.cache = new Cache(600000);
 
@@ -24,6 +25,7 @@ class App extends React.Component {
     this.get = this.get.bind(this);
     this.post = this.post.bind(this);
     this.put = this.put.bind(this);
+    this.setIsBlurred = this.setIsBlurred.bind(this);
   }
 
   componentDidMount() {
@@ -71,16 +73,24 @@ class App extends React.Component {
       }));
   };
 
+  setIsBlurred(isBlurred) {
+    this.setState({ isBlurred: !!isBlurred });
+  }
 
   render() {
+    const containerClass = 'app'.concat(this.state.isBlurred ? ' is-blurred' : '');
+    return (<>
+      <div className={containerClass}>
+        <Product get={this.get} post={this.post} outfits={this.state.outfits} />
+        <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} />
     return (
       <div>
         <Product get={this.get} post={this.post} outfits={this.state.outfits} product={this.state.product} url={this.state.url}/>
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} handleClickToCompare={this.handleClickToCompare} />
         <ReviewContainer get={this.get} product={this.state.product} />
-        <FeatureModal product1={this.state.product} get={this.get} />
       </div>
-    )
+      <FeatureModal product1={this.state.product} setIsBlurred={this.setIsBlurred} get={this.get} />
+    </>)
   }
 
 }

@@ -1,8 +1,14 @@
 
 .modal {
-  background-color: cadetblue;
+  display: block;
+  z-index: 9999;
   width: auto;
   min-width: 320px;
+  margin: auto;
+  border-radius: 6px;
+  -webkit-transition: 0.5s;
+  overflow: auto;
+  transition: all 0.3s linear;
 }
 
 .modal-table {
@@ -28,8 +34,4 @@
 
 .display-initial {
   display: initial;
-}
-
-thead {
-  border-bottom: 2px;
 }

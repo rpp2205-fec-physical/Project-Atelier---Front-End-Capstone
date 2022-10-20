@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from './ProductCard.jsx';
 import './Carousel.css';
 
-const getDefaultStyle = (styles) => {
+function getDefaultStyle(styles) {
   for (let style of styles.results) {
     if (style['default?']) {
       return style;
@@ -11,14 +11,26 @@ const getDefaultStyle = (styles) => {
   return styles.results[0];
 };
 
-export default function Carousel({ mainProduct, items, styles, reviewsMeta, handleClickToCompare }) {
+function handleResize(e) {
+  console.log('HANDLE RESIZE');
+}
+
+export default function Carousel({ mainProduct, items, styles, reviewsMeta }) {
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  });
+
   if ( !mainProduct || !items || !styles || !reviewsMeta) {
     return null;
   } else {
     return <div className='carousel-container'>
       {items.map((item, i) => (
         <div key={i} className='carousel-item'>
-          <Card mainProduct={mainProduct} item={item} style={getDefaultStyle(styles[i])} reviewsMeta={reviewsMeta[i]} handleClickToCompare={handleClickToCompare} />
+          <Card mainProduct={mainProduct} item={item} style={getDefaultStyle(styles[i])} reviewsMeta={reviewsMeta[i]} />
         </div>
       ))}
     </div>
