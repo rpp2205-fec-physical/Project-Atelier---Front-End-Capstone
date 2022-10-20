@@ -19,28 +19,13 @@ function stars(reviewsMeta) {
   }
 }
 
+export default function Card({ mainProduct, item, style, reviewsMeta }) {
 
-export default function Card({ mainProduct, item, style, reviewsMeta, handleClickToCompare }) {
-  const [showModal, setShowModal] = useState(false);
-  const cardRef = useRef();
-
-  const handleProductClick = () => {
-    console.log('HANDLE CLICK, ', typeof handleClickToCompare);
-    handleClickToCompare(item);
-    if (showModal) {
-      setShowModal(false);
-    } else {
-      setShowModal(true);
-    }
-  }
-
-  return <><div data-id={item.id} className='card' ref={cardRef}>
+  return <div data-id={item.id} className='card' >
     <img className='card-img' src={style.photos[0].thumbnail_url} />
     <h5>{item.category}</h5>
     <h4>{item.name}</h4>
     {price(item, style)}
     {stars(reviewsMeta)}
   </div>
-  {/* {showModal ? <FeatureModal handleClose={handleToggleModal} show={true} product1={mainProduct} product2={item} /> : null} */}
-  </>
 }
