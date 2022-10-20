@@ -20,9 +20,7 @@ export default class RelatedAndOutfit extends React.Component {
       loaded: false,
       outfitHidden: true
     };
-    //this.oldSetState = this.setState;
-    //this.setState = state => new Promise(resolve => this.oldSetState(state, resolve));
-    //this.setState = this.setState.bind(this);
+
     this.loadAllProductData = this.loadAllProductData.bind(this);
   }
 
@@ -108,12 +106,12 @@ export default class RelatedAndOutfit extends React.Component {
       return <div>
         <div>
           <h4>Related Products</h4>
-          <Carousel mainProduct={this.props.product} items={this.state.relatedInfo} styles={this.state.relatedStyles} reviewsMeta={this.state.relatedReviewsMeta} handleClickToCompare={this.props.handleClickToCompare} />
+          <Carousel mainProduct={this.props.product} items={this.state.relatedInfo} styles={this.state.relatedStyles} reviewsMeta={this.state.relatedReviewsMeta} />
         </div>
         {this.state.outfitHidden ? null : (
           <div>
             <h4>Your Outfit</h4>
-            <Carousel mainProduct={this.props.product} items={this.state.outfitInfo} styles={this.state.outfitStyles} reviewsMeta={this.state.outfitReviewsMeta} handleClickToCompare={this.props.handleClickToCompare} />
+            <Carousel mainProduct={this.props.product} items={this.state.outfitInfo} styles={this.state.outfitStyles} reviewsMeta={this.state.outfitReviewsMeta} />
           </div>
         )}
       </div>

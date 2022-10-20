@@ -1,10 +1,9 @@
 import React from 'react';
-//import './index.css';
+import './index.css';
 import ReactDOM from 'react-dom';
 import ReviewContainer from './RatingsReviews/index.jsx';
 import Product from './ProductOverview/Product.jsx';
 import RelatedAndOutfit from './RelatedAndOutfit/index.jsx';
-import $ from 'jquery';
 import axios from 'axios';
 const Cache = require('../../util/cache.js');
 import FeatureModal from './RelatedAndOutfit/FeatureModal.jsx';
@@ -15,8 +14,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       product: {},
-      outfits: [],
-      productToCompare: {}
+      outfit: [],
+      isBlurred: false,
+      productToCompare: {},
+      endpoint: '71698'
     };
     this.cache = new Cache(600000);
 
@@ -24,6 +25,7 @@ class App extends React.Component {
     this.get = this.get.bind(this);
     this.post = this.post.bind(this);
     this.put = this.put.bind(this);
+    this.setIsBlurred = this.setIsBlurred.bind(this);
   }
 
   componentDidMount() {
@@ -57,28 +59,34 @@ class App extends React.Component {
   }
 
   initialize() {
+    return Promise.resolve(
     this.get('/products')
       .then(products => {
         const i = Math.floor(Math.random() * products.length);
         const url = '/products/' + products[i].id;
+        const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
+        asyncSetState({endoint: products[i].id});
         return this.get(url);
       })
       .then(info => {
         this.setState({ product: info });
-      });
+      }));
   };
 
+  setIsBlurred(isBlurred) {
+    this.setState({ isBlurred: !!isBlurred });
+  }
 
   render() {
-    return (
-      <div>
-        <Product get={this.get} post={this.post} outfits={this.state.outfits} />
-        <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} handleClickToCompare={this.handleClickToCompare} />
-        {/* <ReviewContainer get={this.get} product={this.state.product} /> */}
-        <FeatureModal product1={this.state.product} get={this.get} />
-        <OutfitToggle />
+    const containerClass = 'app'.concat(this.state.isBlurred ? ' is-blurred' : '');
+    return (<>
+      <div className={containerClass}>
+        <Product get={this.get} post={this.post} outfits={this.state.outfits} product={this.state.product} endpoint={this.state.endpoint}/>
+        <RelatedAndOutfit product={this.state.product} outfit={this.state.outfit} get={this.get} />
+        <ReviewContainer get={this.get} product={this.state.product} />
       </div>
-    )
+      <FeatureModal product1={this.state.product} setIsBlurred={this.setIsBlurred} get={this.get} />
+    </>)
   }
 
 }
