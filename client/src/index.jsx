@@ -16,6 +16,8 @@ class App extends React.Component {
       product: {},
       outfits: [],
       isBlurred: false
+      productToCompare: {},
+      endpoint: '71698
     };
     this.cache = new Cache(600000);
 
@@ -57,15 +59,18 @@ class App extends React.Component {
   }
 
   initialize() {
+    return Promise.resolve(
     this.get('/products')
       .then(products => {
         const i = Math.floor(Math.random() * products.length);
         const url = '/products/' + products[i].id;
+        const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
+        asyncSetState({endoint: products[i].id});
         return this.get(url);
       })
       .then(info => {
         this.setState({ product: info });
-      });
+      }));
   };
 
   setIsBlurred(isBlurred) {
@@ -78,6 +83,10 @@ class App extends React.Component {
       <div className={containerClass}>
         <Product get={this.get} post={this.post} outfits={this.state.outfits} />
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} />
+    return (
+      <div>
+        <Product get={this.get} post={this.post} outfits={this.state.outfits} product={this.state.product} url={this.state.url}/>
+        <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} handleClickToCompare={this.handleClickToCompare} />
         <ReviewContainer get={this.get} product={this.state.product} />
       </div>
       <FeatureModal product1={this.state.product} setIsBlurred={this.setIsBlurred} get={this.get} />
