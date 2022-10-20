@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import ReviewContainer from './RatingsReviews/index.jsx';
 import Product from './ProductOverview/Product.jsx';
 import RelatedAndOutfit from './RelatedAndOutfit/index.jsx';
-import $ from 'jquery';
 import axios from 'axios';
 const Cache = require('../../util/cache.js');
 import FeatureModal from './RelatedAndOutfit/FeatureModal.jsx';
@@ -14,10 +13,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       product: {},
-      outfits: [],
-      isBlurred: false
+      outfit: [],
+      isBlurred: false,
       productToCompare: {},
-      endpoint: '71698
+      endpoint: '71698'
     };
     this.cache = new Cache(600000);
 
@@ -81,12 +80,8 @@ class App extends React.Component {
     const containerClass = 'app'.concat(this.state.isBlurred ? ' is-blurred' : '');
     return (<>
       <div className={containerClass}>
-        <Product get={this.get} post={this.post} outfits={this.state.outfits} />
-        <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} />
-    return (
-      <div>
-        <Product get={this.get} post={this.post} outfits={this.state.outfits} product={this.state.product} url={this.state.url}/>
-        <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} handleClickToCompare={this.handleClickToCompare} />
+        <Product get={this.get} post={this.post} outfits={this.state.outfits} product={this.state.product} endpoint={this.state.endpoint}/>
+        {/* <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} /> */}
         <ReviewContainer get={this.get} product={this.state.product} />
       </div>
       <FeatureModal product1={this.state.product} setIsBlurred={this.setIsBlurred} get={this.get} />

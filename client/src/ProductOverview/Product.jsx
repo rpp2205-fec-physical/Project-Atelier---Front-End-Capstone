@@ -10,6 +10,7 @@ import './product.css';
 class Product extends React.Component {
   constructor(props) {
     super(props);
+    this.props = props;
     this.state = {
       products: [],
       styles: {},
@@ -32,7 +33,7 @@ class Product extends React.Component {
 
 
   initialize() {
-    if (Object.keys(this.props.product).length) {
+    if (this.props.product.id && Object.keys(this.props.product).length) {
       return Promise.resolve(
         this.props.get('/products')
         .then(data => {
