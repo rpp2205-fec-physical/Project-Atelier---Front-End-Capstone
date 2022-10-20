@@ -8,6 +8,7 @@ import $ from 'jquery';
 import axios from 'axios';
 const Cache = require('../../util/cache.js');
 import FeatureModal from './RelatedAndOutfit/FeatureModal.jsx';
+import OutfitToggle from './components/OutfitToggle.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -73,8 +74,9 @@ class App extends React.Component {
       <div>
         <Product get={this.get} post={this.post} outfits={this.state.outfits} />
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfits} get={this.get} handleClickToCompare={this.handleClickToCompare} />
-        <ReviewContainer get={this.get} product={this.state.product} />
+        {/* <ReviewContainer get={this.get} product={this.state.product} /> */}
         <FeatureModal product1={this.state.product} get={this.get} />
+        <OutfitToggle />
       </div>
     )
   }
