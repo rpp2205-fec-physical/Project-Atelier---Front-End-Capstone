@@ -5,6 +5,7 @@ import React from 'react';
 class AddToCart extends React.Component {
   constructor(props) {
     super(props);
+    this.props = props;
     this.state = {
       sku: 0,
       size: 'S',
