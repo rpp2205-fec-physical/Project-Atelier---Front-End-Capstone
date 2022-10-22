@@ -57,7 +57,6 @@ class Product extends React.Component {
   }
 
   stars(reviews) {
-    console.log('stars reviews: ', reviews)
     if (reviews.ratings.ratings) {
       return <Stars ratings={reviews.ratings.ratings} />;
     } else {
@@ -82,10 +81,8 @@ class Product extends React.Component {
             });
             this.props.get('/reviews/meta?product_id=' + data[0].id)
               .then(reviews => {
-                console.log('reviews data: ', reviews);
                 const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
                 asyncSetState({ratings: reviews});
-                console.log('async ratings', this.state.ratings)
               })
           })
       })

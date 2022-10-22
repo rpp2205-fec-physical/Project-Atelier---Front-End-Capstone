@@ -52,7 +52,7 @@ class ImageGallery extends React.Component {
       return (
         <div className="carousel">
           <Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
-          <ImageSlide url={ imgUrls[this.state.currentImageIndex] } />
+          <ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
           <Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
         </div>
       );
