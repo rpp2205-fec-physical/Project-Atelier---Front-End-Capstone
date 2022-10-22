@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Stars from '../components/Stars.jsx';
 import FeatureModal from './FeatureModal.jsx';
+import OutfitToggle from '../components/OutfitToggle.jsx';
 
 function price(item, style) {
   const price = item.default_price || style.original_price;
@@ -27,5 +28,6 @@ export default function Card({ mainProduct, item, style, reviewsMeta }) {
     <h4>{item.name}</h4>
     {price(item, style)}
     {stars(reviewsMeta)}
+    {/* <OutfitToggle productId={mainProduct.id} /> */}
   </div>
 }

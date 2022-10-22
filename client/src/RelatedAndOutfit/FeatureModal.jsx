@@ -68,9 +68,11 @@ function getProductCardElement(e) {
   }
 }
 
-function placeModal(cardNode, setPosition) {
-  const top = Math.floor(cardNode.offsetTop + (2 * (cardNode.offsetHeight / 3))) - 10;
+function placeModal(cardNode, modalRef, setPosition) {
+  // console.log('CARD NODE', {cardNode}, modalRef);
+  const top = Math.floor(cardNode.offsetTop + (2 * (cardNode.offsetHeight / 3)));
   const left = Math.floor(cardNode.offsetLeft);
+
 
   setPosition({top, left});
 }
@@ -99,8 +101,8 @@ export default function FeatureModal({ product1, setIsBlurred, get }) {
       get('/products/'.concat(productId))
         .then((data) => {
           setIsBlurred(true);
-          placeModal(cardElement, setPosition);
           setProductToCompare(data);
+          placeModal(cardElement, modalRef, setPosition);
           setIsHidden(false);
         });
     } else if (!isHidden && clickedOutside(e)) {
@@ -126,13 +128,18 @@ export default function FeatureModal({ product1, setIsBlurred, get }) {
   //console.log('GOT FEATURES', features);
   const tableClass = 'modal-table ' + (isHidden ? 'display-none' : 'display-table');
   const styles = {
-    position: 'fixed',
+    position: 'absolute',
     top: position.top.toString().concat('px'),
     left: position.left.toString().concat('px'),
     opacity: '85%',
-    backgroundColor: 'lightgrey',
+    backgroundColor: 'rgba(180, 180, 180, 0.55)',
+    backdropFilter: 'blur(10px)',
     width: 'auto',
-    minWidth: '320px'
+    minWidth: '320px',
+    borderRadius: '0.5rem',
+    border: '1px',
+    borderStyle: 'groove',
+    borderColor: 'black'
   }
 
   return <div className="modal" style={styles} ref={modalRef}><table className={tableClass}>
