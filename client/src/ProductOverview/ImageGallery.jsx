@@ -1,5 +1,6 @@
 import React from 'react';
 import './product.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 class ImageGallery extends React.Component {
@@ -53,6 +54,7 @@ class ImageGallery extends React.Component {
         <div className="carousel">
           <Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
           <ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
+          <i className="fa-solid fa-expand"></i>
           <Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
         </div>
       );
