@@ -1,6 +1,6 @@
 import React from 'react';
 import './product.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {ExpandOutlined} from '@ant-design/icons';
 
 
 class ImageGallery extends React.Component {
@@ -44,6 +44,26 @@ class ImageGallery extends React.Component {
 		});
 	}
 
+  Arrow ({ direction, clickFunction, glyph }) {
+   return( <div
+      className={ `slide-arrow ${direction}` }
+      onClick={ clickFunction }>
+      { glyph }
+    </div>
+  )}
+
+  ImageSlide({ url }) {
+    const styles = {
+      backgroundImage: `url(${url})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    };
+
+    return (
+      <div className="image-slide" style={styles}></div>
+    );
+  }
+
 	render () {
     if (this.props.Photos.length) {
       const imgUrls =
@@ -52,10 +72,10 @@ class ImageGallery extends React.Component {
       })
       return (
         <div className="carousel">
-          <Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
-          <ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
-          <i className="fa-solid fa-expand"></i>
-          <Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
+          <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
+          <this.ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
+          <ExpandOutlined />
+          <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
         </div>
       );
     } else {
@@ -67,27 +87,6 @@ class ImageGallery extends React.Component {
     }
 	}
 }
-
-const Arrow = ({ direction, clickFunction, glyph }) => (
-	<div
-		className={ `slide-arrow ${direction}` }
-		onClick={ clickFunction }>
-		{ glyph }
-	</div>
-);
-
-const ImageSlide = ({ url }) => {
-  const styles = {
-    backgroundImage: `url(${url})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center'
-  };
-
-  return (
-    <div className="image-slide" style={styles}></div>
-  );
-}
-
 
 
 export default ImageGallery;
