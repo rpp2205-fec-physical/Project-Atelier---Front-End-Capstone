@@ -28,6 +28,6 @@ export default function Card({ mainProduct, item, style, reviewsMeta }) {
     <h4>{item.name}</h4>
     {price(item, style)}
     {stars(reviewsMeta)}
-    <OutfitToggle productId={mainProduct.id} />
+    {/* <OutfitToggle productId={mainProduct.id} /> */}
   </div>
 }

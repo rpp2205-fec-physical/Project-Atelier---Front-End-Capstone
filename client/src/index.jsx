@@ -66,11 +66,11 @@ class App extends React.Component {
         return this.get(url);
       })
       .then(mainProduct => {
-        console.log('INIT MAIN PRODUCT', mainProduct);
+        // console.log('INIT MAIN PRODUCT', mainProduct);
         newState.product = mainProduct;
       })
       .then(() => {
-        console.log('SETTING NEW STATE', newState);
+        // console.log('SETTING NEW STATE', newState);
         this.setState(newState);
       });
   };
@@ -88,7 +88,6 @@ class App extends React.Component {
         {/* <ReviewContainer get={this.get} product={this.state.product} /> */}
       </div>
       <FeatureModal product1={this.state.product} setIsBlurred={this.setIsBlurred} get={this.get} />
-      <OutfitToggle productId={this.state.product.id} />
     </>)
   }
 

@@ -26,7 +26,6 @@ export default class RelatedAndOutfit extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('DID UPDATE', this.props.product);
     if (!this.state.loaded && this.state.productId) {
       this.loadAllProductData();
 

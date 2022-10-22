@@ -69,7 +69,7 @@ function getProductCardElement(e) {
 }
 
 function placeModal(cardNode, modalRef, setPosition) {
-  console.log('CARD NODE', {cardNode}, modalRef);
+  // console.log('CARD NODE', {cardNode}, modalRef);
   const top = Math.floor(cardNode.offsetTop + (2 * (cardNode.offsetHeight / 3)));
   const left = Math.floor(cardNode.offsetLeft);
 

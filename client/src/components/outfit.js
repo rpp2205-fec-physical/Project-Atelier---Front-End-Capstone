@@ -12,7 +12,7 @@ module.exports.get = () => {
     console.log(e);
     outfit = null;
   }
-  console.log('---> GOT OUTFIT', outfit);
+  // console.log('---> GOT OUTFIT', outfit);
   return outfit;
 }
 
