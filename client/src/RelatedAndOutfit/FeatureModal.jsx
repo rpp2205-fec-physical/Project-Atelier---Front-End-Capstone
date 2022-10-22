@@ -132,12 +132,13 @@ export default function FeatureModal({ product1, setIsBlurred, get }) {
     top: position.top.toString().concat('px'),
     left: position.left.toString().concat('px'),
     opacity: '85%',
-    backgroundColor: 'lightgrey',
+    backgroundColor: 'rgba(180, 180, 180, 0.55)',
+    backdropFilter: 'blur(10px)',
     width: 'auto',
     minWidth: '320px',
     borderRadius: '0.5rem',
     border: '1px',
-    borderStyle: 'solid',
+    borderStyle: 'groove',
     borderColor: 'black'
   }
 
