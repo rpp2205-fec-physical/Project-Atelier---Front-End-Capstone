@@ -4,7 +4,8 @@ import './product.css';
 class Styles extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.props = props;
+    this.state = {style: 'Forest Green & Black'};
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -13,12 +14,12 @@ class Styles extends React.Component {
     let id = e.target.getAttribute('data');
     for (let i = 0; i < this.props.Style.results.length; i++) {
       if (this.props.Style.results[i].style_id.toString() === id.toString()) {
-        // console.log('success');
+        this.setState({style: this.props.Style.results[i].name})
         this.props.childToParent(this.props.Style.results[i]);
       }
-
     }
   }
+
 
   render() {
     if (this.props.Style) {
@@ -26,10 +27,10 @@ class Styles extends React.Component {
 
         return (
           <div>
-            <h4>Styles</h4>
+            <h4>Styles > {this.state.style}</h4>
             {this.props.Style.results.map(style => {
-            return <img src={style.photos[0].thumbnail_url} key={style.style_id} data={style.style_id} className="style" onClick={this.handleClick}></img>;
-          })}
+              return <img src={style.photos[0].thumbnail_url} key={style.style_id} data={style.style_id} className="style" onClick={this.handleClick} alt={style.name}></img>;
+            })}
           </div>
         )
       } else {
