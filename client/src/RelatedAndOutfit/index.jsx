@@ -2,10 +2,11 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Carousel from './Carousel.jsx';
 
+const outfit = require('../components/outfit.js');
 export default class RelatedAndOutfit extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
+    //this.props = props;
 
     this.state = {
       productId: null,
@@ -13,7 +14,7 @@ export default class RelatedAndOutfit extends React.Component {
       relatedInfo: [],
       relatedStyles: [],
       relatedReviewsMeta: [],
-      outfitIDs: props.outfit,
+      outfit: outfit.get(),
       outfitInfo: [],
       outfitStyles: [],
       outfitReviewsMeta: [],
@@ -25,24 +26,22 @@ export default class RelatedAndOutfit extends React.Component {
   }
 
   componentDidUpdate() {
+    console.log('DID UPDATE', this.props.product);
     if (!this.state.loaded && this.state.productId) {
       this.loadAllProductData();
+
     } else if (this.props.product.id && this.props.product.id !== this.state.productId) {
-      console.log('RelatedAndOutfit: UPDATED RELATED');
       this.setState({
         productId: this.props.product.id,
         loaded: false
-      })
-      // .catch(err => {
-      //   console.log('SETSTATE ERROR: ', err);
-      // });
-    } else if (this.props.outfit.length !== this.state.outfitIDs.length) {
-      console.log('RelatedAndOutfit: UPDATED OUTFIT');
+      }, () => { console.log('RelatedAndOutfit: UPDATING PRODUCT') })
+
+    } else if (outfit.updated) {
+      outfit.resetUpdated();
       this.setState({
-        outfitIDs: this.props.outfit,
         loaded: false,
-        outfitHidden: this.props.outfit.length ? false : true
-      });
+        outfitHidden: false
+      }, () => { console.log('RelatedAndOutfit: UPDATING OUTFIT') });
     }
   }
 
@@ -67,15 +66,15 @@ export default class RelatedAndOutfit extends React.Component {
       })
       .then(relatedReviewsMeta => {
         newState.relatedReviewsMeta = relatedReviewsMeta;
-        return Promise.all(this.state.outfitIDs.map(id => get('/products/' + id)));
+        return Promise.all(this.state.outfit.map(id => get('/products/' + id)));
       })
       .then(outfitInfo => {
         newState.outfitInfo = outfitInfo;
-        return Promise.all(this.state.outfitIDs.map(id => get('/products/' + id + '/styles')));
+        return Promise.all(this.state.outfit.map(id => get('/products/' + id + '/styles')));
       })
       .then(outfitStyles => {
         newState.outfitStyles = outfitStyles;
-        return Promise.all(this.state.outfitIDs.map(id => get('/reviews/meta?product_id=' + id)));
+        return Promise.all(this.state.outfit.map(id => get('/reviews/meta?product_id=' + id)));
       })
       .then(outfitReviewsMeta => {
         newState.outfitReviewsMeta = outfitReviewsMeta;

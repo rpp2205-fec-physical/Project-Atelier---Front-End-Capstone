@@ -14,9 +14,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       product: {},
-      outfit: [],
       isBlurred: false,
-      productToCompare: {},
       endpoint: '71698'
     };
     this.cache = new Cache(600000);
@@ -59,18 +57,22 @@ class App extends React.Component {
   }
 
   initialize() {
-    return Promise.resolve(
+    const newState = {};
     this.get('/products')
       .then(products => {
         const i = Math.floor(Math.random() * products.length);
         const url = '/products/' + products[i].id;
-        const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
-        asyncSetState({endoint: products[i].id});
+        newState.endoint = products[i].id;
         return this.get(url);
       })
-      .then(info => {
-        this.setState({ product: info });
-      }));
+      .then(mainProduct => {
+        console.log('INIT MAIN PRODUCT', mainProduct);
+        newState.product = mainProduct;
+      })
+      .then(() => {
+        console.log('SETTING NEW STATE', newState);
+        this.setState(newState);
+      });
   };
 
   setIsBlurred(isBlurred) {
@@ -81,11 +83,12 @@ class App extends React.Component {
     const containerClass = 'app'.concat(this.state.isBlurred ? ' is-blurred' : '');
     return (<>
       <div className={containerClass}>
-        <Product get={this.get} post={this.post} outfits={this.state.outfits} product={this.state.product} endpoint={this.state.endpoint}/>
+        <Product get={this.get} post={this.post} /* this prop is no longer needed>>>*/ outfits={{}} product={this.state.product} endpoint={this.state.endpoint} />
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfit} get={this.get} />
         <ReviewContainer get={this.get} product={this.state.product} />
       </div>
       <FeatureModal product1={this.state.product} setIsBlurred={this.setIsBlurred} get={this.get} />
+      <OutfitToggle productId={this.state.product.id} />
     </>)
   }
 
