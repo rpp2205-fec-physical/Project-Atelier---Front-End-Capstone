@@ -35,7 +35,7 @@ class AddToCart extends React.Component {
     e.preventDefault();
     let cartObj = {sku_id: this.state.sku};
     const i = this.state.cart.map(item => item.sku_id).indexOf(this.state.sku);
-    console.log(i);
+    console.log('item i', i);
     if (i < 0) {
       this.state.cart.push({sku_id: this.state.sku, count: this.state.count});
     } else {
@@ -68,7 +68,7 @@ class AddToCart extends React.Component {
   handleQuantity() {
     if (this.state.quantity > 0) {
       let result = [];
-      for (let i = 2; i <= this.state.quantity; i++) {
+      for (let i = 1; i <= this.state.quantity; i++) {
         result.push(i);
       }
       return result;
@@ -81,15 +81,16 @@ class AddToCart extends React.Component {
     if (this.props.skus) {
       return (
         <div>
-          <label htmlFor="sizes">Select Size</label>
+          <label htmlFor="sizes"></label>
           <select onChange={this.handleSize} name="sizes" className="sizes">
+          <option selected disabled>Select Size</option>
             {Object.keys(this.props.skus).map(sku => {
               return <option key={sku} data={this.props.skus[sku].quantity} id={sku} >{this.props.skus[sku].size}</option>
             })}
           </select>
-          <label htmlFor="quantity">Select Quantity</label>
+          <label htmlFor="quantity"></label>
           <select onChange={this.handleQuantity} name="quantity" className="quantity">
-            <option key="1">1</option>
+          <option selected disabled>Select Quantity</option>
             {this.state.quantity > 0 && this.handleQuantity().map(val => {
               return <option key={val} count={val}>{val}</option>
             })}
