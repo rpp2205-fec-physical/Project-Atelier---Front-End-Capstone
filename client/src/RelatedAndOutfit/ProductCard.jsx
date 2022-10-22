@@ -22,7 +22,7 @@ function stars(reviewsMeta) {
 export default function Card({ mainProduct, item, style, reviewsMeta }) {
 
   return <div data-id={item.id} className='card' >
-    <img className='card-img' src={style.photos[0].thumbnail_url} />
+    <img className='card-img' src={style.photos[0].thumbnail_url} alt={item.name}/>
     <h5>{item.category}</h5>
     <h4>{item.name}</h4>
     {price(item, style)}

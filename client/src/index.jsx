@@ -82,7 +82,7 @@ class App extends React.Component {
       <div className={containerClass}>
         <Product get={this.get} post={this.post} outfits={this.state.outfits} product={this.state.product} endpoint={this.state.endpoint}/>
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfit} get={this.get} />
-        <ReviewContainer get={this.get} product={this.state.product} />
+        {/* <ReviewContainer get={this.get} product={this.state.product} /> */}
       </div>
       <FeatureModal product1={this.state.product} setIsBlurred={this.setIsBlurred} get={this.get} />
     </>)

@@ -79,7 +79,7 @@ const Stars = (props) => {
   return (
     <span className="rating">
       {props.showNumeric ? <div>{rating.toFixed(1)}</div> : null}
-      {renderStars(numStars).map((src, i) => <img key={i} className="star" src={src} height={height} />)}
+      {renderStars(numStars).map((src, i) => <img key={i} className="star" src={src} height={height} alt="star"/>)}
     </span>
   );
 };
