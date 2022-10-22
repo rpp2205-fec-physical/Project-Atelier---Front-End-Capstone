@@ -20,7 +20,11 @@
 
 .card {
   width: 12rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+  padding: 0.2rem;
   align-items: center;
   max-height: 100%;
   height: 100%;
@@ -33,7 +37,7 @@
   display: block;
   max-height: 60%;
   height: 60%;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   min-width: 100%;
   width: 100%;
   object-fit: cover;
