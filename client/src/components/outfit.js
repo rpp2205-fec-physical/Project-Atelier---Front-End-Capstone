@@ -7,6 +7,7 @@ module.exports.get = () => {
   try {
     outfit = window.localStorage.outfit || [];
     if (typeof outfit === 'string' || outfit instanceof String) {
+      // console.log('PRE PARSE', outfit);
       outfit = JSON.parse(outfit);
     }
   }
