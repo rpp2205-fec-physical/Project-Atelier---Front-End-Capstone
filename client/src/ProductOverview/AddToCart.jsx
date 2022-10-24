@@ -1,6 +1,6 @@
 import React from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { fa-solid fa-person-circle-plus } from '@fortawesome/free-solid-svg-icons';
+import './product.css';
+import {StarOutlined} from '@ant-design/icons';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -96,6 +96,7 @@ class AddToCart extends React.Component {
             })}
           </select>
           <button onClick={this.addToCart}>Add To Cart</button>
+          <StarOutlined className="outfit"/>
           {/* <FontAwesomeIcon icon="fa-solid fa-person-circle-plus" /> */}
           {/* <FontAwesomeIcon icon="fa-solid fa-circle-x" /> */}
         </div>

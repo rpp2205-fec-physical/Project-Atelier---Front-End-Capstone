@@ -8,10 +8,12 @@ class ImageGallery extends React.Component {
 		super(props);
     this.props = props;
 		this.state = {
-			currentImageIndex: 0
+			currentImageIndex: 0,
+      expanded: false
 		};
 		this.nextSlide = this.nextSlide.bind(this);
 		this.previousSlide = this.previousSlide.bind(this);
+    this.expand = this.expand.bind(this);
 	}
 
 	previousSlide () {
@@ -44,6 +46,32 @@ class ImageGallery extends React.Component {
 		});
 	}
 
+  expand () {
+    // const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+    //   const styles1 = {
+    //     backgroundSize: 'cover',
+    //     backgroundPosition: 'center',
+    //     width: '100%'
+    //   };
+    //   const styles2 = {
+    //     backgroundSize: 'cover',
+    //     backgroundPosition: 'center',
+    //     width: '200%'
+    //   };
+    //   if (this.state.expanded) {
+    //     return (
+    //       <div className="image-slide" style={styles1} ></div>
+    //     )
+    //   } else {
+    //     return (
+    //       <div className="image-slide-expand" style={styles2} ></div>
+    //     )
+    //   }
+    // });
+    this.setState({expanded: !this.state.expanded})
+    console.log('clicked: ', this.state.expanded);
+  }
+
   Arrow ({ direction, clickFunction, glyph }) {
    return( <div
       className={ `slide-arrow ${direction}` }
@@ -52,15 +80,25 @@ class ImageGallery extends React.Component {
     </div>
   )}
 
-  ImageSlide({ url }) {
+  ImageSlide( {url} ) {
     const styles = {
       backgroundImage: `url(${url})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     };
-
     return (
       <div className="image-slide" style={styles}></div>
+    );
+  }
+
+  ImageSlideExpanded( {url} ) {
+    const styles = {
+      backgroundImage: `url(${url})`,
+      // backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    };
+    return (
+      <div className="image-slide-expand" style={styles}></div>
     );
   }
 
@@ -70,14 +108,26 @@ class ImageGallery extends React.Component {
       this.props.Photos.map(photo => {
         return photo.url;
       })
-      return (
-        <div className="carousel">
-          <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
-          <this.ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
-          <ExpandOutlined />
-          <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
-        </div>
-      );
+      console.log(this.state)
+      if (this.state.expanded) {
+        return (
+          <div className="carousel">
+            <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
+            <this.ImageSlideExpanded url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
+            <ExpandOutlined className="expand" onClick={this.expand}/>
+            <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
+          </div>
+        );
+      } else {
+        return (
+          <div className="carousel">
+            <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
+            <this.ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
+            <ExpandOutlined className="expand" onClick={this.expand}/>
+            <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
+          </div>
+        );
+      }
     } else {
       return (
         <div>
