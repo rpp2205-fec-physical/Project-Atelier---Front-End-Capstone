@@ -47,29 +47,7 @@ class ImageGallery extends React.Component {
 	}
 
   expand () {
-    // const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
-    //   const styles1 = {
-    //     backgroundSize: 'cover',
-    //     backgroundPosition: 'center',
-    //     width: '100%'
-    //   };
-    //   const styles2 = {
-    //     backgroundSize: 'cover',
-    //     backgroundPosition: 'center',
-    //     width: '200%'
-    //   };
-    //   if (this.state.expanded) {
-    //     return (
-    //       <div className="image-slide" style={styles1} ></div>
-    //     )
-    //   } else {
-    //     return (
-    //       <div className="image-slide-expand" style={styles2} ></div>
-    //     )
-    //   }
-    // });
     this.setState({expanded: !this.state.expanded})
-    console.log('clicked: ', this.state.expanded);
   }
 
   Arrow ({ direction, clickFunction, glyph }) {
@@ -108,7 +86,6 @@ class ImageGallery extends React.Component {
       this.props.Photos.map(photo => {
         return photo.url;
       })
-      console.log(this.state)
       if (this.state.expanded) {
         return (
           <div className="carousel">
