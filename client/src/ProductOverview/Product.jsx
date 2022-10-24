@@ -47,11 +47,29 @@ class Product extends React.Component {
 
   clickAnalytics() {
     document.getElementById("productOverview").addEventListener("click", (e) => {
-      console.log(e);
+      function stringifyObj(object, depth=0, max_depth=2) {
+        if (depth > max_depth)
+            return 'Object';
+        const obj = {};
+        for (let key in object) {
+            let value = object[key];
+            if (value instanceof Node)
+                value = {id: value.id};
+            else if (value instanceof Window)
+                value = 'Window';
+            else if (value instanceof Object)
+                value = stringifyObj(value, depth+1, max_depth);
+
+            obj[key] = value;
+        }
+
+        return depth? obj: JSON.stringify(obj);
+    }
       let date = new Date();
-      let currentEvent = {elementClicked: e.target, timeClicked: date, moduleClicked: 'Product Overview'};
+      console.log(stringifyObj(e.target, 2).outerHTML);
+      let currentEvent = {element: stringifyObj(e.target, 2).outerHTML, widget: 'Product Overview', time: date};
+      this.props.post('/interactions', currentEvent).then(postData => {console.log(postData)})
       this.state.clickAnalytics.push(currentEvent);
-      console.log(this.state.clickAnalytics);
     });
   }
 
