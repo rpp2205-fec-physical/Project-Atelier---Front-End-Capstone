@@ -1,7 +1,8 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
-import Carousel from './Carousel.jsx';
-const outfit = require('../components/outfit.js');
+import React from "react";
+import Carousel from "./Carousel.jsx";
+const outfit = require("../components/outfit.js");
+import { TriggerOutfitLoadContext } from "../contexts/TriggerOutfitLoad";
+
 export default class RelatedAndOutfit extends React.Component {
   constructor(props) {
     super(props);
@@ -16,37 +17,64 @@ export default class RelatedAndOutfit extends React.Component {
       outfitInfo: [],
       outfitStyles: [],
       outfitReviewsMeta: [],
-      loaded: false,
-      outfitHidden: true
+      loadedRelated: true,
+      loadedOutfit: false,
     };
 
     this.loadAllProductData = this.loadAllProductData.bind(this);
+    this.throttlePromisified = this.throttlePromisified.bind(this);
+    this.loadRelated = this.throttlePromisified(this, this.loadRelated);
+    this.loadOutfit = this.throttlePromisified(this, this.loadOutfit);
     this.getRelatedProductData = this.getRelatedProductData.bind(this);
     this.getOutfitProductData = this.getOutfitProductData.bind(this);
+    this.triggerOutfitLoad = this.triggerOutfitLoad.bind(this);
   }
 
   componentDidUpdate() {
-    if (!this.state.loaded && this.state.productId) {
-      this.loadAllProductData();
-
-    } else if (this.props.product.id && this.props.product.id !== this.state.productId) {
-      this.setState({
-        productId: this.props.product.id,
-        loaded: false
-      }, () => { console.log('RelatedAndOutfit: UPDATING PRODUCT') })
-
+    console.log("DID UPDATE");
+    if (!this.state.loadedRelated) {
+      this.loadRelated();
+    } else if (!this.state.loadedOutfit) {
+      this.loadOutfit();
+    } else if (
+      this.props.product.id &&
+      this.props.product.id !== this.state.productId
+    ) {
+      this.setState(
+        {
+          productId: this.props.product.id,
+          loadedRelated: false,
+        },
+        () => {
+          console.log("RelatedAndOutfit: UPDATING RELATED");
+        }
+      );
     } else if (outfit.updated) {
       outfit.resetUpdated();
-      this.setState({
-        loaded: false,
-        outfitHidden: false
-      }, () => { console.log('RelatedAndOutfit: UPDATING OUTFIT') });
+      this.triggerOutfitLoad(() => {
+        console.log("RelatedAndOutfit: UPDATING OUTFIT");
+      });
     }
   }
 
+  throttlePromisified(that, fn) {
+    let isCalled = false;
+
+    return () => {
+      if (!isCalled) {
+        isCalled = true;
+        fn.call(that).then(() => {
+          isCalled = false;
+        });
+      }
+    };
+  }
+
   loadAllProductData() {
-    if (!this.state.productId) { return; }
-    console.log('RelatedAndOutfit: LOADING PRODUCT DATA...');
+    if (!this.state.productId) {
+      return;
+    }
+    console.log("RelatedAndOutfit: LOADING PRODUCT DATA...");
     const newState = {};
 
     this.getRelatedProductData()
@@ -57,14 +85,63 @@ export default class RelatedAndOutfit extends React.Component {
       .then((data) => {
         Object.assign(newState, data);
         newState.loaded = true;
-        return new Promise(resolve => this.setState(newState, resolve).bind(this))
+        return new Promise((resolve) =>
+          this.setState(newState, resolve).bind(this)
+        );
       })
       .then(() => {
-        console.log('RelatedAndOutfit: DONE LOADING.');
+        console.log("RelatedAndOutfit: DONE LOADING.");
         //this.render();
       })
-      .catch(err => {
-        console.log('RelatedAndOutfit: Error during loadAllProductData', err);
+      .catch((err) => {
+        console.log("RelatedAndOutfit: Error during loadAllProductData", err);
+      });
+  }
+
+  loadRelated() {
+    if (!this.state.productId) {
+      return Promise.resolve();
+    }
+    console.log("RelatedAndOutfit: LOADING RELATED PRODUCT DATA...");
+    const newState = {};
+
+    return this.getRelatedProductData()
+      .then((data) => {
+        Object.assign(newState, data);
+        newState.loadedRelated = true;
+        return new Promise((resolve) =>
+          this.setState(newState, resolve).bind(this)
+        );
+      })
+      .then(() => {
+        console.log("RelatedAndOutfit: DONE LOADING RELATED PRODUCTS.");
+      })
+      .catch((err) => {
+        console.log("RelatedAndOutfit: Error during loadRelated", err);
+      });
+  }
+
+  loadOutfit() {
+    if (!this.state.outfit) {
+      return Promise.resolve();
+    }
+    console.log("RelatedAndOutfit: LOADING OUTFIT DATA...");
+    const newState = {};
+
+    return this.getOutfitProductData()
+      .then((data) => {
+        Object.assign(newState, data);
+        newState.loadedOutfit = true;
+        console.log('---> ABOUT TO SET STATE', this.state, newState);
+        return new Promise((resolve) =>
+          this.setState(newState, resolve).bind(this)
+        );
+      })
+      .then(() => {
+        console.log("RelatedAndOutfit: DONE LOADING OUTFIT.", this.state);
+      })
+      .catch((err) => {
+        console.log("RelatedAndOutfit: Error during loadOutfit", err);
       });
   }
 
@@ -72,66 +149,99 @@ export default class RelatedAndOutfit extends React.Component {
     const get = this.props.get;
     const data = {};
 
-    return get('/products/' + this.state.productId + '/related')
-      .then(relatedIDs => {
+    return get("/products/" + this.state.productId + "/related")
+      .then((relatedIDs) => {
         data.relatedIDs = relatedIDs;
-        return Promise.all(relatedIDs.map(id => get('/products/' + id)));
+        return Promise.all(relatedIDs.map((id) => get("/products/" + id)));
       })
-      .then(relatedInfo => {
+      .then((relatedInfo) => {
         data.relatedInfo = relatedInfo;
-        return Promise.all(data.relatedIDs.map(id => get('/products/' + id + '/styles')));
+        return Promise.all(
+          data.relatedIDs.map((id) => get("/products/" + id + "/styles"))
+        );
       })
-      .then(relatedStyles => {
+      .then((relatedStyles) => {
         data.relatedStyles = relatedStyles;
-        return Promise.all(data.relatedIDs.map(id => get('/reviews/meta?product_id=' + id)));
+        return Promise.all(
+          data.relatedIDs.map((id) => get("/reviews/meta?product_id=" + id))
+        );
       })
-      .then(relatedReviewsMeta => {
+      .then((relatedReviewsMeta) => {
         data.relatedReviewsMeta = relatedReviewsMeta;
-        return data;
+        return Promise.resolve(data);
       })
       .catch((err) => {
-        console.log('RelatedAndOutfit: Error in getRelatedProductData', err);
+        console.log("RelatedAndOutfit: Error in getRelatedProductData", err);
       });
   }
 
-  getOutfitProductData() {
+  getOutfitProductData(newOutfit) {
     const get = this.props.get;
-    const data = {};
+    const outfit = newOutfit || this.state.outfit;
+    const data = {outfit};
 
-    return Promise.all(this.state.outfit.map(id => get('/products/' + id)))
-      .then(outfitInfo => {
+    return Promise.all(outfit.map((id) => get("/products/" + id)))
+      .then((outfitInfo) => {
         data.outfitInfo = outfitInfo;
-        return Promise.all(this.state.outfit.map(id => get('/products/' + id + '/styles')));
+        return Promise.all(
+          outfit.map((id) => get("/products/" + id + "/styles"))
+        );
       })
-      .then(outfitStyles => {
+      .then((outfitStyles) => {
         data.outfitStyles = outfitStyles;
-        return Promise.all(this.state.outfit.map(id => get('/reviews/meta?product_id=' + id)));
+        return Promise.all(
+          outfit.map((id) => get("/reviews/meta?product_id=" + id))
+        );
       })
-      .then(outfitReviewsMeta => {
+      .then((outfitReviewsMeta) => {
         data.outfitReviewsMeta = outfitReviewsMeta;
-        return data;
+        return Promise.resolve(data);
       })
       .catch((err) => {
-        console.log('RelatedAndOutfit: Error in getOutfitProductData', err);
+        console.log("RelatedAndOutfit: Error in getOutfitProductData", err);
       });
+  }
+
+  triggerOutfitLoad(newState, callback) {
+    if (this.state.loadedOutfit) {
+      newState.loadedOutfit = false;
+      this.setState(
+        newState,
+        callback
+      );
+    }
   }
 
   render() {
-    if (!this.state.loaded) {
-      return <div>Loading...</div>
-    } else {
-      return <div>
-        <div>
-          <h4>Related Products</h4>
-          <Carousel mainProduct={this.props.product} items={this.state.relatedInfo} styles={this.state.relatedStyles} reviewsMeta={this.state.relatedReviewsMeta} />
-        </div>
-        {this.state.outfitHidden ? null : (
+    return (
+      <TriggerOutfitLoadContext.Provider value={this.triggerOutfitLoad}>
+        {!this.state.loadedRelated ? (
+          <div>Loading...</div>
+        ) : (
           <div>
-            <h4>Your Outfit</h4>
-            <Carousel mainProduct={this.props.product} items={this.state.outfitInfo} styles={this.state.outfitStyles} reviewsMeta={this.state.outfitReviewsMeta} />
+            <div>
+              <h4>Related Products</h4>
+              <Carousel
+                mainProduct={this.props.product}
+                items={this.state.relatedInfo}
+                styles={this.state.relatedStyles}
+                reviewsMeta={this.state.relatedReviewsMeta}
+              />
+            </div>
+            {this.state.loadedOutfit && this.state.outfit.length ? (
+              <div>
+                <h4>Your Outfit</h4>
+                <Carousel
+                  mainProduct={this.props.product}
+                  items={this.state.outfitInfo}
+                  styles={this.state.outfitStyles}
+                  reviewsMeta={this.state.outfitReviewsMeta}
+                />
+              </div>
+            ) : null}
           </div>
         )}
-      </div>
-    }
+      </TriggerOutfitLoadContext.Provider>
+    );
   }
 }
