@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 const outfit = require('./outfit.js');
+import { TriggerOutfitLoadContext } from '../contexts/TriggerOutfitLoad';
 
 const addToOutfitIconSrc = '../../assets/person-circle-plus-solid.svg';
 const removeFromOutfitIconSrc = '../../assets/person-circle-xmark-solid.svg';
@@ -14,16 +15,32 @@ const removeFromOutfitIconSrc = '../../assets/person-circle-xmark-solid.svg';
  * - height: css string
 */
 
+const isInOutfit = (id) => {
+  return outfit.includes(id);
+}
+
 export default function OutfitToggle({ productId, height }) {
   if (!productId) { return null; }
+  const triggerOutfitLoad = useContext(TriggerOutfitLoadContext);
+  const inOutfit = isInOutfit(productId);
+  const [src, setSrc] = useState(inOutfit ? removeFromOutfitIconSrc : addToOutfitIconSrc);
   const handleClick = (action) => {
-    if (action === 'add' || action === 'remove') {
-      return () => { outfit[action](productId); };
-    }
+    return () => {
+      console.log('CLICKED OUTFIT TOGGLE!');
+      const newOutfit = outfit[action](productId);
+      triggerOutfitLoad({
+        outfit: newOutfit
+      }, () => setSrc(action === 'add' ? removeFromOutfitIconSrc : addToOutfitIconSrc));
+    };
   };
-  const inOutfit = outfit.includes(productId);
 
-  return <>
-    <img src={inOutfit ? removeFromOutfitIconSrc : addToOutfitIconSrc} onClick={handleClick(inOutfit ? 'remove' : 'add')} height={height || '18px'} />
-  </>
+  const icon = React.createElement("img", {
+    className: "outfit-toggle",
+    alt: "Add or remove this item from your outfit",
+    src: src,
+    onClick: handleClick(inOutfit ? "remove" : "add"),
+    height: height || "20px"
+  });
+
+  return icon;
 }
