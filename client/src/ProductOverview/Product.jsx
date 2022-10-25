@@ -20,7 +20,8 @@ class Product extends React.Component {
       skus: {},
       ratings: {},
       loaded: false,
-      clickAnalytics: []
+      clickAnalytics: [],
+      price: null
     };
     this.initialize = this.initialize.bind(this);
     this.childToParent = this.childToParent.bind(this);
@@ -34,7 +35,8 @@ class Product extends React.Component {
 
   childToParent(data) {
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
-    asyncSetState({clickedStyle: data, photos: data.photos, skus: data.skus})
+    console.log(data)
+    asyncSetState({clickedStyle: data, photos: data.photos, skus: data.skus, price: data.sale_price})
   }
 
   stars(reviews) {
@@ -102,7 +104,7 @@ class Product extends React.Component {
           <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image"/>
           <div className="product">
             {this.stars(this.state)}
-            <ProductInfo Product={this.state.products[0]} Style={this.state.styles}/>
+            <ProductInfo Product={this.state.products[0]} Style={this.state.styles} Price={this.state.price}/>
             <Styles Style={this.state.styles} childToParent={this.childToParent}/>
             <AddToCart get={this.props.get} post={this.props.post} put={this.props.put} Style={this.state.styles} skus={this.state.skus}/>
           </div>

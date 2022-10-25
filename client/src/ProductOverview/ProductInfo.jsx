@@ -9,15 +9,27 @@ class ProductInfo extends React.Component {
 
   render() {
     if (this.props.Product) {
-      return (
-        <div>
-          <h3>Category > {this.props.Product.category}</h3>
-          <h1>{this.props.Product.name}</h1>
-          <h3>{this.props.Product.default_price}</h3>
-          <h4>{this.props.Product.slogan}</h4>
-          <p>{this.props.Product.description}</p>
-        </div>
-      )
+      if (this.props.Price !== null) {
+        return (
+          <div>
+            <h3>Category > {this.props.Product.category}</h3>
+            <h1>{this.props.Product.name}</h1>
+            <h3><span style={{textDecoration: 'line-through'}}>${this.props.Product.default_price}</span> ${this.props.Price}</h3>
+            <h4>{this.props.Product.slogan}</h4>
+            <p>{this.props.Product.description}</p>
+          </div>
+        )
+      } else {
+        return (
+          <div>
+            <h3>Category > {this.props.Product.category}</h3>
+            <h1>{this.props.Product.name}</h1>
+            <h3>${this.props.Product.default_price}</h3>
+            <h4>{this.props.Product.slogan}</h4>
+            <p>{this.props.Product.description}</p>
+          </div>
+        )
+      }
     } else {
       return (
         <div>
