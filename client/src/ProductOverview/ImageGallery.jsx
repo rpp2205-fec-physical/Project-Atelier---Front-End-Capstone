@@ -1,5 +1,6 @@
 import React from 'react';
 import './product.css';
+import {ExpandOutlined} from '@ant-design/icons';
 
 
 class ImageGallery extends React.Component {
@@ -7,10 +8,12 @@ class ImageGallery extends React.Component {
 		super(props);
     this.props = props;
 		this.state = {
-			currentImageIndex: 0
+			currentImageIndex: 0,
+      expanded: false
 		};
 		this.nextSlide = this.nextSlide.bind(this);
 		this.previousSlide = this.previousSlide.bind(this);
+    this.expand = this.expand.bind(this);
 	}
 
 	previousSlide () {
@@ -43,19 +46,65 @@ class ImageGallery extends React.Component {
 		});
 	}
 
+  expand () {
+    this.setState({expanded: !this.state.expanded})
+  }
+
+  Arrow ({ direction, clickFunction, glyph }) {
+   return( <div
+      className={ `slide-arrow ${direction}` }
+      onClick={ clickFunction }>
+      { glyph }
+    </div>
+  )}
+
+  ImageSlide( {url} ) {
+    const styles = {
+      backgroundImage: `url(${url})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    };
+    return (
+      <div className="image-slide" style={styles}></div>
+    );
+  }
+
+  ImageSlideExpanded( {url} ) {
+    const styles = {
+      backgroundImage: `url(${url})`,
+      // backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    };
+    return (
+      <div className="image-slide-expand" style={styles}></div>
+    );
+  }
+
 	render () {
     if (this.props.Photos.length) {
       const imgUrls =
       this.props.Photos.map(photo => {
         return photo.url;
       })
-      return (
-        <div className="carousel">
-          <Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
-          <ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
-          <Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
-        </div>
-      );
+      if (this.state.expanded) {
+        return (
+          <div className="carousel">
+            <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
+            <this.ImageSlideExpanded url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
+            <ExpandOutlined className="expand" onClick={this.expand}/>
+            <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
+          </div>
+        );
+      } else {
+        return (
+          <div className="carousel">
+            <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
+            <this.ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
+            <ExpandOutlined className="expand" onClick={this.expand}/>
+            <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
+          </div>
+        );
+      }
     } else {
       return (
         <div>
@@ -65,27 +114,6 @@ class ImageGallery extends React.Component {
     }
 	}
 }
-
-const Arrow = ({ direction, clickFunction, glyph }) => (
-	<div
-		className={ `slide-arrow ${direction}` }
-		onClick={ clickFunction }>
-		{ glyph }
-	</div>
-);
-
-const ImageSlide = ({ url }) => {
-  const styles = {
-    backgroundImage: `url(${url})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center'
-  };
-
-  return (
-    <div className="image-slide" style={styles}></div>
-  );
-}
-
 
 
 export default ImageGallery;
