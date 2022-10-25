@@ -66,11 +66,9 @@ class App extends React.Component {
         return this.get(url);
       })
       .then(mainProduct => {
-        // console.log('INIT MAIN PRODUCT', mainProduct);
         newState.product = mainProduct;
       })
       .then(() => {
-        // console.log('SETTING NEW STATE', newState);
         this.setState(newState);
       });
   };

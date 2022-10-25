@@ -31,7 +31,7 @@ export default class RelatedAndOutfit extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("DID UPDATE");
+    // console.log("DID UPDATE");
     if (!this.state.loadedRelated) {
       this.loadRelated();
     } else if (!this.state.loadedOutfit) {
@@ -132,13 +132,12 @@ export default class RelatedAndOutfit extends React.Component {
       .then((data) => {
         Object.assign(newState, data);
         newState.loadedOutfit = true;
-        console.log('---> ABOUT TO SET STATE', this.state, newState);
         return new Promise((resolve) =>
           this.setState(newState, resolve).bind(this)
         );
       })
       .then(() => {
-        console.log("RelatedAndOutfit: DONE LOADING OUTFIT.", this.state);
+        console.log("RelatedAndOutfit: DONE LOADING OUTFIT.");
       })
       .catch((err) => {
         console.log("RelatedAndOutfit: Error during loadOutfit", err);
