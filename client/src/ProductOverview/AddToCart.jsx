@@ -2,6 +2,7 @@ import React from 'react';
 import './product.css';
 import {StarOutlined} from '@ant-design/icons';
 import OutfitToggle from '../components/OutfitToggle.jsx';
+// import { TriggerOutfitLoadContext } from "../contexts/TriggerOutfitLoad";
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -12,12 +13,14 @@ class AddToCart extends React.Component {
       size: 'S',
       quantity: 0,
       count: 0,
-      cart: []
+      cart: [],
+      loadedOutfit: false
     };
     this.initialize = this.initialize.bind(this);
     this.handleSize = this.handleSize.bind(this);
     this.handleQuantity = this.handleQuantity.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.triggerOutfitLoad = this.triggerOutfitLoad.bind(this);
   }
 
   componentDidMount() {
@@ -77,6 +80,16 @@ class AddToCart extends React.Component {
     return <option>Quantity loading...</option>;
   }
 
+  triggerOutfitLoad(newState, callback) {
+    if (this.state.loadedOutfit) {
+      newState.loadedOutfit = false;
+      this.setState(
+        newState,
+        callback
+      );
+    }
+  }
+
 
   render() {
     if (this.props.skus) {
@@ -99,8 +112,6 @@ class AddToCart extends React.Component {
           <button onClick={this.addToCart}>Add To Cart</button>
           {/* <StarOutlined className="outfit"/> */}
           <OutfitToggle productId={this.props.Style.product_id}/>
-          {/* <FontAwesomeIcon icon="fa-solid fa-person-circle-plus" /> */}
-          {/* <FontAwesomeIcon icon="fa-solid fa-circle-x" /> */}
         </div>
       )
     } else {
