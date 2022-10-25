@@ -1,6 +1,6 @@
 require("dotenv").config();
 import axios from 'axios';
-const Cache = require('../../util/cache.js');
+const Cache = require('./cache.js');
 
 const cache = new Cache(process.env.CLIENT_CACHE_DURATION);
 

@@ -33,5 +33,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "client/src", "index.html")
     })
-  ]
+  ],
+  target: 'node'
 }
