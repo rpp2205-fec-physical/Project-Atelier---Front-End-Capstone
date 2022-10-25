@@ -69,7 +69,7 @@ class Product extends React.Component {
       let date = new Date();
       let element = stringifyObj(e.target, 2).outerHTML;
       let currentEvent = {element: element, widget: 'Product Overview', time: date};
-      this.props.post('/interactions', currentEvent).then(data => {console.log(data)});
+      this.props.post('/interactions', currentEvent);
       // this.state.clickAnalytics.push(currentEvent);
     }
     if (document.getElementById("productOverview") !== null) {
