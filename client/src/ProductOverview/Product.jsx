@@ -62,19 +62,17 @@ class Product extends React.Component {
 
             obj[key] = value;
         }
-
-        return depth? obj: JSON.stringify(obj);
+        return depth ? obj : JSON.stringify(obj);
     }
       let date = new Date();
-      console.log(stringifyObj(e.target, 2).outerHTML);
-      let currentEvent = {element: stringifyObj(e.target, 2).outerHTML, widget: 'Product Overview', time: date};
-      this.props.post('/interactions', currentEvent).then(postData => {console.log(postData)})
+      let element = stringifyObj(e.target, 2).outerHTML;
+      let currentEvent = {element: element, widget: 'Product Overview', time: date};
+      this.props.post('/interactions', currentEvent);
       this.state.clickAnalytics.push(currentEvent);
     });
   }
 
   initialize() {
-
     this.props.get('/products')
       .then(data => {
         this.setState({
@@ -94,7 +92,6 @@ class Product extends React.Component {
               })
           })
       })
-
   }
 
   render() {
