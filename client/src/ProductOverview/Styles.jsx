@@ -23,7 +23,6 @@ class Styles extends React.Component {
 
   render() {
     if (this.props.Style) {
-      console.log(this.props.Style)
       if (Array.isArray(this.props.Style.results)) {
         return (
           <div>

@@ -6,6 +6,7 @@ import Styles from './Styles.jsx';
 import Stars from '../components/Stars.jsx';
 import $ from 'jquery';
 import './product.css';
+const clickAnalytics = require('../../../util/clickAnalytics.js');
 
 
 class Product extends React.Component {
@@ -26,7 +27,7 @@ class Product extends React.Component {
     this.initialize = this.initialize.bind(this);
     this.childToParent = this.childToParent.bind(this);
     this.stars= this.stars.bind(this);
-    this.clickAnalytics = this.clickAnalytics.bind(this);
+    // this.clickAnalytics = this.clickAnalytics.bind(this);
   }
 
   componentDidMount() {
@@ -35,7 +36,6 @@ class Product extends React.Component {
 
   childToParent(data) {
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
-    console.log(data)
     asyncSetState({clickedStyle: data, photos: data.photos, skus: data.skus, price: data.sale_price})
   }
 
@@ -47,32 +47,32 @@ class Product extends React.Component {
     }
   }
 
-  clickAnalytics() {
-    document.getElementById("productOverview").addEventListener("click", (e) => {
-      function stringifyObj(object, depth=0, max_depth=2) {
-        if (depth > max_depth)
-            return 'Object';
-        const obj = {};
-        for (let key in object) {
-            let value = object[key];
-            if (value instanceof Node)
-                value = {id: value.id};
-            else if (value instanceof Window)
-                value = 'Window';
-            else if (value instanceof Object)
-                value = stringifyObj(value, depth+1, max_depth);
+  // clickAnalytics() {
+  //   document.getElementById("productOverview").addEventListener("click", (e) => {
+  //     let stringifyObj = (object, depth=0, max_depth=2) => {
+  //       if (depth > max_depth)
+  //           return 'Object';
+  //       const obj = {};
+  //       for (let key in object) {
+  //           let value = object[key];
+  //           if (value instanceof Node)
+  //               value = {id: value.id};
+  //           else if (value instanceof Window)
+  //               value = 'Window';
+  //           else if (value instanceof Object)
+  //               value = stringifyObj(value, depth+1, max_depth);
 
-            obj[key] = value;
-        }
-        return depth ? obj : JSON.stringify(obj);
-    }
-      let date = new Date();
-      let element = stringifyObj(e.target, 2).outerHTML;
-      let currentEvent = {element: element, widget: 'Product Overview', time: date};
-      this.props.post('/interactions', currentEvent);
-      this.state.clickAnalytics.push(currentEvent);
-    });
-  }
+  //           obj[key] = value;
+  //       }
+  //       return depth ? obj : JSON.stringify(obj);
+  //   }
+  //     let date = new Date();
+  //     let element = stringifyObj(e.target, 2).outerHTML;
+  //     let currentEvent = {element: element, widget: 'Product Overview', time: date};
+  //     this.props.post('/interactions', currentEvent);
+  //     this.state.clickAnalytics.push(currentEvent);
+  //   });
+  // }
 
   initialize() {
     this.props.get('/products')
@@ -98,7 +98,7 @@ class Product extends React.Component {
 
   render() {
     return (
-      <div  id="productOverview" onClick={this.clickAnalytics}>
+      <div  id="productOverview" onClick={clickAnalytics("productOverview")}>
         <h1 id="title">Welcome To Project Atelier</h1>
         <div id="container">
           <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image"/>
