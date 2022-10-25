@@ -1,6 +1,7 @@
 import React from 'react';
 import './product.css';
 import {StarOutlined} from '@ant-design/icons';
+import OutfitToggle from '../components/OutfitToggle.jsx';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -79,6 +80,7 @@ class AddToCart extends React.Component {
 
   render() {
     if (this.props.skus) {
+      console.log(this.props)
       return (
         <div>
           <label htmlFor="sizes"></label>
@@ -96,7 +98,8 @@ class AddToCart extends React.Component {
             })}
           </select>
           <button onClick={this.addToCart}>Add To Cart</button>
-          <StarOutlined className="outfit"/>
+          {/* <StarOutlined className="outfit"/> */}
+          <OutfitToggle productId={this.props.Style.product_id}/>
           {/* <FontAwesomeIcon icon="fa-solid fa-person-circle-plus" /> */}
           {/* <FontAwesomeIcon icon="fa-solid fa-circle-x" /> */}
         </div>

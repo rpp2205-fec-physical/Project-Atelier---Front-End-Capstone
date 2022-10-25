@@ -6,7 +6,7 @@ import Styles from './Styles.jsx';
 import Stars from '../components/Stars.jsx';
 import $ from 'jquery';
 import './product.css';
-const clickAnalytics = require('../../../util/clickAnalytics.js');
+const ClickAnalytics = require('../../../util/clickAnalytics.js');
 
 
 class Product extends React.Component {
@@ -47,32 +47,36 @@ class Product extends React.Component {
     }
   }
 
-  // clickAnalytics() {
-  //   document.getElementById("productOverview").addEventListener("click", (e) => {
-  //     let stringifyObj = (object, depth=0, max_depth=2) => {
-  //       if (depth > max_depth)
-  //           return 'Object';
-  //       const obj = {};
-  //       for (let key in object) {
-  //           let value = object[key];
-  //           if (value instanceof Node)
-  //               value = {id: value.id};
-  //           else if (value instanceof Window)
-  //               value = 'Window';
-  //           else if (value instanceof Object)
-  //               value = stringifyObj(value, depth+1, max_depth);
+  clickAnalytics() {
+    let eventObj = (e) => {
+      let stringifyObj = (object, depth=0, max_depth=2) => {
+        if (depth > max_depth)
+            return 'Object';
+        const obj = {};
+        for (let key in object) {
+            let value = object[key];
+            if (value instanceof Node)
+                value = {id: value.id};
+            else if (value instanceof Window)
+                value = 'Window';
+            else if (value instanceof Object)
+                value = stringifyObj(value, depth+1, max_depth);
 
-  //           obj[key] = value;
-  //       }
-  //       return depth ? obj : JSON.stringify(obj);
-  //   }
-  //     let date = new Date();
-  //     let element = stringifyObj(e.target, 2).outerHTML;
-  //     let currentEvent = {element: element, widget: 'Product Overview', time: date};
-  //     this.props.post('/interactions', currentEvent);
-  //     this.state.clickAnalytics.push(currentEvent);
-  //   });
-  // }
+            obj[key] = value;
+        }
+        return depth ? obj : JSON.stringify(obj);
+    }
+      let date = new Date();
+      let element = stringifyObj(e.target, 2).outerHTML;
+      let currentEvent = {element: element, widget: 'Product Overview', time: date};
+      this.props.post('/interactions', currentEvent).then(data => {console.log(data)});
+      // this.state.clickAnalytics.push(currentEvent);
+    }
+    if (document.getElementById("productOverview") !== null) {
+      document.getElementById("productOverview").addEventListener("click", eventObj);
+      return () => {document.getElementById("productOverview").removeEventListener("click", eventObj);}
+    }
+  }
 
   initialize() {
     this.props.get('/products')
@@ -98,7 +102,7 @@ class Product extends React.Component {
 
   render() {
     return (
-      <div  id="productOverview" onClick={clickAnalytics("productOverview")}>
+      <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
         <h1 id="title">Welcome To Project Atelier</h1>
         <div id="container">
           <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image"/>
