@@ -7,6 +7,7 @@ module.exports.get = () => {
   try {
     outfit = window.localStorage.outfit || [];
     if (typeof outfit === 'string' || outfit instanceof String) {
+      // console.log('PRE PARSE', outfit);
       outfit = JSON.parse(outfit);
     }
   }
@@ -57,9 +58,10 @@ module.exports.remove = (productId) => {
   if (!module.exports.localStorageSupported) { return null; }
   const outfit = module.exports.get();
   const i = outfit.indexOf(productId);
-  if (i !== -1) { return outfit; }
+  if (i === -1) { return outfit; }
   const newOutfit = [...outfit];
-  outfit.splice(i, 1);
+  newOutfit.splice(i, 1);
+  module.exports.set(newOutfit);
   module.exports.updated = true;
   return newOutfit;
 }
