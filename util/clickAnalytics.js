@@ -25,7 +25,7 @@ module.exports = function clickAnalytics(id) {
       console.log('click analytics obj', currentEvent);
       // this.props.post('/interactions', currentEvent);
     }
-    document.getElementById(id).addEventListener("click", eventMaker, false);
-    document.getElementById(id).removeEventListener("click", eventMaker, false);
+    document.getElementById(id).addEventListener("click", eventMaker);
+    document.getElementById(id).removeEventListener("click", eventMaker);
   }
 }
