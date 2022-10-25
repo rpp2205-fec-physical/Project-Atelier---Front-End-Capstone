@@ -14,7 +14,7 @@ function parseFeatures(prod1, prod2) {
       prod2: prod2.id,
     },
   };
-  //console.log('PARSING FEATURES: ', features1, features2);
+
   for (let feature of features1) {
     const parsedFeature = results[feature.feature] || {};
 
@@ -49,7 +49,6 @@ function productsChanged(featureData, prod1 = {}, prod2 = {}) {
 function isChild(node, targetTag, targetClass) {
   const parent = node.parentNode || node.srcElement || node.target;
   if (!parent) {
-    //console.log('isChild: NO PARENT FOUND', node);
     return false;
   }
   const parentTag = parent.tagName && parent.tagName.toUpperCase();
