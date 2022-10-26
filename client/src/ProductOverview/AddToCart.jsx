@@ -110,7 +110,6 @@ class AddToCart extends React.Component {
             })}
           </select>
           <button onClick={this.addToCart}>Add To Cart</button>
-          {/* <StarOutlined className="outfit"/> */}
           <OutfitToggle productId={this.props.Style.product_id}/>
         </div>
       )
