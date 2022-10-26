@@ -4,7 +4,7 @@ const upstreamApi = process.env.APIURL;
 const headers = {
   'Authorization': process.env.AUTHORIZATION
 };
-const Cache = require('../../util/cache');
+const Cache = require('../lib/cache');
 const cache = new Cache(process.env.CACHE_DURATION);
 
 module.exports = (req, res) => {

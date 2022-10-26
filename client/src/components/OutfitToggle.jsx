@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-const outfit = require('./outfit.js');
+import { outfit } from '../lib/outfit';
 import { TriggerOutfitLoadContext } from '../contexts/TriggerOutfitLoad';
 
 const addToOutfitIconSrc = '../../assets/person-circle-plus-solid.svg';
@@ -26,7 +26,7 @@ export default function OutfitToggle({ productId, height }) {
   const [src, setSrc] = useState(inOutfit ? removeFromOutfitIconSrc : addToOutfitIconSrc);
   const handleClick = (action) => {
     return () => {
-      console.log('CLICKED OUTFIT TOGGLE!');
+      // console.log('CLICKED OUTFIT TOGGLE!');
       const newOutfit = outfit[action](productId);
       triggerOutfitLoad({
         outfit: newOutfit

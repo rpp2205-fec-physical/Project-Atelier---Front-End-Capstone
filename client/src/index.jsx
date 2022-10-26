@@ -8,8 +8,8 @@ import RelatedAndOutfit from './RelatedAndOutfit/index.jsx';
 import FeatureModal from './RelatedAndOutfit/FeatureModal.jsx';
 import OutfitToggle from './components/OutfitToggle.jsx';
 
-const Cache = require('../../util/cache.js');
-import { get, post, put } from '../../util/request-handlers.js';
+import Cache from './lib/cache-client';
+import { get, post, put } from './lib/request-handlers';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class App extends React.Component {
       isBlurred: false,
       endpoint: '71698'
     };
-    this.cache = new Cache(600000);
+    this.cache = new Cache(6000000);
 
     this.initialize = this.initialize.bind(this);
     this.get = get;

@@ -2,7 +2,6 @@ import React from 'react';
 import ReviewsList from './ReviewsList.jsx'
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
-const Cache = require('../../../util/cache.js');
 
 class ReviewContainer extends React.Component {
   constructor(props) {
@@ -76,7 +75,6 @@ class ReviewContainer extends React.Component {
 ]
 
     };
-    this.cache = new Cache(600000);
   }
 
   componentDidMount() {

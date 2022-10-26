@@ -10,7 +10,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.?jsx$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -21,10 +21,12 @@ module.exports = {
       },
       {
         test: /\.css$/i,
+        exclude: /node_modules/,
         use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
+        exclude: /node_modules/,
         use: ['file-loader'],
       }
     ]
@@ -34,5 +36,5 @@ module.exports = {
       template: path.join(__dirname, "client/src", "index.html")
     })
   ],
-  target: 'node'
+  target: 'web'
 }

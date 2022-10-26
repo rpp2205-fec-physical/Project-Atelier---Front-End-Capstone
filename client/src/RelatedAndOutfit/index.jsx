@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "./Carousel.jsx";
-const outfit = require("../components/outfit.js");
+import { outfit } from '../lib/outfit';
 import { TriggerOutfitLoadContext } from "../contexts/TriggerOutfitLoad";
 
 export default class RelatedAndOutfit extends React.Component {
