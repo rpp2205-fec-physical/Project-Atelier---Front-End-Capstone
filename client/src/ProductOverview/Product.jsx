@@ -21,10 +21,12 @@ class Product extends React.Component {
       ratings: {},
       loaded: false,
       clickAnalytics: [],
-      price: null
+      price: null,
+      expanded: false
     };
     this.initialize = this.initialize.bind(this);
     this.childToParent = this.childToParent.bind(this);
+    this.childToParentExpand = this.childToParentExpand.bind(this);
     this.stars= this.stars.bind(this);
     // this.clickAnalytics = this.clickAnalytics.bind(this);
   }
@@ -36,6 +38,11 @@ class Product extends React.Component {
   childToParent(data) {
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
     asyncSetState({clickedStyle: data, photos: data.photos, skus: data.skus, price: data.sale_price})
+  }
+
+  childToParentExpand(data) {
+    const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
+    asyncSetState({expanded: data})
   }
 
   stars(reviews) {
@@ -100,20 +107,31 @@ class Product extends React.Component {
   }
 
   render() {
-    return (
-      <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
-        <h1 id="title">Welcome To Project Atelier</h1>
-        <div id="container">
-          <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image"/>
-          <div className="product">
-            {this.stars(this.state)}
-            <ProductInfo Product={this.state.products[0]} Style={this.state.styles} Price={this.state.price}/>
-            <Styles Style={this.state.styles} childToParent={this.childToParent}/>
-            <AddToCart get={this.props.get} post={this.props.post} put={this.props.put} Style={this.state.styles} skus={this.state.skus}/>
+    if (this.state.expanded) {
+      return (
+        <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
+          <h1 id="title">Welcome To Project Atelier</h1>
+          <div id="extendo">
+            <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
           </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
+          <h1 id="title">Welcome To Project Atelier</h1>
+          <div id="container">
+            <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
+            <div className="product">
+              {this.stars(this.state)}
+              <ProductInfo Product={this.state.products[0]} Style={this.state.styles} Price={this.state.price}/>
+              <Styles Style={this.state.styles} childToParent={this.childToParent}/>
+              <AddToCart get={this.props.get} post={this.props.post} put={this.props.put} Style={this.state.styles} skus={this.state.skus}/>
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
 }
 
