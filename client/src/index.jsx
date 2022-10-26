@@ -1,13 +1,15 @@
 import React from 'react';
-import './index.css';
 import ReactDOM from 'react-dom';
+import './index.css';
+
 import ReviewContainer from './RatingsReviews/index.jsx';
 import Product from './ProductOverview/Product.jsx';
 import RelatedAndOutfit from './RelatedAndOutfit/index.jsx';
-import axios from 'axios';
-const Cache = require('../../util/cache.js');
 import FeatureModal from './RelatedAndOutfit/FeatureModal.jsx';
 import OutfitToggle from './components/OutfitToggle.jsx';
+
+import Cache from './lib/cache-client';
+import { get, post, put } from './lib/request-handlers';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,43 +19,17 @@ class App extends React.Component {
       isBlurred: false,
       endpoint: '71698'
     };
-    this.cache = new Cache(600000);
+    this.cache = new Cache(6000000);
 
     this.initialize = this.initialize.bind(this);
-    this.get = this.get.bind(this);
-    this.post = this.post.bind(this);
-    this.put = this.put.bind(this);
+    this.get = get;
+    this.post = post;
+    this.put = put;
     this.setIsBlurred = this.setIsBlurred.bind(this);
   }
 
   componentDidMount() {
     this.initialize();
-  }
-
-  get(endpoint) {
-    const cached = this.cache.get(endpoint);
-
-    if (cached) {
-      return Promise.resolve(cached);
-    } else {
-      return axios.get('/api' + endpoint)
-        .then(response => {
-          this.cache.store(endpoint, response.data);
-          return response.data;
-        })
-        .catch(err => {
-          console.log("'GET' ERROR: ", err);
-          return null;
-        });
-    }
-  }
-
-  post(endpoint, data) {
-    return axios.post('/api' + endpoint, data);
-  }
-
-  put(endpoint, data) {
-    return axios.put('/api' + endpoint, data);
   }
 
   initialize() {

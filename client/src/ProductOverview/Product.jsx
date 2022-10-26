@@ -4,9 +4,8 @@ import ProductInfo from './ProductInfo.jsx';
 import AddToCart from './AddToCart.jsx';
 import Styles from './Styles.jsx';
 import Stars from '../components/Stars.jsx';
-import $ from 'jquery';
 import './product.css';
-const ClickAnalytics = require('../../../util/clickAnalytics.js');
+const ClickAnalytics = require('../lib/clickAnalytics.js');
 
 
 class Product extends React.Component {
