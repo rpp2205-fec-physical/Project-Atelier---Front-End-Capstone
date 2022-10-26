@@ -1,6 +1,7 @@
 import React from 'react';
 import './product.css';
 import {StarOutlined} from '@ant-design/icons';
+import OutfitToggle from '../components/OutfitToggle.jsx';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -35,13 +36,13 @@ class AddToCart extends React.Component {
     e.preventDefault();
     let cartObj = {sku_id: this.state.sku};
     const i = this.state.cart.map(item => item.sku_id).indexOf(this.state.sku);
-    console.log('item i', i);
+    // console.log('item i', i);
     if (i < 0) {
       this.state.cart.push({sku_id: this.state.sku, count: this.state.count});
     } else {
       this.state.cart[i].count += this.state.count;
     }
-    console.log(this.state.sku, this.state.quantity, this.state.size)
+    // console.log(this.state.sku, this.state.quantity, this.state.size)
     const asyncPost = (obj) => new Promise(resolve => {
       this.props.post('/cart', obj)
         .then(data => {
@@ -96,7 +97,8 @@ class AddToCart extends React.Component {
             })}
           </select>
           <button onClick={this.addToCart}>Add To Cart</button>
-          <StarOutlined className="outfit"/>
+          {/* <StarOutlined className="outfit"/> */}
+          <OutfitToggle productId={this.props.Style.product_id}/>
           {/* <FontAwesomeIcon icon="fa-solid fa-person-circle-plus" /> */}
           {/* <FontAwesomeIcon icon="fa-solid fa-circle-x" /> */}
         </div>
