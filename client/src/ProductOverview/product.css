@@ -6,7 +6,7 @@
 #container {
 	display: flex;
 	align-items: center;
-	justify-content: right;
+	justify-content: center;
 }
 
 #extendo {
@@ -15,7 +15,6 @@
 }
 
 .image {
-	padding-left: 5%;
 	flex: 1;
 	position: relative;
 }
