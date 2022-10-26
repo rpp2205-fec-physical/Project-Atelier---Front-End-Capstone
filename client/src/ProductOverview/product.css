@@ -6,11 +6,25 @@
 #container {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: right;
+}
+
+#extendo {
+	align-items:flex-start;
+	transition: all .3s ease-in-out;
 }
 
 .image {
+	padding-left: 5%;
 	flex: 1;
+	position: relative;
+}
+
+
+.product {
+	flex: 2;
+	padding-right: 10%;
+	padding-left: 5%;
 }
 
 .style {
@@ -30,7 +44,7 @@ border-radius: 40px;
 .image-slide {
 	height: 100%;
 	width: 100%;
-	transition: background-image .3s ease-in-out;
+	transition: all .3s ease-in-out;
 }
 
 .image-slide-expand {
@@ -48,7 +62,8 @@ border-radius: 40px;
 }
 
 .slide-arrow.right {
-	left: 43.5%;
+	/* left: 43.5%; */
+	left: 700px;
 }
 
 .slide-arrow.left {
@@ -58,7 +73,7 @@ border-radius: 40px;
 .expand {
 	top: 12%;
 	position: absolute;
-	left: 42.5%;
+	left: 690px;
 	font-size: 2rem;
 }
 

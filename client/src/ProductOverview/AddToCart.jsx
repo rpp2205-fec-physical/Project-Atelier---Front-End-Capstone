@@ -2,7 +2,7 @@ import React from 'react';
 import './product.css';
 import {StarOutlined} from '@ant-design/icons';
 import OutfitToggle from '../components/OutfitToggle.jsx';
-// import { TriggerOutfitLoadContext } from "../contexts/TriggerOutfitLoad";
+import { TriggerOutfitLoadContext } from "../contexts/TriggerOutfitLoad";
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -82,11 +82,8 @@ class AddToCart extends React.Component {
 
   triggerOutfitLoad(newState, callback) {
     if (this.state.loadedOutfit) {
-      newState.loadedOutfit = false;
-      this.setState(
-        newState,
-        callback
-      );
+      // newState.loadedOutfit = false;
+      this.setState({loadedOutfit: false});
     }
   }
 

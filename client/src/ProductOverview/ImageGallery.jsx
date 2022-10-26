@@ -48,6 +48,7 @@ class ImageGallery extends React.Component {
 
   expand () {
     this.setState({expanded: !this.state.expanded})
+    this.props.cToPExpand(!this.state.expanded);
   }
 
   Arrow ({ direction, clickFunction, glyph }) {
