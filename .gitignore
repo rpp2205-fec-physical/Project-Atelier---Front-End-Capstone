@@ -4,3 +4,6 @@ client/dist/*
 .env
 .DS_Store
 package-lock.json
+ProjectAtelier.pem
+ec2.ssh
+

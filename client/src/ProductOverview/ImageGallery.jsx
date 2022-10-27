@@ -6,7 +6,6 @@ import {ExpandOutlined} from '@ant-design/icons';
 class ImageGallery extends React.Component {
 	constructor (props) {
 		super(props);
-    this.props = props;
 		this.state = {
 			currentImageIndex: 0,
       expanded: false

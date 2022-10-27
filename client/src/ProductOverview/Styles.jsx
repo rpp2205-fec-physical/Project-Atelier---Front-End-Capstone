@@ -4,7 +4,6 @@ import './product.css';
 class Styles extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
     this.state = {style: 'Forest Green & Black'};
     this.handleClick = this.handleClick.bind(this);
   }

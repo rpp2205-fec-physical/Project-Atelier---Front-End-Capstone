@@ -6,12 +6,12 @@ import Styles from './Styles.jsx';
 import Stars from '../components/Stars.jsx';
 import './product.css';
 const ClickAnalytics = require('../lib/clickAnalytics.js');
+import { get, post, put } from '../lib/request-handlers';
 
 
 class Product extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
     this.state = {
       products: [],
       styles: {},
@@ -28,6 +28,9 @@ class Product extends React.Component {
     this.childToParent = this.childToParent.bind(this);
     this.childToParentExpand = this.childToParentExpand.bind(this);
     this.stars= this.stars.bind(this);
+    this.get = get;
+    this.post = post;
+    this.put = put;
     // this.clickAnalytics = this.clickAnalytics.bind(this);
   }
 
@@ -75,7 +78,7 @@ class Product extends React.Component {
       let date = new Date();
       let element = stringifyObj(e.target, 2).outerHTML;
       let currentEvent = {element: element, widget: 'Product Overview', time: date};
-      this.props.post('/interactions', currentEvent);
+      this.post('/interactions', currentEvent);
       // this.state.clickAnalytics.push(currentEvent);
     }
     if (document.getElementById("productOverview") !== null) {
@@ -85,19 +88,19 @@ class Product extends React.Component {
   }
 
   initialize() {
-    this.props.get('/products')
+    this.get('/products')
       .then(data => {
         this.setState({
           products: data
         });
-        this.props.get('/products/' + data[0].id + '/styles')
+        this.get('/products/' + data[0].id + '/styles')
           .then(styles => {
             this.setState({
               styles: styles,
               photos: styles.results[0].photos,
               skus: styles.results[0].skus
             });
-            this.props.get('/reviews/meta?product_id=' + data[0].id)
+            this.get('/reviews/meta?product_id=' + data[0].id)
               .then(reviews => {
                 const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
                 asyncSetState({ratings: reviews});
@@ -126,7 +129,7 @@ class Product extends React.Component {
               {this.stars(this.state)}
               <ProductInfo Product={this.state.products[0]} Style={this.state.styles} Price={this.state.price}/>
               <Styles Style={this.state.styles} childToParent={this.childToParent}/>
-              <AddToCart get={this.props.get} post={this.props.post} put={this.props.put} Style={this.state.styles} skus={this.state.skus}/>
+              <AddToCart get={this.get} post={this.post} put={this.put} Style={this.state.styles} skus={this.state.skus}/>
             </div>
           </div>
         </div>
