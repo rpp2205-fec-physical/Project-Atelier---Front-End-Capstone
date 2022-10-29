@@ -35,7 +35,7 @@ class AddToCart extends React.Component {
     this.get('/cart')
       .then(data => {
         console.log('cart get data: ', data)
-        // console.log('cart state: ', this.state.cart)
+        console.log('cart state: ', this.state.cart)
       });
   }
 
