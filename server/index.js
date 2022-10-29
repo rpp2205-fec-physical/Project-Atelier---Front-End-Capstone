@@ -18,4 +18,5 @@ app.put('/api/*', proxy);
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
+  console.log(process.env)
 });
