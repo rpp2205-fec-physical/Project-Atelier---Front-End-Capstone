@@ -3,6 +3,7 @@ import './product.css';
 import {StarOutlined} from '@ant-design/icons';
 import OutfitToggle from '../components/OutfitToggle.jsx';
 import { TriggerOutfitLoadContext } from "../contexts/TriggerOutfitLoad";
+import { get, post, put } from '../lib/request-handlers';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -18,8 +19,12 @@ class AddToCart extends React.Component {
     this.initialize = this.initialize.bind(this);
     this.handleSize = this.handleSize.bind(this);
     this.handleQuantity = this.handleQuantity.bind(this);
+    this.handleCount = this.handleCount.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.triggerOutfitLoad = this.triggerOutfitLoad.bind(this);
+    this.get = get;
+    this.post = post;
+    this.put = put;
   }
 
   componentDidMount() {
@@ -27,26 +32,28 @@ class AddToCart extends React.Component {
   }
 
   initialize() {
-    this.props.get('/cart')
+    this.get('/cart')
       .then(data => {
         console.log('cart get data: ', data)
-        console.log('cart state: ', this.state.cart)
+        // console.log('cart state: ', this.state.cart)
       });
   }
 
   addToCart(e) {
     e.preventDefault();
-    let cartObj = {sku_id: this.state.sku};
-    const i = this.state.cart.map(item => item.sku_id).indexOf(this.state.sku);
+    // console.log(e.target);
+    console.log(this.state.size, this.state.count);
+    let cartObj = {sku_id: JSON.parse(this.state.sku), count: JSON.parse(this.state.count)};
+    const i = this.state.cart.map(item => JSON.stringify(item.sku_id)).indexOf(this.state.sku);
     // console.log('item i', i);
     if (i < 0) {
-      this.state.cart.push({sku_id: this.state.sku, count: this.state.count});
+      this.state.cart.push({sku_id: JSON.parse(this.state.sku), count: JSON.parse(this.state.count)});
     } else {
-      this.state.cart[i].count += this.state.count;
+      this.state.cart[i].count += JSON.parse(this.state.count);
     }
     // console.log(this.state.sku, this.state.quantity, this.state.size)
     const asyncPost = (obj) => new Promise(resolve => {
-      this.props.post('/cart', obj)
+      this.post('/cart', obj)
         .then(data => {
           console.log('cart post data: ', data);
           this.initialize();
@@ -66,6 +73,14 @@ class AddToCart extends React.Component {
         asyncSetState({sku: sku, quantity: this.props.skus[sku].quantity})
       }
     })
+  }
+
+  handleCount(e) {
+    e.preventDefault();
+    let count = e.target.value;
+    const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+    });
+    asyncSetState({count: count});
   }
 
   handleQuantity() {
@@ -99,7 +114,7 @@ class AddToCart extends React.Component {
             })}
           </select>
           <label htmlFor="quantity"></label>
-          <select onChange={this.handleQuantity} name="quantity" className="quantity">
+          <select onChange={this.handleCount} name="quantity" className="quantity">
           <option selected disabled>Select Quantity</option>
             {this.state.quantity > 0 && this.handleQuantity().map(val => {
               return <option key={val} count={val}>{val}</option>
