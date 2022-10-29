@@ -52,6 +52,19 @@ border-radius: 40px;
 	transition: background-image .3s ease-in-out;
 }
 
+.thumbContainer {
+	/* vertical-align: bottom; */
+	/* overflow:visible; */
+	padding-top: 45px;
+	padding-left: 30px;
+}
+
+.thumbnail {
+	height: 70px;
+	width: 70px;
+	/* vertical-align: bottom; */
+}
+
 .slide-arrow {
 	color: aqua;
 	cursor: pointer;

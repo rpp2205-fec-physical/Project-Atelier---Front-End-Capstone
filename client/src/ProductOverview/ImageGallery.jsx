@@ -13,6 +13,9 @@ class ImageGallery extends React.Component {
 		this.nextSlide = this.nextSlide.bind(this);
 		this.previousSlide = this.previousSlide.bind(this);
     this.expand = this.expand.bind(this);
+    this.ImageSlide = this.ImageSlide.bind(this);
+    this.ImageSlideExpanded = this.ImageSlideExpanded.bind(this);
+    this.Thumbnails = this.Thumbnails.bind(this);
 	}
 
 	previousSlide () {
@@ -65,7 +68,10 @@ class ImageGallery extends React.Component {
       backgroundPosition: 'center'
     };
     return (
-      <div className="image-slide" style={styles}></div>
+      <div className="image-slide" style={styles}>
+        <this.Thumbnails />
+        {/* <div  style={styles}></div> */}
+      </div>
     );
   }
 
@@ -76,7 +82,24 @@ class ImageGallery extends React.Component {
       backgroundPosition: 'center'
     };
     return (
-      <div className="image-slide-expand" style={styles}></div>
+      <div className="image-slide-expand" style={styles}>
+        <this.Thumbnails />
+        {/* <div  style={styles}></div> */}
+      </div>
+    );
+  }
+
+  Thumbnails() {
+    return (
+      <div className="thumbContainer">
+        {this.props.Photos.map(photo => {
+          return (
+            <div>
+              <img src={photo.url} className="thumbnail" key={photo.url}></img>
+            </div>
+          )
+        })}
+      </div>
     );
   }
 
@@ -98,6 +121,11 @@ class ImageGallery extends React.Component {
       } else {
         return (
           <div className="carousel">
+            {/* <div className="thumbContainer">
+              {this.props.Photos.map(photo => {
+                return <img src={photo.url} class="thumbnail"></img>
+              })}
+            </div> */}
             <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
             <this.ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
             <ExpandOutlined className="expand" onClick={this.expand}/>
