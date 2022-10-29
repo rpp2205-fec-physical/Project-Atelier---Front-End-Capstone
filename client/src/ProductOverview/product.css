@@ -55,18 +55,19 @@ border-radius: 40px;
 .thumbContainer {
 	/* vertical-align: bottom; */
 	/* overflow:visible; */
-	padding-top: 45px;
+	padding-top: 40px;
 	padding-left: 30px;
 }
 
 .thumbnail {
 	height: 70px;
 	width: 70px;
+	padding: 3px;
 	/* vertical-align: bottom; */
 }
 
 .slide-arrow {
-	color: aqua;
+	color: rgb(16, 17, 17);
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
