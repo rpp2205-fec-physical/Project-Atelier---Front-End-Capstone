@@ -52,17 +52,31 @@ border-radius: 40px;
 	transition: background-image .3s ease-in-out;
 }
 
+.thumbContainer {
+	/* vertical-align: bottom; */
+	/* overflow:visible; */
+	padding-top: 40px;
+	padding-left: 30px;
+}
+
+.thumbnail {
+	height: 70px;
+	width: 70px;
+	padding: 3px;
+	/* vertical-align: bottom; */
+}
+
 .slide-arrow {
-	color: aqua;
+	color: rgb(16, 17, 17);
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
-	top: 35%;
+	top: 37%;
 }
 
 .slide-arrow.right {
 	/* left: 43.5%; */
-	left: 700px;
+	left: 706px;
 }
 
 .slide-arrow.left {
@@ -94,6 +108,21 @@ border-radius: 40px;
   display: inline;
   margin: 2px;
 }
+
+.size, .quantity, button{
+	color: white;
+  /* padding: 8px 16px; */
+	margin: 15px;
+  border: 12px solid transparent;
+	background-color: grey;
+  cursor: pointer;
+}
+
+button:hover{
+	background-color: rgb(138, 81, 6);
+}
+
+
 
 .star {
   -webkit-filter: invert(42%) sepia(14%) saturate(5361%) hue-rotate(161deg) brightness(107%) contrast(101%);

@@ -107,7 +107,7 @@ class AddToCart extends React.Component {
       return (
         <div>
           <label htmlFor="sizes"></label>
-          <select onChange={this.handleSize} name="sizes" className="sizes">
+          <select onChange={this.handleSize} name="sizes" className="size">
           <option selected disabled>Select Size</option>
             {Object.keys(this.props.skus).map(sku => {
               return <option key={sku} data={this.props.skus[sku].quantity} id={sku} >{this.props.skus[sku].size}</option>
