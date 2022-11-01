@@ -119,6 +119,7 @@ class Product extends React.Component {
         <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
           <h1 id="title">`Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/></h1>
+          <p class="announce"><i>Site-Wide Announcement Message!</i>-- Sale / Discount <b>Offer</b>-<span style={{textDecoration: 'underline'}}>New Product Highlight</span></p>
           <div id="extendo">
             <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
           </div>
@@ -129,6 +130,7 @@ class Product extends React.Component {
         <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
           <h1 id="title">Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/></h1>
+          <p class="announce"><i>Site-Wide Announcement Message!</i>&nbsp;-- Sale/Discount <b>Offer</b> -- <span style={{textDecoration: 'underline'}}>New Product Highlight</span></p>
           <div id="container">
             <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
             <div className="product">
