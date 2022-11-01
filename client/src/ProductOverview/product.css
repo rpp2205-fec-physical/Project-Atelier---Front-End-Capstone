@@ -1,3 +1,7 @@
+#productOverview {
+	font-family: 'Courier New', Courier, monospace;
+}
+
 #title {
 	/* margin: auto; */
 	color: white;
@@ -135,4 +139,11 @@ border-radius: 40px;
 .star {
   -webkit-filter: invert(42%) sepia(14%) saturate(5361%) hue-rotate(161deg) brightness(107%) contrast(101%);
   filter: invert(42%) sepia(14%) saturate(5361%) hue-rotate(161deg) brightness(107%) contrast(101%);
+	display: inline;
+	float: left;
+}
+
+.review {
+	display: inline;
+	text-decoration: underline;
 }

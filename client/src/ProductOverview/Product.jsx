@@ -52,7 +52,7 @@ class Product extends React.Component {
     if (reviews.ratings.ratings) {
       return (<div>
         <Stars ratings={reviews.ratings.ratings} />
-        <p>Read All 22 Reviews</p>
+        <p className="review">Read All 22 Reviews</p>
         </div>);
     } else {
       return <Stars stars={0} />;
