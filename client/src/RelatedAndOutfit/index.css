@@ -24,15 +24,16 @@
   border: 1px;
   border-style: solid;
   border-color: black;
-  padding: 0.2rem;
+  padding: 0;
   align-items: center;
   max-height: 100%;
   height: 100%;
   justify-content: center;
   vertical-align: top;
   cursor: pointer;
-  background-color: #848484;
+  background-color: gray;
   font-family: 'Courier New', Courier, monospace;
+  position: relative;
 }
 
 .card-img {
@@ -45,7 +46,20 @@
   object-fit: cover;
 }
 
+.outfit-toggle {
+  cursor: pointer;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  -webkit-filter: invert(42%) sepia(51%) saturate(3248%) hue-rotate(174deg) brightness(97%) contrast(94%);
+  filter: invert(42%) sepia(51%) saturate(3248%) hue-rotate(174deg) brightness(97%) contrast(94%);
+  mix-blend-mode: hard-light;
+}
+
 p, h4, h5, h6 {
+  font-family: 'Courier New', Courier, monospace;
   padding: 0px;
-  margin: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 0.5em;
 }
