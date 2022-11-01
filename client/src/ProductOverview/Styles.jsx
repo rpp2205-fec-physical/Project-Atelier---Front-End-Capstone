@@ -17,6 +17,8 @@ class Styles extends React.Component {
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
       this.state.previous.style.borderStyle = "none";
       this.state.clicked.style.borderStyle = "solid";
+      this.state.clicked.style.borderWidth = "4px";
+      this.state.clicked.style.borderColor = "skyblue";
     });
     let prev = this.state.clicked;
     asyncSetState({previous: prev, clicked: e.target})

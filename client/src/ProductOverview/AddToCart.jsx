@@ -4,6 +4,7 @@ import {StarOutlined} from '@ant-design/icons';
 import OutfitToggle from '../components/OutfitToggle.jsx';
 import { TriggerOutfitLoadContext } from "../contexts/TriggerOutfitLoad";
 import { get, post, put } from '../lib/request-handlers';
+import { outfit } from '../lib/outfit';
 
 class AddToCart extends React.Component {
   constructor(props) {

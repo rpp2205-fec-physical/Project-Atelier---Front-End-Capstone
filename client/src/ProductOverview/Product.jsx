@@ -117,8 +117,8 @@ class Product extends React.Component {
     if (this.state.expanded) {
       return (
         <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
-          <h1 id="title">Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________</h1>
+          <h1 id="title">`Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/></h1>
           <div id="extendo">
             <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
           </div>
@@ -128,7 +128,7 @@ class Product extends React.Component {
       return (
         <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
           <h1 id="title">Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________</h1>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/></h1>
           <div id="container">
             <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
             <div className="product">
