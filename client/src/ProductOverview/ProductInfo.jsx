@@ -13,7 +13,7 @@ class ProductInfo extends React.Component {
           <div>
             <h3>Category > {this.props.Product.category}</h3>
             <h1>{this.props.Product.name}</h1>
-            <h3><span style={{textDecoration: 'line-through'}}>${this.props.Product.default_price}</span> ${this.props.Price}</h3>
+            <h3><span style={{textDecoration: 'line-through', color: 'red'}}>${this.props.Product.default_price}</span> ${this.props.Price}</h3>
             <h4>{this.props.Product.slogan}</h4>
             <p>{this.props.Product.description}</p>
           </div>

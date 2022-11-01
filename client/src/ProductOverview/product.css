@@ -1,12 +1,24 @@
+#productOverview {
+	font-family: 'Courier New', Courier, monospace;
+}
+
 #title {
 	/* margin: auto; */
-	text-align: center
+	color: white;
+	text-align: center;
+  background-color: grey;
+	padding-bottom: 10px;
+	padding-top: 45px;
+	margin-top: -30px;
+	margin-left: 130px;
+	margin-right: 130px;
 }
 
 #container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-left: 100px;
 }
 
 #extendo {
@@ -71,12 +83,12 @@ border-radius: 40px;
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
-	top: 37%;
+	top: 38%;
 }
 
 .slide-arrow.right {
 	/* left: 43.5%; */
-	left: 706px;
+	left: 806px;
 }
 
 .slide-arrow.left {
@@ -84,9 +96,9 @@ border-radius: 40px;
 }
 
 .expand {
-	top: 12%;
+	top: 14%;
 	position: absolute;
-	left: 690px;
+	left: 795px;
 	font-size: 2rem;
 }
 
@@ -118,7 +130,7 @@ border-radius: 40px;
   cursor: pointer;
 }
 
-button:hover{
+.size:hover, .quantity:hover, button:hover{
 	background-color: rgb(138, 81, 6);
 }
 
@@ -127,4 +139,11 @@ button:hover{
 .star {
   -webkit-filter: invert(42%) sepia(14%) saturate(5361%) hue-rotate(161deg) brightness(107%) contrast(101%);
   filter: invert(42%) sepia(14%) saturate(5361%) hue-rotate(161deg) brightness(107%) contrast(101%);
+	display: inline;
+	float: left;
+}
+
+.review {
+	display: inline;
+	text-decoration: underline;
 }
