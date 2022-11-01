@@ -123,7 +123,7 @@ class AddToCart extends React.Component {
           </select>
           <button onClick={this.addToCart}>Add To Cart</button>
           <div className="outfitDiv">
-            <OutfitToggle productId={this.props.Style.product_id}/>
+            <OutfitToggle productId={this.props.Style.product_id} customClassName="outfit"/>
             Add To Outfit
           </div>
         </div>
