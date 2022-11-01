@@ -1,6 +1,6 @@
 import React from 'react';
 import './product.css';
-import {ExpandOutlined} from '@ant-design/icons';
+import {ExpandOutlined, LeftSquareFilled, RightSquareFilled} from '@ant-design/icons';
 
 
 class ImageGallery extends React.Component {
@@ -65,6 +65,22 @@ class ImageGallery extends React.Component {
     </div>
   )}
 
+  ArrowL ({ direction, clickFunction }) {
+    return( <div
+       className={ `slide-arrow ${direction}` }
+       onClick={ clickFunction }>
+       <LeftSquareFilled />
+     </div>
+   )}
+
+   ArrowR ({ direction, clickFunction }) {
+    return( <div
+       className={ `slide-arrow ${direction}` }
+       onClick={ clickFunction }>
+       <RightSquareFilled />
+     </div>
+   )}
+
   ImageSlide( {url} ) {
     const styles = {
       backgroundImage: `url(${url})`,
@@ -118,10 +134,10 @@ class ImageGallery extends React.Component {
         if (this.state.expanded) {
           return (
             <div className="carousel">
-              <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
+              <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
               <this.ImageSlideExpanded url={ this.state.clickedURL } alt="outfit"/>
               <ExpandOutlined className="expand" onClick={this.expand}/>
-              <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
+              <this.ArrowR direction="right" clickFunction={ this.nextSlide } />
             </div>
           );
         } else {
@@ -132,10 +148,10 @@ class ImageGallery extends React.Component {
                   return <img src={photo.url} class="thumbnail"></img>
                 })}
               </div> */}
-              <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
+              <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
               <this.ImageSlide url={ this.state.clickedURL } alt="outfit"/>
               <ExpandOutlined className="expand" onClick={this.expand}/>
-              <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
+              <this.ArrowR direction="right" clickFunction={ this.nextSlide } />
             </div>
           );
         }
@@ -143,10 +159,10 @@ class ImageGallery extends React.Component {
         if (this.state.expanded) {
           return (
             <div className="carousel">
-              <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
+              <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
               <this.ImageSlideExpanded url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
               <ExpandOutlined className="expand" onClick={this.expand}/>
-              <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
+              <this.ArrowR direction="right" clickFunction={ this.nextSlide }/>
             </div>
           );
         } else {
@@ -157,10 +173,10 @@ class ImageGallery extends React.Component {
                   return <img src={photo.url} class="thumbnail"></img>
                 })}
               </div> */}
-              <this.Arrow direction="left" clickFunction={ this.previousSlide } glyph="&#9664;" />
+              <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
               <this.ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
               <ExpandOutlined className="expand" onClick={this.expand}/>
-              <this.Arrow direction="right" clickFunction={ this.nextSlide } glyph="&#9654;" />
+              <this.ArrowR direction="right" clickFunction={ this.nextSlide } />
             </div>
           );
         }

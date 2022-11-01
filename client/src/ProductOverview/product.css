@@ -71,12 +71,12 @@ border-radius: 40px;
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
-	top: 35%;
+	top: 37%;
 }
 
 .slide-arrow.right {
 	/* left: 43.5%; */
-	left: 700px;
+	left: 706px;
 }
 
 .slide-arrow.left {
@@ -108,6 +108,21 @@ border-radius: 40px;
   display: inline;
   margin: 2px;
 }
+
+.size, .quantity, button{
+	color: white;
+  /* padding: 8px 16px; */
+	margin: 15px;
+  border: 12px solid transparent;
+	background-color: grey;
+  cursor: pointer;
+}
+
+button:hover{
+	background-color: rgb(138, 81, 6);
+}
+
+
 
 .star {
   -webkit-filter: invert(42%) sepia(14%) saturate(5361%) hue-rotate(161deg) brightness(107%) contrast(101%);
