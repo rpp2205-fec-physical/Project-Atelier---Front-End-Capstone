@@ -1,44 +1,53 @@
 class Outfit {
   constructor() {
     this.updated = false;
-    this.localStorageSupported = true;
+    this.localStorageSupported = this.checkLocalStorage();
+    this._outfit = null;
+
+    this.initOutfit();
   }
 
   get() {
-    let outfit;
+    if (!this.localStorageSupported) { return null; }
 
+    return this._outfit;
+  }
+
+  initOutfit() {
     try {
-      outfit = window.localStorage.outfit || [];
-      if (typeof outfit === 'string' || outfit instanceof String) {
-        outfit = JSON.parse(outfit);
+      this._outfit = window.localStorage.outfit || [];
+      if (typeof this._outfit === 'string' || this._outfit instanceof String) {
+        this._outfit = JSON.parse(this._outfit);
+      } else {
+        this.sync();
       }
     }
     catch (e) {
       console.log('Local storage is unavailable, outfit will be null');
       console.log(e);
       this.localStorageSupported = false;
-      outfit = [];
+      this._outfit = [];
     }
-    // console.log('---> GOT OUTFIT', outfit);
-    return outfit;
   }
 
-  set(outfit) {
+  sync() {
     if (!this.localStorageSupported) { return null; }
+
     try {
-      window.localStorage.outfit = JSON.stringify(outfit);
+      window.localStorage.outfit = JSON.stringify(this._outfit);
     }
     catch (err) {
       console.error('ERROR saving to localStorage');
       console.log(err);
     }
+
+    this.updated = true;
   }
 
   includes(productId) {
     if (!this.localStorageSupported) { return null; }
-    const outfit = this.get();
 
-    for (let id of outfit) {
+    for (let id of this._outfit) {
       if (id === productId) {
         return true;
       }
@@ -49,26 +58,41 @@ class Outfit {
 
   add(productId) {
     if (!this.localStorageSupported) { return null; }
-    const outfit = this.get();
-    outfit.unshift(productId);
-    this.set(outfit);
-    this.updated = true;
-    return outfit;
+    const index = this._outfit.indexOf(productId);
+    if (index !== -1) {
+      this._outfit.unshift(productId);
+    } else {
+      return this._outfit;
+    }
+
+    this.sync();
+    return this._outfit;
   }
 
   remove(productId) {
     if (!this.localStorageSupported) { return null; }
-    const outfit = this.get();
-    const i = outfit.indexOf(productId);
-    if (i !== -1) { return outfit; }
-    const newOutfit = [...outfit];
-    outfit.splice(i, 1);
-    this.updated = true;
-    return newOutfit;
+
+    const i = this._outfit.indexOf(productId);
+    if (i === -1) { return this._outfit; }
+
+    this._outfit.splice(i, 1);
+    this.sync();
+    return this._outfit;
   }
 
   resetUpdated() {
     this.updated = false;
+  }
+
+  checkLocalStorage() {
+    const test = 'test';
+    try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
 
