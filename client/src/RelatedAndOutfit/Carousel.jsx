@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Card from './ProductCard.jsx';
-import './Carousel.css';
+//import './Carousel.css';
 
 function getDefaultStyle(styles) {
   for (let style of styles.results) {

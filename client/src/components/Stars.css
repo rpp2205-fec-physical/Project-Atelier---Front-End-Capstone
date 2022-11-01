@@ -13,6 +13,6 @@
 }
 
 .star {
-  -webkit-filter: invert(42%) sepia(14%) saturate(5361%) hue-rotate(161deg) brightness(107%) contrast(101%);
-  filter: invert(42%) sepia(14%) saturate(5361%) hue-rotate(161deg) brightness(107%) contrast(101%);
+  -webkit-filter: invert(42%) sepia(51%) saturate(3248%) hue-rotate(174deg) brightness(97%) contrast(94%);
+  filter: invert(42%) sepia(51%) saturate(3248%) hue-rotate(174deg) brightness(97%) contrast(94%);
 }

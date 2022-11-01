@@ -26,8 +26,8 @@ export default function Card({ mainProduct, item, style, reviewsMeta }) {
     <img className='card-img' src={style.photos[0].thumbnail_url} alt={item.name}/>
     <h5>{item.category}</h5>
     <h4>{item.name}</h4>
-    {price(item, style)}
-    {stars(reviewsMeta)}
+    <p>{price(item, style)}</p>
+    <p>{stars(reviewsMeta)}</p>
     <OutfitToggle productId={item.id} />
   </div>
 }
