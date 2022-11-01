@@ -79,7 +79,7 @@ border-radius: 40px;
 }
 
 .slide-arrow {
-	color: rgb(16, 17, 17);
+	color: rgb(113, 113, 113);
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
@@ -102,9 +102,18 @@ border-radius: 40px;
 	font-size: 2rem;
 }
 
+.outfitDiv{
+	display: inline;
+	background-color: grey;
+	border-color: grey;
+	/* margin-right:2px; */
+	margin: 4px;
+  border: 4px solid transparent;
+
+}
+
 .outfit-toggle {
-	border: 2px;
-	padding-left:5px;
+
 }
 
 * {
@@ -121,17 +130,26 @@ border-radius: 40px;
   margin: 2px;
 }
 
-.size, .quantity, button{
+.size, .quantity, .outfitDiv, button{
 	color: white;
   /* padding: 8px 16px; */
-	margin: 15px;
-  border: 12px solid transparent;
+	/* margin: 4px;
+  border: 4px solid transparent; */
 	background-color: grey;
   cursor: pointer;
+	font-family: 'Courier New', Courier, monospace;
+	/* font-weight: 600; */
 }
 
-.size:hover, .quantity:hover, button:hover{
-	background-color: rgb(138, 81, 6);
+.size, .quantity, button{
+	font-size: large;
+	margin: 4px;
+  border: 4px solid transparent;
+}
+
+
+.size:hover, .quantity:hover, .outfitDiv:hover, button:hover{
+	background-color: rgb(8, 149, 220);
 }
 
 
