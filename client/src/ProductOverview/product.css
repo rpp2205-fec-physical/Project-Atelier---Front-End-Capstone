@@ -118,7 +118,7 @@ border-radius: 40px;
   cursor: pointer;
 }
 
-button:hover{
+.size:hover, .quantity:hover, button:hover{
 	background-color: rgb(138, 81, 6);
 }
 
