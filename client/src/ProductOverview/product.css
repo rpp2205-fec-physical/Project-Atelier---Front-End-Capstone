@@ -42,7 +42,7 @@
 margin: 10px;
 height: 85px;
 width: 85px;
-border-radius: 40px;
+border-radius: 50px;
 }
 
 .carousel {
@@ -112,9 +112,6 @@ border-radius: 40px;
 
 }
 
-.outfit-toggle {
-
-}
 
 * {
   -webkit-font-smoothing: antialiased;

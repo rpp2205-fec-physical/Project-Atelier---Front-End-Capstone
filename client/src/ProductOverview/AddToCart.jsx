@@ -4,6 +4,7 @@ import {StarOutlined} from '@ant-design/icons';
 import OutfitToggle from '../components/OutfitToggle.jsx';
 import { TriggerOutfitLoadContext } from "../contexts/TriggerOutfitLoad";
 import { get, post, put } from '../lib/request-handlers';
+import { outfit } from '../lib/outfit';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -122,7 +123,7 @@ class AddToCart extends React.Component {
           </select>
           <button onClick={this.addToCart}>Add To Cart</button>
           <div className="outfitDiv">
-            <OutfitToggle productId={this.props.Style.product_id}/>
+            <OutfitToggle productId={this.props.Style.product_id} customClassName="outfit"/>
             Add To Outfit
           </div>
         </div>
