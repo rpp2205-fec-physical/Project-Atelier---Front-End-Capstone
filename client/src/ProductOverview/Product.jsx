@@ -7,6 +7,7 @@ import Stars from '../components/Stars.jsx';
 import './product.css';
 const ClickAnalytics = require('../lib/clickAnalytics.js');
 import { get, post, put } from '../lib/request-handlers';
+import {SearchOutlined} from '@ant-design/icons';
 
 
 class Product extends React.Component {
@@ -116,7 +117,8 @@ class Product extends React.Component {
     if (this.state.expanded) {
       return (
         <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
-          <h1 id="title">Welcome To Project Atelier</h1>
+          <h1 id="title">Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________</h1>
           <div id="extendo">
             <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
           </div>
@@ -125,7 +127,8 @@ class Product extends React.Component {
     } else {
       return (
         <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
-          <h1 id="title">Welcome To Project Atelier</h1>
+          <h1 id="title">Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________</h1>
           <div id="container">
             <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
             <div className="product">
