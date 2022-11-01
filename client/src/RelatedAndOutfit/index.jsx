@@ -202,7 +202,6 @@ export default class RelatedAndOutfit extends React.Component {
   }
 
   triggerOutfitLoad(newState, callback) {
-    console.log('TRIGGER OUTFIT LOAD')
     if (this.state.loadedOutfit) {
       newState.loadedOutfit = false;
       this.setState(

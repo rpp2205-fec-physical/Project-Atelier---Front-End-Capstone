@@ -1,10 +1,17 @@
 class Outfit {
   constructor() {
     this.updated = false;
-    this.localStorageSupported = this.checkLocalStorage();
+    this.localStorageSupported = this._checkLocalStorage();
     this._outfit = null;
 
     this.initOutfit();
+
+    this.get = this.get.bind(this);
+    this.add = this.add.bind(this);
+    this.remove = this.remove.bind(this);
+    this.includes = this.includes.bind(this);
+    this.sync = this.sync.bind(this);
+    this.resetUpdated = this.resetUpdated.bind(this);
   }
 
   get() {
@@ -46,9 +53,10 @@ class Outfit {
 
   includes(productId) {
     if (!this.localStorageSupported) { return null; }
+    const prodId = this._parseId(productId);
 
     for (let id of this._outfit) {
-      if (id === productId) {
+      if (id === prodId) {
         return true;
       }
     }
@@ -58,9 +66,11 @@ class Outfit {
 
   add(productId) {
     if (!this.localStorageSupported) { return null; }
-    const index = this._outfit.indexOf(productId);
-    if (index !== -1) {
-      this._outfit.unshift(productId);
+    const prodId = this._parseId(productId);
+    const index = this._outfit.indexOf(prodId);
+
+    if (index === -1) {
+      this._outfit.unshift(prodId);
     } else {
       return this._outfit;
     }
@@ -71,8 +81,9 @@ class Outfit {
 
   remove(productId) {
     if (!this.localStorageSupported) { return null; }
+    const prodId = this._parseId(productId);
+    const i = this._outfit.indexOf(prodId);
 
-    const i = this._outfit.indexOf(productId);
     if (i === -1) { return this._outfit; }
 
     this._outfit.splice(i, 1);
@@ -84,7 +95,11 @@ class Outfit {
     this.updated = false;
   }
 
-  checkLocalStorage() {
+  _parseId(id) {
+    return parseInt(id);
+  }
+
+  _checkLocalStorage() {
     const test = 'test';
     try {
       localStorage.setItem(test, test);

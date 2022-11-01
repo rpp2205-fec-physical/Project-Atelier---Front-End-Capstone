@@ -28,7 +28,6 @@ export default function OutfitToggle({ productId, height }) {
     return () => {
       // console.log('CLICKED OUTFIT TOGGLE!');
       const newOutfit = outfit[action](productId);
-      console.log('Going to Trigger Outfit now', newOutfit);
       triggerOutfitLoad({
         outfit: newOutfit
       }, () => setSrc(action === 'add' ? removeFromOutfitIconSrc : addToOutfitIconSrc));
