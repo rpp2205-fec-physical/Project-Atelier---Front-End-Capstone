@@ -1,4 +1,5 @@
 import React from "react";
+import './index.css';
 import Carousel from "./Carousel.jsx";
 import { outfit } from '../lib/outfit';
 import { TriggerOutfitLoadContext } from "../contexts/TriggerOutfitLoad";

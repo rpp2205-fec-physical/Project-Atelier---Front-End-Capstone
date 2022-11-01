@@ -13,13 +13,14 @@ const removeFromOutfitIconSrc = '../../assets/person-circle-xmark-solid.svg';
  *
  * optional props:
  * - height: css string
+ * - customClassName: defaults to "outfit-toggle"
 */
 
 const isInOutfit = (id) => {
   return outfit.includes(id);
 }
 
-export default function OutfitToggle({ productId, height }) {
+export default function OutfitToggle({ productId, height, customClassName }) {
   if (!productId) { return null; }
   const triggerOutfitLoad = useContext(TriggerOutfitLoadContext);
   const inOutfit = isInOutfit(productId);
@@ -35,7 +36,7 @@ export default function OutfitToggle({ productId, height }) {
   };
 
   const icon = React.createElement("img", {
-    className: "outfit-toggle",
+    className: customClassName || "outfit-toggle",
     alt: "Add or remove this item from your outfit",
     src: src,
     onClick: handleClick(inOutfit ? "remove" : "add"),
