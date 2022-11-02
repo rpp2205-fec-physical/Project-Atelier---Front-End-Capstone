@@ -3,7 +3,8 @@ import { outfit } from '../lib/outfit';
 import { TriggerOutfitLoadContext } from '../contexts/TriggerOutfitLoad';
 
 const addToOutfitIconSrc = '../../assets/person-circle-plus-solid.svg';
-const removeFromOutfitIconSrc = '../../assets/person-circle-xmark-solid.svg';
+//const removeFromOutfitIconSrc = '../../assets/person-circle-xmark-solid.svg';
+const removeFromOutfitIconSrc = '../../assets/circle-xmark-solid.svg';
 
 /******OutfitToggle******
  * a component that shows one icon when the item is in the 'outfit' array

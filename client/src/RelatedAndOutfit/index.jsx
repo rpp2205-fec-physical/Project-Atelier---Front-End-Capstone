@@ -218,9 +218,9 @@ export default class RelatedAndOutfit extends React.Component {
         {!this.state.loadedRelated ? (
           <div>Loading...</div>
         ) : (
-          <div>
+          <div id="related-widget">
             <div>
-              <h4>Related Products</h4>
+              <h3>Related Products</h3>
               <Carousel
                 mainProduct={this.props.product}
                 items={this.state.relatedInfo}
@@ -230,7 +230,7 @@ export default class RelatedAndOutfit extends React.Component {
             </div>
             {this.state.loadedOutfit && this.state.outfit.length ? (
               <div>
-                <h4>Your Outfit</h4>
+                <h3>Your Outfit</h3>
                 <Carousel
                   mainProduct={this.props.product}
                   items={this.state.outfitInfo}
