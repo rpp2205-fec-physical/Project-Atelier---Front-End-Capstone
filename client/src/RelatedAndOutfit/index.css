@@ -4,6 +4,28 @@
   flex-wrap: nowrap;
   overflow: hidden;
   justify-content: center;
+  width: 80%;
+  align-self: center;
+  position: relative;
+}
+
+.fade {
+  position: absolute;
+  width: 160px;
+  height: 100%;
+  top: 0;
+}
+
+.fade-left {
+  left: 0;
+  z-index: 2000;
+  background-image: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+.fade-right {
+  right: 0;
+  z-index: 2000;
+  background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
 }
 
 .carousel-item {
@@ -53,7 +75,7 @@
   top: 12px;
   -webkit-filter: invert(42%) sepia(51%) saturate(3248%) hue-rotate(174deg) brightness(97%) contrast(94%);
   filter: invert(42%) sepia(51%) saturate(3248%) hue-rotate(174deg) brightness(97%) contrast(94%);
-  mix-blend-mode: hard-light;
+  background-blend-mode: darken;
 }
 
 p, h4, h5, h6 {

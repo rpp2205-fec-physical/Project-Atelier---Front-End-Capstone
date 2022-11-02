@@ -33,6 +33,7 @@ export default function Carousel({ mainProduct, items, styles, reviewsMeta }) {
           <Card mainProduct={mainProduct} item={item} style={getDefaultStyle(styles[i])} reviewsMeta={reviewsMeta[i]} />
         </div>
       ))}
+      <div className="fade fade-left"/><div className="fade fade-right"/>
     </div>
   }
 }
