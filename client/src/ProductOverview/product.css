@@ -83,7 +83,7 @@ border-radius: 50px;
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
-	top: 38%;
+	top: 39%;
 }
 
 .slide-arrow.right {
@@ -161,4 +161,9 @@ border-radius: 50px;
 .review {
 	display: inline;
 	text-decoration: underline;
+}
+
+.announce {
+	text-align: center;
+	margin-bottom: -12px;
 }

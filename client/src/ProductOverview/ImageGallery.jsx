@@ -115,7 +115,7 @@ class ImageGallery extends React.Component {
         {this.props.Photos.map(photo => {
           return (
             <div>
-              <img src={photo.url} className="thumbnail" key={photo.url} onClick={(e) => {this.setState({clickedURL: e.target.src, thumbClick: true})}}></img>
+              <img src={photo.url} className="thumbnail" key={photo.url} alt="thumbnail" onClick={(e) => {this.setState({clickedURL: e.target.src, thumbClick: true})}}></img>
             </div>
           )
         })}
