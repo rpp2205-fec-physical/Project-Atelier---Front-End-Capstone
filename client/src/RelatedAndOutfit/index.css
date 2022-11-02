@@ -1,3 +1,8 @@
+#related-widget {
+  align-items: center;
+  justify-content: center;
+}
+
 .carousel-container {
   background-color: #f1f1f1;
   display: flex;
@@ -11,6 +16,7 @@
 
 .fade {
   position: absolute;
+  z-index: 2000;
   width: 160px;
   height: 100%;
   top: 0;
@@ -18,14 +24,27 @@
 
 .fade-left {
   left: 0;
-  z-index: 2000;
   background-image: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
 }
 
 .fade-right {
   right: 0;
-  z-index: 2000;
   background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+}
+
+.carousel-controls {
+  position: absolute;
+  z-index: 3000;
+  top: 50%;
+  margin: 0;
+}
+
+.carousel-left {
+  left: 0;
+}
+
+.caroousel-right {
+  right: 0;
 }
 
 .carousel-item {
@@ -78,7 +97,7 @@
   background-blend-mode: darken;
 }
 
-p, h4, h5, h6 {
+p, h3, h4, h5, h6 {
   font-family: 'Courier New', Courier, monospace;
   padding: 0px;
   margin-top: 0.5em;
