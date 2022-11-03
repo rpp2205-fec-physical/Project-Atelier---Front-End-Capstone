@@ -36,7 +36,10 @@ class App extends React.Component {
     const newState = {};
     this.get('/products')
       .then(products => {
-        const i = Math.floor(Math.random() * products.length);
+        let i;
+        do {
+          i = Math.floor(Math.random() * products.length);
+        } while (products[i].id === 71698);
         const url = '/products/' + products[i].id;
         newState.endoint = products[i].id;
         return this.get(url);

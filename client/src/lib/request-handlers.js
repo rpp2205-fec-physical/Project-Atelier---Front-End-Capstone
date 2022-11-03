@@ -3,8 +3,15 @@ import Cache from './cache-client';
 
 const cache = new Cache(6000000);
 
+const noCacheEndpoints = [
+  '/cart'
+];
+
 export function get(endpoint) {
-  const cached = cache.get(endpoint);
+  let cached;
+  if (!noCacheEndpoints.includes(endpoint)) {
+    cached = cache.get(endpoint);
+  };
 
   if (cached) {
     return Promise.resolve(cached);
