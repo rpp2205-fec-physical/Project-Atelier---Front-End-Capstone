@@ -151,8 +151,14 @@ export default class RelatedAndOutfit extends React.Component {
 
     return get("/products/" + this.state.productId + "/related")
       .then((relatedIDs) => {
-        data.relatedIDs = relatedIDs;
-        return Promise.all(relatedIDs.map((id) => get("/products/" + id)));
+        // Removing duplicates
+        data.relatedIDs = relatedIDs.filter((item, i) => {
+          // Taking out the Bright Future Sunglasses cause they are broken
+          if (item == 71698) {return false}
+          ////////////////////////////////////////////////////////////////
+          return relatedIDs.indexOf(item) == i;
+        });
+        return Promise.all(data.relatedIDs.map((id) => get("/products/" + id)));
       })
       .then((relatedInfo) => {
         data.relatedInfo = relatedInfo;
