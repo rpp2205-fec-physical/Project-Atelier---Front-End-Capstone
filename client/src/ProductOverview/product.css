@@ -62,7 +62,7 @@ border-radius: 50px;
 	height: 100%;
 	width: 220%;
 	margin-left: 85px;
-	transition: background-image .3s ease-in-out;
+	transition: all .3s ease-in-out;
 }
 
 .thumbContainer {

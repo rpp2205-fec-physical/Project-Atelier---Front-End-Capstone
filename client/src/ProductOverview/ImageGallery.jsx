@@ -87,8 +87,9 @@ class ImageGallery extends React.Component {
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     };
+    let imageClass = this.state.expanded ? "image-slide-expand" : "image-slide"
     return (
-      <div className="image-slide" style={styles}>
+      <div className={imageClass} style={styles}>
         <this.Thumbnails />
         {/* <div  style={styles}></div> */}
       </div>
@@ -149,55 +150,24 @@ class ImageGallery extends React.Component {
       if(this.state.thumbClick) {
         let index = imgUrls.indexOf(this.state.clickedURL);
         console.log('img index', index);
-        if (this.state.expanded) {
           return (
             <div className="carousel">
-              <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
-              <this.ImageSlideExpanded url={ imgUrls[index] } alt="outfit"/>
-              <ExpandOutlined className="expand" onClick={this.expand}/>
-              <this.ArrowR direction="right" clickFunction={ this.nextSlide } />
-            </div>
-          );
-        } else {
-          return (
-            <div className="carousel">
-              {/* <div className="thumbContainer">
-                {this.props.Photos.map(photo => {
-                  return <img src={photo.url} class="thumbnail"></img>
-                })}
-              </div> */}
               <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
               <this.ImageSlide url={ imgUrls[index] } alt="outfit"/>
               <ExpandOutlined className="expand" onClick={this.expand}/>
               <this.ArrowR direction="right" clickFunction={ this.nextSlide } />
             </div>
           );
-        }
+
       } else {
-        if (this.state.expanded) {
-          return (
-            <div className="carousel">
-              <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
-              <this.ImageSlideExpanded url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
-              <ExpandOutlined className="expand" onClick={this.expand}/>
-              <this.ArrowR direction="right" clickFunction={ this.nextSlide }/>
-            </div>
-          );
-        } else {
-          return (
-            <div className="carousel">
-              {/* <div className="thumbContainer">
-                {this.props.Photos.map(photo => {
-                  return <img src={photo.url} class="thumbnail"></img>
-                })}
-              </div> */}
-              <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
-              <this.ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
-              <ExpandOutlined className="expand" onClick={this.expand}/>
-              <this.ArrowR direction="right" clickFunction={ this.nextSlide } />
-            </div>
-          );
-        }
+        return (
+          <div className="carousel">
+            <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
+            <this.ImageSlide url={ imgUrls[this.state.currentImageIndex] } alt="outfit"/>
+            <ExpandOutlined className="expand" onClick={this.expand}/>
+            <this.ArrowR direction="right" clickFunction={ this.nextSlide } />
+          </div>
+        );
       }
     } else {
       return (
