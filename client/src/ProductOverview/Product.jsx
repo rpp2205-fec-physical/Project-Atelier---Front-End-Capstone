@@ -37,7 +37,8 @@ class Product extends React.Component {
     this.post = post;
     this.put = put;
     this.reInit = this.reInit.bind(this);
-    // this.clickAnalytics = this.clickAnalytics.bind(this);
+    this.clickAnalytics = this.clickAnalytics.bind(this);
+    this.onCartClick = this.onCartClick.bind(this);
   }
 
   componentDidMount() {
@@ -71,11 +72,25 @@ class Product extends React.Component {
     if (reviews.ratings.ratings) {
       return (<div>
         <Stars ratings={reviews.ratings.ratings} />
-        <p className="review">Read All {this.state.reviews} Reviews</p>
+        <p className="review" onClick={() => {alert('If we hired another employee we could add a reviews component but for now just trust us - this product is unbelievable!')}}>Read All {this.state.reviews} Reviews</p>
         </div>);
     } else {
       return <Stars stars={0} />;
     }
+  }
+
+  onCartClick(e) {
+    e.preventDefault();
+    let cart = [];
+    for (let i = 0; i < this.state.cartItems.length; i++) {
+      let item = this.state.cartItems[i];
+      let product = {};
+      product.productNumber = item.sku_id;
+      product.quantity = item.count;
+      cart.push(product);
+      cart[`Product number: ${item.sku_id}`] = `${item.count} Pieces`;
+    }
+    alert(`YOU HAVE ${this.state.cartNum} ITEMS IN YOUR CART! : ${JSON.stringify(cart)}`);
   }
 
   clickAnalytics() {
@@ -179,8 +194,9 @@ class Product extends React.Component {
       if (this.state.expanded) {
         return (
           <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
-            <h1 id="title">`Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/>&nbsp;<ShoppingCartOutlined />{this.state.cartNum}</h1>
+            <h1 id="title">Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/>&nbsp;
+            <ShoppingCartOutlined onClick={this.onCartClick}/>{this.state.cartNum}</h1>
             <p class="announce"><i>Site-Wide Announcement Message!</i>-- Sale / Discount <b>Offer</b>-<span style={{textDecoration: 'underline'}}>New Product Highlight</span></p>
             <div id="extendo">
               <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
@@ -191,7 +207,8 @@ class Product extends React.Component {
         return (
           <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
             <h1 id="title">Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/>&nbsp;<ShoppingCartOutlined />{this.state.cartNum}</h1>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/>&nbsp;
+            <ShoppingCartOutlined onClick={this.onCartClick}/>{this.state.cartNum}</h1>
             <p class="announce"><i>Site-Wide Announcement Message!</i>&nbsp;-- Sale/Discount <b>Offer</b> -- <span style={{textDecoration: 'underline'}}>New Product Highlight</span></p>
             <div id="container">
               <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
