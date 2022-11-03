@@ -7,7 +7,7 @@ import Stars from '../components/Stars.jsx';
 import './product.css';
 const ClickAnalytics = require('../lib/clickAnalytics.js');
 import { get, post, put } from '../lib/request-handlers';
-import {SearchOutlined} from '@ant-design/icons';
+import {SearchOutlined, ShoppingCartOutlined} from '@ant-design/icons';
 
 
 class Product extends React.Component {
@@ -23,7 +23,11 @@ class Product extends React.Component {
       loaded: false,
       clickAnalytics: [],
       price: null,
-      expanded: false
+      expanded: false,
+      cartNum: 0,
+      cartItems: {},
+      reviews: 0,
+      reInit: 0
     };
     this.initialize = this.initialize.bind(this);
     this.childToParent = this.childToParent.bind(this);
@@ -32,11 +36,25 @@ class Product extends React.Component {
     this.get = get;
     this.post = post;
     this.put = put;
+    this.reInit = this.reInit.bind(this);
     // this.clickAnalytics = this.clickAnalytics.bind(this);
   }
 
   componentDidMount() {
-    this.initialize();
+    if (Object.keys(this.props.product).length) {
+      this.initialize();
+    } else {
+      this.reInit();
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.reInit > 1 && Object.keys(this.props.product).length) {
+      return;
+    } else {
+      this.reInit();
+      this.state.reInit++;
+    }
   }
 
   childToParent(data) {
@@ -53,7 +71,7 @@ class Product extends React.Component {
     if (reviews.ratings.ratings) {
       return (<div>
         <Stars ratings={reviews.ratings.ratings} />
-        <p className="review">Read All 22 Reviews</p>
+        <p className="review">Read All {this.state.reviews} Reviews</p>
         </div>);
     } else {
       return <Stars stars={0} />;
@@ -91,57 +109,106 @@ class Product extends React.Component {
     }
   }
 
-  initialize() {
-    this.get('/products')
+  reInit() {
+    if (Object.keys(this.props.product).length) {
+      const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
+      this.get('/products')
       .then(data => {
-        this.setState({
-          products: data
+        asyncSetState({
+          products: data,
+          product: this.props.product
         });
-        this.get('/products/' + data[0].id + '/styles')
+        this.get('/products/' + this.props.product.id + '/styles')
           .then(styles => {
             this.setState({
               styles: styles,
               photos: styles.results[0].photos,
               skus: styles.results[0].skus
             });
-            this.get('/reviews/meta?product_id=' + data[0].id)
-              .then(reviews => {
-                const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
-                asyncSetState({ratings: reviews});
+            this.get('/reviews/meta?product_id=' + this.props.product.id)
+              .then(ratings => {
+
+                asyncSetState({ratings: ratings});
               })
+              this.get('/reviews?product_id=' + this.props.product.id)
+                .then(reviews => {
+                  console.log(reviews.count)
+                  this.setState({reviews: reviews.count})
+                })
           })
+          this.get('/cart')
+            .then(cart => {
+              this.setState({cartNum: Object.keys(cart).length, cartItems: cart})
+            })
       })
+    }
   }
 
+  initialize() {
+      this.get('/products')
+        .then(data => {
+          this.setState({
+            products: data,
+          });
+          this.get('/products/' + this.props.id + '/styles')
+            .then(styles => {
+              this.setState({
+                styles: styles,
+                photos: styles.results[0].photos,
+                skus: styles.results[0].skus
+              });
+              this.get('/reviews/meta?product_id=' + this.props.id)
+                .then(ratings => {
+                  const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
+                  asyncSetState({ratings: ratings});
+                })
+                this.get('/reviews?product_id=' + this.props.id)
+                  .then(reviews => {
+                    console.log(reviews.count)
+                    this.setState({reviews: reviews.count})
+                  })
+            })
+            this.get('/cart')
+              .then(cart => {
+                this.setState({cartNum: Object.keys(cart).length, cartItems: cart})
+              })
+        })
+  }
+
+
   render() {
-    if (this.state.expanded) {
-      return (
-        <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
-          <h1 id="title">`Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/></h1>
-          <p class="announce"><i>Site-Wide Announcement Message!</i>-- Sale / Discount <b>Offer</b>-<span style={{textDecoration: 'underline'}}>New Product Highlight</span></p>
-          <div id="extendo">
-            <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
-          <h1 id="title">Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/></h1>
-          <p class="announce"><i>Site-Wide Announcement Message!</i>&nbsp;-- Sale/Discount <b>Offer</b> -- <span style={{textDecoration: 'underline'}}>New Product Highlight</span></p>
-          <div id="container">
-            <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
-            <div className="product">
-              {this.stars(this.state)}
-              <ProductInfo Product={this.state.products[0]} Style={this.state.styles} Price={this.state.price}/>
-              <Styles Style={this.state.styles} childToParent={this.childToParent}/>
-              <AddToCart get={this.get} post={this.post} put={this.put} Style={this.state.styles} skus={this.state.skus}/>
+    if (this.props.product) {
+      if (this.state.expanded) {
+        return (
+          <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
+            <h1 id="title">`Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/>&nbsp;<ShoppingCartOutlined />{this.state.cartNum}</h1>
+            <p class="announce"><i>Site-Wide Announcement Message!</i>-- Sale / Discount <b>Offer</b>-<span style={{textDecoration: 'underline'}}>New Product Highlight</span></p>
+            <div id="extendo">
+              <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
             </div>
           </div>
-        </div>
-      )
+        )
+      } else {
+        return (
+          <div  id="productOverview" onClick={this.clickAnalytics("productOverview")}>
+            <h1 id="title">Welcome To Project Atelier &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________<SearchOutlined/>&nbsp;<ShoppingCartOutlined />{this.state.cartNum}</h1>
+            <p class="announce"><i>Site-Wide Announcement Message!</i>&nbsp;-- Sale/Discount <b>Offer</b> -- <span style={{textDecoration: 'underline'}}>New Product Highlight</span></p>
+            <div id="container">
+              <ImageGallery Style={this.state.styles} Photos={this.state.photos} className="image" cToPExpand={this.childToParentExpand}/>
+              <div className="product">
+                {this.stars(this.state)}
+                <ProductInfo Product={this.props.product} Style={this.state.styles} Price={this.state.price}/>
+                <Styles Style={this.state.styles} childToParent={this.childToParent}/>
+                <AddToCart get={this.get} post={this.post} put={this.put} Style={this.state.styles} skus={this.state.skus}/>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    } else {
+      return (<div>Loading Product Page...</div>)
     }
   }
 }
