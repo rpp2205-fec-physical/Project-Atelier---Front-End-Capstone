@@ -57,7 +57,7 @@ class App extends React.Component {
     const containerClass = 'app'.concat(this.state.isBlurred ? ' is-blurred' : '');
     return (<>
       <div className={containerClass}>
-        <Product get={this.get} post={this.post} /* this prop is no longer needed>>>*/ outfits={{}} product={this.state.product} endpoint={this.state.endpoint} />
+        <Product product={this.state.product} endpoint={this.state.endpoint} />
         <RelatedAndOutfit product={this.state.product} outfit={this.state.outfit} get={this.get} />
         {/* <ReviewContainer get={this.get} product={this.state.product} /> */}
       </div>

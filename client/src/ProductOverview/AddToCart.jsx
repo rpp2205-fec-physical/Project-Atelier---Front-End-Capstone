@@ -87,8 +87,14 @@ class AddToCart extends React.Component {
   handleQuantity() {
     if (this.state.quantity > 0) {
       let result = [];
-      for (let i = 1; i <= this.state.quantity; i++) {
-        result.push(i);
+      if (this.state.quantity > 15) {
+        for (let i = 1; i <= 15; i++) {
+          result.push(i);
+        }
+      } else {
+        for (let i = 1; i <= this.state.quantity; i++) {
+          result.push(i);
+        }
       }
       return result;
     }
