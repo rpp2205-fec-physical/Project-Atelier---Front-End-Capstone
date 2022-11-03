@@ -110,18 +110,33 @@ class ImageGallery extends React.Component {
   }
 
   Thumbnails() {
-    console.log(this.props.Photos.length)
-    return (
-      <div className="thumbContainer">
-        {this.props.Photos.map(photo => {
-          return (
-            <div>
-              <img src={photo.url} className="thumbnail" key={photo.url} alt="thumbnail" onClick={(e) => {this.setState({clickedURL: e.target.src, thumbClick: true})}}></img>
-            </div>
-          )
-        })}
-      </div>
-    );
+    if (this.props.Photos.length > 6) {
+      let photos = this.props.Photos.slice(0, 6);
+      return (
+        <div className="thumbContainer">
+          {photos.map(photo => {
+            return (
+              <div>
+                <img src={photo.url} className="thumbnail" key={photo.url} alt="thumbnail" onClick={(e) => {this.setState({clickedURL: e.target.src, thumbClick: true})}}></img>
+              </div>
+            )
+          })}
+        </div>
+      );
+    } else {
+      return (
+        <div className="thumbContainer">
+          {this.props.Photos.map(photo => {
+            return (
+              <div>
+                <img src={photo.url} className="thumbnail" key={photo.url} alt="thumbnail" onClick={(e) => {this.setState({clickedURL: e.target.src, thumbClick: true})}}></img>
+              </div>
+            )
+          })}
+        </div>
+      );
+    }
+
   }
 
 	render () {
