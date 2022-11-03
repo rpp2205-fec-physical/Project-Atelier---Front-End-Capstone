@@ -5,11 +5,25 @@ class Styles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      style: 'Forest Green & Black',
+      style: '',
+      count: 0,
       previous: '<img src="https://images.unsplash.com/photo-1514866726862-0f081731e63f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80" data="444223" class="style" alt="Dark Grey &amp; Black" style="border-style: none;">',
       clicked: '<img src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80" data="444218" class="style" alt="Forest Green &amp; Black  style="border-style: solid">'
     };
     this.handleClick = this.handleClick.bind(this);
+    this.updateStyle = this.updateStyle.bind(this);
+  }
+
+  updateStyle() {
+    console.log(this.props.Style)
+    if (Object.keys(this.props.Style).length && this.props.Style.results[0] && this.state.count < 1) {
+      this.setState({style: this.props.Style.results[0].name})
+      this.state.count++;
+    }
+  }
+
+  componentDidUpdate () {
+    this.updateStyle();
   }
 
   handleClick(e) {
