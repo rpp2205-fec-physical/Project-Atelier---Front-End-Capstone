@@ -7,17 +7,22 @@ class Styles extends React.Component {
     this.state = {
       style: '',
       count: 0,
-      previous: '<img src="https://images.unsplash.com/photo-1514866726862-0f081731e63f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80" data="444223" class="style" alt="Dark Grey &amp; Black" style="border-style: none;">',
-      clicked: '<img src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80" data="444218" class="style" alt="Forest Green &amp; Black  style="border-style: solid">'
+      previous: '',
+      clicked: ''
     };
     this.handleClick = this.handleClick.bind(this);
     this.updateStyle = this.updateStyle.bind(this);
+    this.myRef = React.createRef();
   }
 
   updateStyle() {
-    console.log(this.props.Style)
     if (Object.keys(this.props.Style).length && this.props.Style.results[0] && this.state.count < 1) {
-      this.setState({style: this.props.Style.results[0].name})
+      const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+        // this.state.clicked.style.borderStyle = "solid";
+        // this.state.clicked.style.borderWidth = "4px";
+        // this.state.clicked.style.borderColor = "skyblue";
+      });
+      asyncSetState({style: this.props.Style.results[0].name, clicked: this.props.Style.results[0]});
       this.state.count++;
     }
   }
@@ -53,7 +58,7 @@ class Styles extends React.Component {
           <div>
             <h4>Styles > {this.state.style}</h4>
             {this.props.Style.results.map(style => {
-              return <img src={style.photos[0].thumbnail_url} key={style.style_id} data={style.style_id} className="style" onClick={this.handleClick} alt={style.name}></img>;
+              return <img src={style.photos[0].thumbnail_url} ref={this.myRef} key={style.style_id} data={style.style_id} className="style" onClick={this.handleClick} alt={style.name}></img>;
             })}
           </div>
         )
