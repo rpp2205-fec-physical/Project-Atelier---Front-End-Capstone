@@ -5,11 +5,42 @@ class Styles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      style: 'Forest Green & Black',
-      previous: '<img src="https://images.unsplash.com/photo-1514866726862-0f081731e63f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80" data="444223" class="style" alt="Dark Grey &amp; Black" style="border-style: none;">',
-      clicked: '<img src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=80" data="444218" class="style" alt="Forest Green &amp; Black  style="border-style: solid">'
+      style: '',
+      count: 0,
+      previous: '',
+      clicked: '',
+      firstOutline: false
     };
     this.handleClick = this.handleClick.bind(this);
+    this.updateStyle = this.updateStyle.bind(this);
+    // this.componentDidUpdate = this.componentDidUpdate.bind(this);
+  }
+
+  updateStyle() {
+    if (Object.keys(this.props.Style).length && this.props.Style.results[0] && this.state.count < 1) {
+      const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+        // this.state.clicked.style.borderStyle = "solid";
+        // this.state.clicked.style.borderWidth = "4px";
+        // this.state.clicked.style.borderColor = "skyblue";
+      });
+      asyncSetState({style: this.props.Style.results[0].name, clicked: this.props.Style.results[0]});
+      this.state.count++;
+    }
+  }
+
+  componentDidUpdate () {
+    this.updateStyle();
+    const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+      this.state.clicked.style.borderStyle = "solid";
+      this.state.clicked.style.borderWidth = "5px";
+      this.state.clicked.style.borderColor = "skyblue";
+    });
+    if (this.props.Style.results && !this.state.firstOutline) {
+      let id = this.props.Style.results[0].style_id.toString();
+      if (document.getElementById(id) !== null) {
+        asyncSetState({clicked: document.getElementById(id), firstOutline: !this.state.firstOutline})
+      }
+    }
   }
 
   handleClick(e) {
@@ -17,7 +48,7 @@ class Styles extends React.Component {
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
       this.state.previous.style.borderStyle = "none";
       this.state.clicked.style.borderStyle = "solid";
-      this.state.clicked.style.borderWidth = "4px";
+      this.state.clicked.style.borderWidth = "5px";
       this.state.clicked.style.borderColor = "skyblue";
     });
     let prev = this.state.clicked;
@@ -33,13 +64,13 @@ class Styles extends React.Component {
 
 
   render() {
-    if (this.props.Style && this.state.clicked) {
+    if (this.props.Style) {
       if (Array.isArray(this.props.Style.results)) {
         return (
           <div>
             <h4>Styles > {this.state.style}</h4>
             {this.props.Style.results.map(style => {
-              return <img src={style.photos[0].thumbnail_url} key={style.style_id} data={style.style_id} className="style" onClick={this.handleClick} alt={style.name}></img>;
+              return <img src={style.photos[0].thumbnail_url} id={style.style_id} key={style.style_id} data={style.style_id} className="style" onClick={this.handleClick} alt={style.name}></img>;
             })}
           </div>
         )

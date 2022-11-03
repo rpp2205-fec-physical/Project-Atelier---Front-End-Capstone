@@ -57,6 +57,13 @@ class ImageGallery extends React.Component {
     this.props.cToPExpand(!this.state.expanded);
   }
 
+  Arrow ({ direction, clickFunction, glyph }) {
+   return( <div
+      className={ `slide-arrow ${direction}` }
+      onClick={ clickFunction }>
+      { glyph }
+    </div>
+  )}
 
   ArrowL ({ direction, clickFunction }) {
     return( <div
@@ -103,17 +110,33 @@ class ImageGallery extends React.Component {
   }
 
   Thumbnails() {
-    return (
-      <div className="thumbContainer">
-        {this.props.Photos.map(photo => {
-          return (
-            <div>
-              <img src={photo.url} className="thumbnail" key={photo.url} alt="thumbnail" onClick={(e) => {this.setState({clickedURL: e.target.src, thumbClick: true})}}></img>
-            </div>
-          )
-        })}
-      </div>
-    );
+    if (this.props.Photos.length > 6) {
+      let photos = this.props.Photos.slice(0, 6);
+      return (
+        <div className="thumbContainer">
+          {photos.map(photo => {
+            return (
+              <div>
+                <img src={photo.url} className="thumbnail" key={photo.url} alt="thumbnail" onClick={(e) => {this.setState({clickedURL: e.target.src, thumbClick: true})}}></img>
+              </div>
+            )
+          })}
+        </div>
+      );
+    } else {
+      return (
+        <div className="thumbContainer">
+          {this.props.Photos.map(photo => {
+            return (
+              <div>
+                <img src={photo.url} className="thumbnail" key={photo.url} alt="thumbnail" onClick={(e) => {this.setState({clickedURL: e.target.src, thumbClick: true})}}></img>
+              </div>
+            )
+          })}
+        </div>
+      );
+    }
+
   }
 
 	render () {
