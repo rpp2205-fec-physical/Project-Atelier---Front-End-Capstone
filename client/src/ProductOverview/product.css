@@ -3,7 +3,6 @@
 }
 
 #title {
-	/* margin: auto; */
 	color: white;
 	text-align: center;
   background-color: grey;
@@ -66,8 +65,6 @@ border-radius: 50px;
 }
 
 .thumbContainer {
-	/* vertical-align: bottom; */
-	/* overflow:visible; */
 	padding-top: 40px;
 	padding-left: 30px;
 }
@@ -76,31 +73,50 @@ border-radius: 50px;
 	height: 70px;
 	width: 70px;
 	padding: 3px;
-	/* vertical-align: bottom; */
 }
 
-.slide-arrow {
+.slide-arrow, .slide-arrow-expand {
 	color: rgb(113, 113, 113);
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
 	top: 39%;
+	transition: all .3s ease-in-out;
 }
 
 .slide-arrow.right {
-	/* left: 43.5%; */
+	/* left: 45%; */
 	left: 806px;
+	transition: all .3s ease-in-out;
 }
 
 .slide-arrow.left {
 	left: auto;
 }
 
+.slide-arrow-expand.right {
+	/* left: 45%; */
+	left: 1640px;
+}
+
+.slide-arrow-expand.left {
+	left: 115px;
+}
+
 .expand {
+	top: 14%;
+	position: absolute;
+	left: 1620px;
+	font-size: 2rem;
+	color: rgb(8, 149, 220);
+}
+
+.collapse {
 	top: 14%;
 	position: absolute;
 	left: 795px;
 	font-size: 2rem;
+	color: rgb(8, 149, 220);
 }
 
 .outfitDiv{
