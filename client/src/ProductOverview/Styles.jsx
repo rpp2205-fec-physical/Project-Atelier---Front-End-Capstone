@@ -8,11 +8,12 @@ class Styles extends React.Component {
       style: '',
       count: 0,
       previous: '',
-      clicked: ''
+      clicked: '',
+      firstOutline: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.updateStyle = this.updateStyle.bind(this);
-    this.myRef = React.createRef();
+    // this.componentDidUpdate = this.componentDidUpdate.bind(this);
   }
 
   updateStyle() {
@@ -29,6 +30,17 @@ class Styles extends React.Component {
 
   componentDidUpdate () {
     this.updateStyle();
+    const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+      this.state.clicked.style.borderStyle = "solid";
+      this.state.clicked.style.borderWidth = "5px";
+      this.state.clicked.style.borderColor = "skyblue";
+    });
+    if (this.props.Style.results && !this.state.firstOutline) {
+      let id = this.props.Style.results[0].style_id.toString();
+      if (document.getElementById(id) !== null) {
+        asyncSetState({clicked: document.getElementById(id), firstOutline: !this.state.firstOutline})
+      }
+    }
   }
 
   handleClick(e) {
@@ -36,7 +48,7 @@ class Styles extends React.Component {
     const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
       this.state.previous.style.borderStyle = "none";
       this.state.clicked.style.borderStyle = "solid";
-      this.state.clicked.style.borderWidth = "4px";
+      this.state.clicked.style.borderWidth = "5px";
       this.state.clicked.style.borderColor = "skyblue";
     });
     let prev = this.state.clicked;
@@ -52,13 +64,13 @@ class Styles extends React.Component {
 
 
   render() {
-    if (this.props.Style && this.state.clicked) {
+    if (this.props.Style) {
       if (Array.isArray(this.props.Style.results)) {
         return (
           <div>
             <h4>Styles > {this.state.style}</h4>
             {this.props.Style.results.map(style => {
-              return <img src={style.photos[0].thumbnail_url} ref={this.myRef} key={style.style_id} data={style.style_id} className="style" onClick={this.handleClick} alt={style.name}></img>;
+              return <img src={style.photos[0].thumbnail_url} id={style.style_id} key={style.style_id} data={style.style_id} className="style" onClick={this.handleClick} alt={style.name}></img>;
             })}
           </div>
         )

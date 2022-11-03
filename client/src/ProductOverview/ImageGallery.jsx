@@ -110,6 +110,7 @@ class ImageGallery extends React.Component {
   }
 
   Thumbnails() {
+    console.log(this.props.Photos.length)
     return (
       <div className="thumbContainer">
         {this.props.Photos.map(photo => {
