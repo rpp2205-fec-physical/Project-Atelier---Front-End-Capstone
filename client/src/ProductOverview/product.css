@@ -85,7 +85,6 @@ border-radius: 50px;
 }
 
 .slide-arrow.right {
-	/* left: 45%; */
 	left: 806px;
 	transition: all .3s ease-in-out;
 }
@@ -95,7 +94,6 @@ border-radius: 50px;
 }
 
 .slide-arrow-expand.right {
-	/* left: 45%; */
 	left: 1640px;
 }
 
@@ -123,7 +121,6 @@ border-radius: 50px;
 	display: inline;
 	background-color: grey;
 	border-color: grey;
-	/* margin-right:2px; */
 	margin: 4px;
   border: 4px solid transparent;
 
@@ -146,13 +143,9 @@ border-radius: 50px;
 
 .size, .quantity, .outfitDiv, button{
 	color: white;
-  /* padding: 8px 16px; */
-	/* margin: 4px;
-  border: 4px solid transparent; */
 	background-color: grey;
   cursor: pointer;
 	font-family: 'Courier New', Courier, monospace;
-	/* font-weight: 600; */
 }
 
 .size, .quantity, button{
