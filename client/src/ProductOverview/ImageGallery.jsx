@@ -147,11 +147,13 @@ class ImageGallery extends React.Component {
       })
 
       if(this.state.thumbClick) {
+        let index = imgUrls.indexOf(this.state.clickedURL);
+        console.log('img index', index);
         if (this.state.expanded) {
           return (
             <div className="carousel">
               <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
-              <this.ImageSlideExpanded url={ this.state.clickedURL } alt="outfit"/>
+              <this.ImageSlideExpanded url={ imgUrls[index] } alt="outfit"/>
               <ExpandOutlined className="expand" onClick={this.expand}/>
               <this.ArrowR direction="right" clickFunction={ this.nextSlide } />
             </div>
@@ -165,7 +167,7 @@ class ImageGallery extends React.Component {
                 })}
               </div> */}
               <this.ArrowL direction="left" clickFunction={ this.previousSlide } />
-              <this.ImageSlide url={ this.state.clickedURL } alt="outfit"/>
+              <this.ImageSlide url={ imgUrls[index] } alt="outfit"/>
               <ExpandOutlined className="expand" onClick={this.expand}/>
               <this.ArrowR direction="right" clickFunction={ this.nextSlide } />
             </div>
