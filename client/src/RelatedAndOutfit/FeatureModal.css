@@ -1,18 +1,33 @@
-.modal-table {
-  width: 100%;
-  min-width: 320px;
+.modal {
+  font-family: 'Courier New', Courier, monospace;
 }
 
-.column-left {
-  text-align: left;
+.wrapper {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+}
+
+.column-left,
+.column-middle,
+.column-right {
+  display: inline-block;
+  padding: 2px 4px;
+}
+
+.column-middle {
+  border-left: 1px dashed black;
+  border-right: 1px dashed black;
 }
 
 .column-right {
   text-align: right;
 }
 
-.column-center {
-  width: auto;
+.modal-header {
+  color: rgb(5,149,220);
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 3px;
 }
 
 .display-none {
