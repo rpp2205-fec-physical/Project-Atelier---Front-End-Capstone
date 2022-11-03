@@ -99,7 +99,7 @@ class Product extends React.Component {
     }
       let date = new Date();
       let element = stringifyObj(e.target, 2).outerHTML;
-      let currentEvent = {element: element, widget: 'Product Overview', time: date};
+      let currentEvent = {element: element, widget: 'Product Overview', time: date.toString()};
       this.post('/interactions', currentEvent);
       // this.state.clickAnalytics.push(currentEvent);
     }
@@ -132,7 +132,6 @@ class Product extends React.Component {
               })
               this.get('/reviews?product_id=' + this.props.product.id)
                 .then(reviews => {
-                  console.log(reviews.count)
                   this.setState({reviews: reviews.count})
                 })
           })
@@ -150,21 +149,20 @@ class Product extends React.Component {
           this.setState({
             products: data,
           });
-          this.get('/products/' + this.props.id + '/styles')
+          this.get('/products/' + this.props.product.id + '/styles')
             .then(styles => {
               this.setState({
                 styles: styles,
                 photos: styles.results[0].photos,
                 skus: styles.results[0].skus
               });
-              this.get('/reviews/meta?product_id=' + this.props.id)
+              this.get('/reviews/meta?product_id=' + this.props.product.id)
                 .then(ratings => {
                   const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve))
                   asyncSetState({ratings: ratings});
                 })
-                this.get('/reviews?product_id=' + this.props.id)
+                this.get('/reviews?product_id=' + this.props.product.id)
                   .then(reviews => {
-                    console.log(reviews.count)
                     this.setState({reviews: reviews.count})
                   })
             })
