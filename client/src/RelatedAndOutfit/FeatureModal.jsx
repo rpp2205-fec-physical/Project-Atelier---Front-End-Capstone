@@ -92,12 +92,23 @@ function getProductCardElement(e) {
   }
 }
 
-function placeModal(cardNode, modalRef, setPosition) {
+function getModalPosition(cardNode) {
   // console.log('CARD NODE', {cardNode}, modalRef);
-  const top = Math.floor(cardNode.offsetTop + 2 * (cardNode.offsetHeight / 3));
-  const left = Math.floor(cardNode.offsetLeft);
+  // const top = Math.floor(cardNode.offsetTop + 2 * (cardNode.offsetHeight / 3));
+  // const left = Math.floor(cardNode.offsetLeft);
+  if (!cardNode) {
+    // console.log('Error, cardNode undefined');
+    return { top: 0, left: 0 };
+  }
+  const cardRect = cardNode.getBoundingClientRect();
 
-  setPosition({ top, left });
+  const cardWidth = cardRect.width || (cardRect.right - cardRect.left);
+  const modalWidth = 320;
+  const top = cardRect.top + window.scrollY;
+  let left = cardRect.left + window.scrollX - ((modalWidth / 2) - (cardWidth / 2));
+  if (left < 0) { left = 0 }
+
+  return { top, left };
 }
 
 export default function FeatureModal({ product1, setIsBlurred, get }) {
@@ -124,7 +135,8 @@ export default function FeatureModal({ product1, setIsBlurred, get }) {
       get("/products/".concat(productId)).then((data) => {
         setIsBlurred(true);
         setProductToCompare(data);
-        placeModal(cardElement, modalRef, setPosition);
+        setPosition(getModalPosition(cardElement));
+        // getModalPosition(cardElement, modalRef, setPosition);
         setIsHidden(false);
       });
     } else if (!isHidden && clickedOutside(e)) {
@@ -156,52 +168,34 @@ export default function FeatureModal({ product1, setIsBlurred, get }) {
     position: "absolute",
     top: position.top.toString().concat("px"),
     left: position.left.toString().concat("px"),
-    opacity: "85%",
     backgroundColor: "rgba(180, 180, 180, 0.55)",
     backdropFilter: "blur(10px)",
     width: "auto",
     minWidth: "320px",
     borderRadius: "0.5rem",
-    border: "1px",
+    border: "2px",
     borderStyle: "groove",
     borderColor: "black",
   };
 
   return (
     <div className="modal" style={styles} ref={modalRef}>
-      <table className={tableClass}>
-        <thead>
-          <tr>
-            <th colSpan="2" className="table-head column-left">
-              {product1.name}
-            </th>
-            <th colSpan="2" className="table-head column-right">
-              {productToCompare.name}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.keys(featureData).map((feature, i) => {
-            if (feature !== "_id") {
-              return (
-                <tr key={i}>
-                  <td className="column-left">
-                    {featureData[feature].product1 || "--"}
-                  </td>
-                  <td colSpan="2" className="column-center">
-                    {feature}
-                  </td>
-                  <td className="column-right">
-                    {featureData[feature].product2 || "--"}
-                  </td>
-                </tr>
-              );
-            } else {
-              return null;
-            }
-          })}
-        </tbody>
-      </table>
+      <div className="wrapper">
+        <div className="column-left modal-header">{product1.name}</div>
+        <div className="column-middle modal-header"></div>
+        <div className="column-right modal-header">{productToCompare.name}</div>
+        {Object.keys(featureData).map((feature, i) => {
+          if (feature !== "_id") {
+            return (<>
+              <div className="column-left">{featureData[feature].product1 || "--"}</div>
+              <div className="column-middle">{feature}</div>
+              <div className="column-right">{featureData[feature].product2 || "--"}</div>
+              </>);
+          } else {
+            return null;
+          }
+        })}
+      </div>
     </div>
   );
 }

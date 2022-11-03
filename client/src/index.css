@@ -2,3 +2,8 @@
   filter: blur(4px);
   -webkit-filter: blur(4px);
 }
+
+body {
+  align-items: center;
+  justify-content: center;
+}
