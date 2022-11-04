@@ -79,15 +79,23 @@ class ImageGallery extends React.Component {
   }
 
   ImageSlide( {url} ) {
+    const pos = { x : 0, y : 0 };
+    const saveCursorPosition = function(x, y) {
+        pos.x = (x / window.innerWidth).toFixed(2);
+        pos.y = (y / window.innerHeight).toFixed(2);
+        document.documentElement.style.setProperty('--x', pos.x);
+        document.documentElement.style.setProperty('--y', pos.y);
+    }
+    document.addEventListener('mousemove', e => { saveCursorPosition(e.clientX, e.clientY); })
     const styles = {
       backgroundImage: `url(${url})`,
-      backgroundSize: 'cover',
+      // backgroundSize: 'cover',
       backgroundPosition: 'center'
     };
     let imageClass = this.state.expanded ? "image-slide-expand" : "image-slide"
     return (
       <div className={imageClass} style={styles}>
-        <this.Thumbnails />
+          <this.Thumbnails />
       </div>
     );
   }
