@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./FeatureModal.css";
 
 function parseFeatures(prod1, prod2) {
-  // compare features of both products and return an object with combined features
+  /* to compare features of both products and return an object with combined features */
   const features1 = prod1.features;
   const features2 = prod2.features;
   if (!features1 || !features2) {
@@ -15,19 +15,31 @@ function parseFeatures(prod1, prod2) {
     },
   };
 
-  for (let feature of features1) {
-    const parsedFeature = results[feature.feature] || {};
-
-    results[feature.feature] = Object.assign(parsedFeature, {
-      product1: feature.value,
-    });
+  for (let prod of features1) {
+    results[prod.feature] = {
+      product1: prod.value,
+      classLeft: 'column-left',
+      classMiddle: 'column-middle',
+      classRight: 'column-right',
+    };
   }
-  for (let feature of features2) {
-    const parsedFeature = results[feature.feature] || {};
-
-    results[feature.feature] = Object.assign(parsedFeature, {
-      product2: feature.value,
+  for (let prod of features2) {
+    const parsedFeature = results[prod.feature] || {};
+    let className = '';
+    if (parsedFeature.product1 && prod.value) {
+      if (parsedFeature.product1 === prod.value) {
+        className = 'feature-match';
+      } else {
+        className = 'feature-diff';
+      }
+    }
+    results[prod.feature] = Object.assign(parsedFeature, {
+      product2: prod.value,
+      classLeft: 'column-left '.concat(className),
+      classMiddle: 'column-middle '.concat(className),
+      classRight: 'column-right '.concat(className),
     });
+    console.log('PARSING FEATURE', results[prod.feature]);
   }
 
   return results;
@@ -173,7 +185,7 @@ export default function FeatureModal({ product1, setIsBlurred, get }) {
     width: "auto",
     minWidth: "320px",
     borderRadius: "0.5rem",
-    border: "2px",
+    border: "2px solid rgba(8, 8, 8, 0.85)",
     borderStyle: "groove",
     borderColor: "black",
   };
@@ -187,9 +199,9 @@ export default function FeatureModal({ product1, setIsBlurred, get }) {
         {Object.keys(featureData).map((feature, i) => {
           if (feature !== "_id") {
             return (<>
-              <div className="column-left">{featureData[feature].product1 || "--"}</div>
-              <div className="column-middle">{feature}</div>
-              <div className="column-right">{featureData[feature].product2 || "--"}</div>
+              <div className={featureData[feature].classLeft}>{featureData[feature].product1 || "--"}</div>
+              <div className={featureData[feature].classMiddle}>{feature}</div>
+              <div className={featureData[feature].classRight}>{featureData[feature].product2 || "--"}</div>
               </>);
           } else {
             return null;

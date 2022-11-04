@@ -1,8 +1,10 @@
 .modal {
   font-family: 'Courier New', Courier, monospace;
+  font-size: small;
 }
 
 .wrapper {
+  width: 100%;
   display: inline-grid;
   grid-template-columns: auto auto auto;
 }
@@ -11,22 +13,35 @@
 .column-middle,
 .column-right {
   display: inline-block;
-  padding: 2px 4px;
+  padding: 2px 8px;
+  vertical-align: middle;
+  font-weight: bold;
 }
 
 .column-middle {
-  border-left: 1px dashed black;
-  border-right: 1px dashed black;
+  border-left: 1px dashed rgba(8, 8, 8, 0.85);
+  border-right: 1px dashed rgba(8, 8, 8, 0.85);
+  text-align: center;
 }
 
 .column-right {
   text-align: right;
 }
 
+.feature-match {
+  /* color: mediumspringgreen; */
+  background-color: rgba(0,250,154,0.6);
+}
+
+.feature-diff {
+  /* color: cornflowerblue; */
+  background-color: rgba(100,149,237,0.6);
+}
+
 .modal-header {
-  color: rgb(5,149,220);
+  color: rgb(0, 167, 251);
   font-weight: bold;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(8, 8, 8, 0.85);
   padding: 3px;
 }
 
