@@ -64,6 +64,7 @@ border-radius: 54px;
 	margin-left: 85px;
 	transition: all .3s ease-in-out;
 	overflow: hidden;
+	background-size: auto 100%;
 }
 
 
@@ -71,7 +72,7 @@ border-radius: 54px;
 .image-slide-expand:hover {
   /* transform: translate(calc(10% * var(--x)), calc(10% * var(--y))); */
   /* transform-origin: calc(10% * var(--x)), calc(10% * var(--y)); */
-	transform: translate(calc(5% * var(--x))) scale(1.5) translate(calc(5% * var(--y)));
+	transform: translate(calc(-15% * var(--x))) scale(2.5) translate(calc(-15% * var(--y)));
 }
 
 .thumbContainer {

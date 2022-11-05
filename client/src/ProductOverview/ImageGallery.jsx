@@ -80,6 +80,12 @@ class ImageGallery extends React.Component {
   }
 
   ImageSlide( {url} ) {
+    const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+      this.state.previous.style.borderStyle = "none";
+      this.state.clickedURL.style.borderBottom  = "thin solid";
+      this.state.clickedURL.style.borderWidth = "2px";
+      this.state.clickedURL.style.borderColor = "skyblue";
+    });
     const pos = { x : 0, y : 0 };
     const saveCursorPosition = function(x, y) {
         pos.x = (x / window.innerWidth).toFixed(2);
@@ -93,6 +99,7 @@ class ImageGallery extends React.Component {
       // backgroundSize: 'cover',
       backgroundPosition: 'center'
     };
+    asyncSetState({clickedURL: url})
     let imageClass = this.state.expanded ? "image-slide-expand" : "image-slide"
     return (
       <div className={imageClass} style={styles}>
@@ -102,31 +109,24 @@ class ImageGallery extends React.Component {
   }
 
   Thumbnails() {
+    const imgUrls =
+    this.props.Photos.map(photo => {
+      return photo.url;
+    })
     let thumbSet = (e) => {
       const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
         e.target.style.borderBottom = "thin solid";
         e.target.style.borderWidth = "2px";
         e.target.style.borderColor = "skyblue";
         this.state.previous.style.borderStyle = "none";
-        this.state.clickedURL.style.borderStyle = "solid";
+        this.state.clickedURL.style.borderBottom  = "thin solid";
         this.state.clickedURL.style.borderWidth = "2px";
         this.state.clickedURL.style.borderColor = "skyblue";
       });
       let prev = this.state.current;
       console.log('prev:', prev);
-      // let thumbSet = (e) => {
-      //   this.state.previous = this.state.clickedURL;
-      //   // e.target.style.borderStyle = "solid";
-      //   // e.target.style.borderWidth= "2px";
-      // }
       asyncSetState({clickedURL: e.target.getAttribute('data'), thumbClick: true, previous: prev, current: e.target});
       this.state.previous.style.borderStyle = "none";
-
-      // e.target.style.borderStyle = "solid";
-      // e.target.style.borderWidth= "5px";
-      // let prev = this.state.clickedURL;
-      // this.setState({clickedURL: e.target.getAttribute('data'), thumbClick: true, previous: prev})
-      // this.state.previous.borderStyle = "none";
     }
     if (this.props.Photos.length > 6) {
       let photos = this.props.Photos.slice(0, 6);
@@ -147,7 +147,7 @@ class ImageGallery extends React.Component {
           {this.props.Photos.map(photo => {
             return (
               <div>
-                <img src={photo.thumbnail_url} className="thumbnail" data={photo.url} key={photo.url} alt="thumbnail" onClick={(e) => {this.setState({clickedURL: e.target.getAttribute('data'), thumbClick: true})}}></img>
+                <img src={photo.thumbnail_url} className="thumbnail" data={photo.url} key={photo.url} alt="thumbnail" onClick={thumbSet}></img>
               </div>
             )
           })}
