@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./FeatureModal.css";
+import postInteraction from '../lib/post-interaction';
 
 function parseFeatures(prod1, prod2) {
   /* to compare features of both products and return an object with combined features */
@@ -151,6 +152,8 @@ export default function FeatureModal({ product1, setIsBlurred, get }) {
         // getModalPosition(cardElement, modalRef, setPosition);
         setIsHidden(false);
       });
+
+      postInteraction(`.card[data-id="${productId}"]`, 'RelatedAndOutfit');
     } else if (!isHidden && clickedOutside(e)) {
       setIsBlurred(false);
       setIsHidden(true);

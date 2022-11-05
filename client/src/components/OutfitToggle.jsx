@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { outfit } from '../lib/outfit';
 import { TriggerOutfitLoadContext } from '../contexts/TriggerOutfitLoad';
+import postInteraction from '../lib/post-interaction';
 
 const addToOutfitIconSrc = '../../assets/person-circle-plus-solid.svg';
 //const removeFromOutfitIconSrc = '../../assets/person-circle-xmark-solid.svg';
@@ -29,6 +30,9 @@ export default function OutfitToggle({ productId, height, customClassName }) {
   const handleClick = (action) => {
     return () => {
       // console.log('CLICKED OUTFIT TOGGLE!');
+      const selector = `.${customClassName || "outfit-toggle"}[dataId="${productId}"]`;
+      postInteraction(selector, document.querySelector(selector).parentNode.classList[0]);
+
       const newOutfit = outfit[action](productId);
       triggerOutfitLoad({
         outfit: newOutfit
@@ -38,6 +42,7 @@ export default function OutfitToggle({ productId, height, customClassName }) {
 
   const icon = React.createElement("img", {
     className: customClassName || "outfit-toggle",
+    dataId: productId,
     alt: "Add or remove this item from your outfit",
     src: src,
     onClick: handleClick(inOutfit ? "remove" : "add"),
