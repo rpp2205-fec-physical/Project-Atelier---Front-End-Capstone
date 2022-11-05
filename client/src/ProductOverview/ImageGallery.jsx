@@ -101,6 +101,17 @@ class ImageGallery extends React.Component {
   }
 
   Thumbnails() {
+    let thumbSet = (e) => {
+      // const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+      //   this.state.previous.style.borderStyle = "none";
+      //   this.state.clicked.style.borderStyle = "solid";
+      //   this.state.clicked.style.borderWidth = "5px";
+      //   this.state.clicked.style.borderColor = "skyblue";
+      // });
+      e.target.style.borderStyle = "solid";
+      e.target.style.borderWidth= "2px";
+      this.setState({clickedURL: e.target.getAttribute('data'), thumbClick: true})
+    }
     if (this.props.Photos.length > 6) {
       let photos = this.props.Photos.slice(0, 6);
       return (
@@ -108,7 +119,7 @@ class ImageGallery extends React.Component {
           {photos.map(photo => {
             return (
               <div>
-                <img src={photo.thumbnail_url} className="thumbnail" data={photo.url} key={photo.url} alt="thumbnail" onClick={(e) => {this.setState({clickedURL: e.target.getAttribute('data'), thumbClick: true})}}></img>
+                <img src={photo.thumbnail_url} className="thumbnail" data={photo.url} key={photo.url} alt="thumbnail" onClick={thumbSet}></img>
               </div>
             )
           })}
