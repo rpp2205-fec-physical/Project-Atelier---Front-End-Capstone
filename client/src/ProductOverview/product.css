@@ -39,9 +39,9 @@
 
 .style {
 margin: 10px;
-height: 85px;
-width: 85px;
-border-radius: 50px;
+height: 93px;
+width: 93px;
+border-radius: 54px;
 }
 
 .carousel {
@@ -90,7 +90,7 @@ border-radius: 50px;
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
-	top: 39%;
+	top: 41%;
 	transition: all .3s ease-in-out;
 }
 
@@ -112,7 +112,7 @@ border-radius: 50px;
 }
 
 .expand {
-	top: 14%;
+	top: 17%;
 	position: absolute;
 	left: 1620px;
 	font-size: 2rem;

@@ -106,8 +106,7 @@ class ImageGallery extends React.Component {
       const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
         e.target.style.borderBottom = "thin solid";
         e.target.style.borderWidth = "2px";
-        e.target
-        .style.borderColor = "skyblue";
+        e.target.style.borderColor = "skyblue";
         this.state.previous.style.borderStyle = "none";
         this.state.clickedURL.style.borderStyle = "solid";
         this.state.clickedURL.style.borderWidth = "2px";
