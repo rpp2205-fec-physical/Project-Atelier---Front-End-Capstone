@@ -72,7 +72,7 @@ class Product extends React.Component {
     if (reviews.ratings.ratings) {
       return (<div>
         <Stars ratings={reviews.ratings.ratings} />
-        <p className="review" onClick={() => {alert('Our review guy got fired but for now just trust us - this product is unbelievable!')}}>Read All {this.state.reviews} Reviews</p>
+        <p className="review" onClick={() => {alert('Our review guy is on vacation but for now just trust us - this product is unbelievable!')}}>Read All {this.state.reviews} Reviews</p>
         </div>);
     } else {
       return <Stars stars={0} />;
