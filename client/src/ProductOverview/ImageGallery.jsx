@@ -1,6 +1,6 @@
 import React from 'react';
 import './product.css';
-import {ExpandOutlined, LeftSquareFilled, RightSquareFilled} from '@ant-design/icons';
+import {ExpandOutlined, LeftSquareFilled, RightSquareFilled, ArrowUpOutlined, ArrowDownOutlined} from '@ant-design/icons';
 
 
 class ImageGallery extends React.Component {
@@ -125,6 +125,7 @@ class ImageGallery extends React.Component {
       let photos = this.props.Photos.slice(0, 6);
       return (
         <div className="thumbContainer">
+          {/* <ArrowUpOutlined class="arrow-up"/> */}
           {photos.map(photo => {
             return (
               <div>
@@ -132,6 +133,7 @@ class ImageGallery extends React.Component {
               </div>
             )
           })}
+          {/* <ArrowDownOutlined class="arrow-down"/> */}
         </div>
       );
     } else {
