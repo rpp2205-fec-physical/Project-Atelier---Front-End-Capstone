@@ -3,7 +3,7 @@
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
-  justify-content: center;
+  justify-content: left;
   width: 80%;
 }
 
