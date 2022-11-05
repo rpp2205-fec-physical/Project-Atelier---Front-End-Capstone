@@ -80,12 +80,6 @@ class ImageGallery extends React.Component {
   }
 
   ImageSlide( {url} ) {
-    const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
-      this.state.previous.style.borderStyle = "none";
-      this.state.clickedURL.style.borderBottom  = "thin solid";
-      this.state.clickedURL.style.borderWidth = "2px";
-      this.state.clickedURL.style.borderColor = "skyblue";
-    });
     const pos = { x : 0, y : 0 };
     const saveCursorPosition = function(x, y) {
         pos.x = (x / window.innerWidth).toFixed(2);
@@ -99,7 +93,6 @@ class ImageGallery extends React.Component {
       // backgroundSize: 'cover',
       backgroundPosition: 'center'
     };
-    asyncSetState({clickedURL: url})
     let imageClass = this.state.expanded ? "image-slide-expand" : "image-slide"
     return (
       <div className={imageClass} style={styles}>
@@ -116,11 +109,11 @@ class ImageGallery extends React.Component {
     let thumbSet = (e) => {
       const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
         e.target.style.borderBottom = "thin solid";
-        e.target.style.borderWidth = "2px";
+        e.target.style.borderWidth = "4px";
         e.target.style.borderColor = "skyblue";
         this.state.previous.style.borderStyle = "none";
         this.state.clickedURL.style.borderBottom  = "thin solid";
-        this.state.clickedURL.style.borderWidth = "2px";
+        this.state.clickedURL.style.borderWidth = "4px";
         this.state.clickedURL.style.borderColor = "skyblue";
       });
       let prev = this.state.current;
