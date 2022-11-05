@@ -8,7 +8,7 @@ function price(item, style) {
   const salePrice = style.sale_price;
 
   return <div className='price'>
-    {salePrice ? (<div className='sale-price'>{`$${salePrice}`}</div>) : null} <div className='price'>{`$${price}`}</div>
+    {salePrice ? (<div className='sale-price'><s>{`$${price}`}</s>{`$${salePrice}`}</div>) : null} <div className='price'>{`$${price}`}</div>
   </div>;
 }
 
