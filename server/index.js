@@ -1,12 +1,14 @@
 require("dotenv").config();
 const proxy = require('./controllers/proxy');
 const logger = require("./middleware/logger");
-const path = require('path')
+const path = require('path');
+const compression = require('compression');
 const express = require('express');
 const app = express();
 const port = process.env.PORT;
 // const port = 3000;
 
+app.use(compression());
 app.use(logger);
 app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
