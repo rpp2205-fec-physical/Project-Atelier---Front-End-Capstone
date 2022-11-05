@@ -8,6 +8,7 @@ class ImageGallery extends React.Component {
 		super(props);
 		this.state = {
 			currentImageIndex: 0,
+      current: '',
       expanded: false,
       clickedURL: '',
       thumbClick: false
@@ -102,15 +103,31 @@ class ImageGallery extends React.Component {
 
   Thumbnails() {
     let thumbSet = (e) => {
-      // const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
-      //   this.state.previous.style.borderStyle = "none";
-      //   this.state.clicked.style.borderStyle = "solid";
-      //   this.state.clicked.style.borderWidth = "5px";
-      //   this.state.clicked.style.borderColor = "skyblue";
-      // });
-      e.target.style.borderStyle = "solid";
-      e.target.style.borderWidth= "2px";
-      this.setState({clickedURL: e.target.getAttribute('data'), thumbClick: true})
+      const asyncSetState = (newState) => new Promise(resolve => this.setState(newState, resolve)).then(() => {
+        e.target.style.borderBottom = "thin solid";
+        e.target.style.borderWidth = "2px";
+        e.target
+        .style.borderColor = "skyblue";
+        this.state.previous.style.borderStyle = "none";
+        this.state.clickedURL.style.borderStyle = "solid";
+        this.state.clickedURL.style.borderWidth = "2px";
+        this.state.clickedURL.style.borderColor = "skyblue";
+      });
+      let prev = this.state.current;
+      console.log('prev:', prev);
+      // let thumbSet = (e) => {
+      //   this.state.previous = this.state.clickedURL;
+      //   // e.target.style.borderStyle = "solid";
+      //   // e.target.style.borderWidth= "2px";
+      // }
+      asyncSetState({clickedURL: e.target.getAttribute('data'), thumbClick: true, previous: prev, current: e.target});
+      this.state.previous.style.borderStyle = "none";
+
+      // e.target.style.borderStyle = "solid";
+      // e.target.style.borderWidth= "5px";
+      // let prev = this.state.clickedURL;
+      // this.setState({clickedURL: e.target.getAttribute('data'), thumbClick: true, previous: prev})
+      // this.state.previous.borderStyle = "none";
     }
     if (this.props.Photos.length > 6) {
       let photos = this.props.Photos.slice(0, 6);
