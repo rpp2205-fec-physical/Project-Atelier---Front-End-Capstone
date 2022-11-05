@@ -67,8 +67,6 @@ border-radius: 54px;
 	background-size: auto 100%;
 }
 
-
-
 .image-slide-expand:hover {
   /* transform: translate(calc(10% * var(--x)), calc(10% * var(--y))); */
   /* transform-origin: calc(10% * var(--x)), calc(10% * var(--y)); */
@@ -91,7 +89,7 @@ border-radius: 54px;
 	cursor: pointer;
 	font-size: 2rem;
 	position: absolute;
-	top: 41%;
+	top: 39%;
 	transition: all .3s ease-in-out;
 }
 
